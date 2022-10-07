@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.Container{
+  padding: 3%;
+}
+
+.Search{
+  width: 30%;
+  margin-bottom: 2%;
+}
+
+.Btn{
+  margin-bottom: 6%;
+}
+
+.Img{
+  width: 68% !important;
+  object-fit: contain;
+}

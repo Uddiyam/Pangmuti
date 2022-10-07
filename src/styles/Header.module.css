@@ -1,0 +1,30 @@
+.Container{
+    height: 30%;
+    background-color: antiquewhite;
+    display: block;
+    position: sticky;
+    top: 0;
+    display: block;
+    z-index: 9999;
+}
+
+.List{
+    height: 70px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 1.5%;
+}
+
+.Link{
+    text-decoration: none;
+    color: black;
+    font-size: larger;
+
+}
+.Link:hover{
+    color: black;
+}
+
+.MyIcon{
+    font-size: 2em;
+}
