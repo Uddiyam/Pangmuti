@@ -11,7 +11,7 @@ export default function Header() {
       <Container className={styles.Container}>
         <Row>
           <Col sm className={styles.List}>
-            <Link to="/" className={styles.Link}>
+            <Link to="/Main" className={styles.Link}>
               로고
             </Link>
           </Col>
