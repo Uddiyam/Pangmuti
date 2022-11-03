@@ -1,0 +1,39 @@
+.categories{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px
+}
+
+.search{
+    margin-top: 10px;
+    margin-left: 30vw;
+    margin-bottom: 10px;
+    width: 40vw;
+}
+
+.register_content_table{
+    margin-left:10vw;
+    margin-bottom: 10px;
+    width:80vw;
+    border: solid black 1px;
+}
+
+.register_content{
+    width: 65vw;
+    height: 100px;
+}
+
+.register_button{
+    
+    border: none;
+    background-color:rosybrown;
+    color:black;
+    width: 90px;
+    height: 80px;
+}
+
+.show_content{
+    margin-left: 10vw;
+    width: 80vw;
+    border: solid black 1px;
+}
