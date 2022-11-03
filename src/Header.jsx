@@ -57,12 +57,14 @@ export default function Header() {
       <>
       <Container className={styles.Container}>
         <Row>
+
           <Col sm className={styles.List}>      
             <GiHamburgerMenu
             className={styles.Hamburger}
             style={{ color: "white" }}
             onClick={()=>toggleMenu()}
           />
+
           </Col>
           <Col sm className={styles.List}>
             <Link to="/\" className={styles.Link}>
