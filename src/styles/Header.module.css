@@ -4,7 +4,6 @@
     display: block;
     position: sticky;
     top: 0;
-    display: block;
     z-index: 9999;
 }
 
@@ -28,3 +27,35 @@
 .MyIcon{
     font-size: 2em;
 }
+
+.Hamburger{
+    width: 8%;
+    padding: 0.1%;
+    height: 32px;
+    margin-bottom: -15px;
+  }
+
+  .sidebar {
+    overflow: auto;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -23rem;
+    width: 23rem;
+    transition: 0.4s ease;
+    color: #000000;
+    height: 100%;
+    z-index: 99;
+  }
+  
+  .background{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: -100vw;
+    height: 100vh;
+    width: 100vw;
+    z-index: 90;
+  
+  }
