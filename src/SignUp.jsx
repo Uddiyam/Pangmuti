@@ -16,7 +16,8 @@ export default function SignUp() {
             className={styles.Input}
             type="email"
             placeholder="Enter email"
-            value="@kw.ac.kr"
+            autoComplete="off"
+            defaultValue="@kw.ac.kr"
           />
 
           <Button className={styles.Btn} variant="primary" type="submit">
