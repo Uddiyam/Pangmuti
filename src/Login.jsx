@@ -24,6 +24,7 @@ export default function Login() {
               className={styles.Input}
               type="email"
               placeholder="Enter email"
+              autoComplete="off"
               onChange={(e) => {
                 setUserEmail(e.target.value);
                 checkEmail(e);
@@ -48,6 +49,7 @@ export default function Login() {
               className={styles.Input}
               type="password"
               placeholder="Password"
+              autoComplete="off"
             />
             <div className={styles.SignUp}>
               <Link to="/SignUp" className={styles.LinkSignUp}>
