@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./styles/App.module.css";
 import "./styles/Slick.css";
+import Button from "react-bootstrap/Button";
 
 function App() {
   const settingsWithModules = {
@@ -60,7 +61,16 @@ function App() {
         <p>
           <b>학식</b>
         </p>
-        <button className={styles.Btn}>이번주 학식 보러가기</button>
+
+        <Button
+          className={styles.Btn}
+          variant="primary"
+          onClick={() =>
+            window.open("https://www.kw.ac.kr/ko/life/facility11.jsp", "_blank")
+          }
+        >
+          이번주 학식 보러가기
+        </Button>
 
         <p>
           <b>추천 음식점</b>

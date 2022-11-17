@@ -34,7 +34,23 @@
     margin-right: 3%;
     padding: 1.5%;
 }
+.InputID{
+    width: 68% !important;
+    margin: auto;
+    float: left;
+}
 
+.InputEmail{
+    width: 50%;
+    margin: auto;
+    float: left;
+    padding: 1.5%;
+    height: 44px;
+}
+.Default{
+    margin-right: 4%;
+    padding: 1.5%;
+}
 
 .Btn{
     display: inline-block;
