@@ -13,20 +13,19 @@
 
 .Wrap{
     margin-top: 3%;
-    margin-left: 6%;
+    margin-left: 2%;
     height: 400px;
 }
 
 .StoreImg{
-    width: 350px;
+    width: 100%;
     max-height: 350px;
     box-shadow: 5px 5px 5px black;
 }
 
 .StoreImgWrap{
     float: left;
-    margin-right: 5%;
-
+    margin-right: 1%;
 }
 
 .Tag{
@@ -42,28 +41,38 @@
 }
 
 .StoreInfo{
-    width: 35%;
+    width: 100%;
     height: 350px;
     float: left;
-    margin-right: 3%;
     border: 2px solid rgba(0,0,0,0.2);
     text-align: center;
     box-shadow: 5px 5px 5px black;
 }
 
+.StoreName{
+    margin-left: 15%;
+    margin-top: 2%;
+    font-weight: bold;
+}
+
 .StarIcon{
-    font-size: 5em;
+    font-size: 4em;
     cursor: pointer;
-    text-align: center;
-    width: 100%;
+    display: inline;
+    width: 20%;
+    float: right;
+
 }
 .Map{
-    height: 300px;
-    margin-left: 5%;
+    height: 350px;
+    margin-left: 2%;
+    width: 100%;
+    z-index: -999;
 }
 
 .MapWrap{
-    height: 300px;
+    width: 100%;
+    height: 400px;
 }
 
 .Rating {
@@ -102,10 +111,46 @@
   }
 
   .ReviewRate{
-    margin-top: 3%;
+    margin-top: 1%;
     text-align: center;
   }
 
   .ReviewInput{
     margin-top: 2%;
   }
+
+  .TagBtn{
+    width: 100%;
+    color: black;
+    margin-bottom: 4%;
+    background-color: white;
+    border: 1px solid blue;
+  }
+  .TagBtnOn{
+    width: 100%;
+    background-color: blue;
+    color: white;
+    margin-bottom: 4%;
+  }
+  .TagBtnOn:hover{
+    background-color: blue;
+    color: white;
+   }
+
+  .TagBtn:hover{
+   background-color: lightblue;
+   color: black;
+  }
+
+  .TagContentReview{
+    font-weight: bold;
+    margin-left: 1.5%;
+    font-size: large;
+    vertical-align: middle;
+}
+
+.TagReview{
+    font-size: 1.8em;
+    margin-top: 4%;
+}
+

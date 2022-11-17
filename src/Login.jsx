@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CgDanger } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState("");
