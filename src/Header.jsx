@@ -42,14 +42,14 @@ export default function Header() {
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/" className={styles.Link}>
+              <Link to="/Main" className={styles.Link}>
                 로고
               </Link>
             </Col>
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/Restaurant" className={styles.Link}>
+              <Link to="/RestaurantList" className={styles.Link}>
                 음식점 리스트
               </Link>
             </Col>

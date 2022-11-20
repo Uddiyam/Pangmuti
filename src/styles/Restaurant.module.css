@@ -1,0 +1,156 @@
+.Container{
+    padding: 2%;
+}
+
+.SearchBox{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.Search{
+    width: 100%;
+}
+
+.Wrap{
+    margin-top: 3%;
+    margin-left: 2%;
+    height: 400px;
+}
+
+.StoreImg{
+    width: 100%;
+    max-height: 350px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.StoreImgWrap{
+    float: left;
+    margin-right: 1%;
+}
+
+.Tag{
+    font-size: 1.8em;
+    margin-top: 6%;
+}
+
+.TagContent{
+    font-weight: bold;
+    margin-left: 1.5%;
+    font-size: large;
+    vertical-align: bottom;
+}
+
+.StoreInfo{
+    width: 100%;
+    height: 350px;
+    float: left;
+    border: 2px solid rgba(0,0,0,0.2);
+    text-align: center;
+    box-shadow: 5px 5px 5px black;
+}
+
+.StoreName{
+    margin-left: 15%;
+    margin-top: 2%;
+    font-weight: bold;
+}
+
+.StarIcon{
+    font-size: 4em;
+    cursor: pointer;
+    display: inline;
+    width: 20%;
+    float: right;
+
+}
+.Map{
+    height: 350px;
+    margin-left: 2%;
+    width: 100%;
+    z-index: -999;
+}
+
+.MapWrap{
+    width: 100%;
+    height: 400px;
+}
+
+.Rating {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+
+  .RatingWrap{
+    align-items: center;
+    width: 100%;
+  }
+
+  .RateTitle{
+    font-size: larger;
+    font-weight: bolder;
+  }
+
+  .RateWrap{
+    text-align: left;
+    margin-top: 2%;
+  }
+
+  .ReviewWrap{
+    padding-left: 6%;
+    margin-top: 2%;
+  }
+
+  .Btn{
+    margin-left: 2%;
+    width: 10%;
+    font-weight: bold;
+  }
+
+  .ReviewModal{
+    height: 100%;
+  }
+
+  .ReviewRate{
+    margin-top: 1%;
+    text-align: center;
+  }
+
+  .ReviewInput{
+    margin-top: 2%;
+  }
+
+  .TagBtn{
+    width: 100%;
+    color: black;
+    margin-bottom: 4%;
+    background-color: white;
+    border: 1px solid blue;
+  }
+  .TagBtnOn{
+    width: 100%;
+    background-color: blue;
+    color: white;
+    margin-bottom: 4%;
+  }
+  .TagBtnOn:hover{
+    background-color: blue;
+    color: white;
+   }
+
+  .TagBtn:hover{
+   background-color: lightblue;
+   color: black;
+  }
+
+  .TagContentReview{
+    font-weight: bold;
+    margin-left: 1.5%;
+    font-size: large;
+    vertical-align: middle;
+}
+
+.TagReview{
+    font-size: 1.8em;
+    margin-top: 4%;
+}
+

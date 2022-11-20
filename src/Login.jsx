@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CgDanger } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -57,10 +58,7 @@ export default function Login() {
               </Link>
             </div>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button className={styles.Btn} variant="primary" type="submit">
+          <Button className={styles.Btn} variant="primary">
             <Link to="/Main" className={styles.Link}>
               로그인
             </Link>

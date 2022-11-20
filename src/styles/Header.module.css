@@ -1,6 +1,6 @@
 .Container{
     height: 30%;
-    background-color: antiquewhite;
+    background-color: black;
     display: block;
     position: sticky;
     top: 0;
@@ -12,20 +12,23 @@
     text-align: center;
     vertical-align: middle;
     padding-top: 1.5%;
+
 }
 
 .Link{
     text-decoration: none;
-    color: black;
+    color: white;
     font-size: larger;
+    font-weight: bold;
 
 }
 .Link:hover{
-    color: black;
+    color: rgb(235, 235, 235);
 }
 
 .MyIcon{
-    font-size: 2em;
+    font-size: 1.9em;
+    margin-top: -3px;
 }
 
 .Hamburger{
