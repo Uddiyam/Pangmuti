@@ -6,28 +6,28 @@ import { addItem } from './post/postSlice';
 
 
 export default function Mypage() {
-  let a = useSelector((state) => { return state.user})
+  let a = useSelector((state) => { return state.user })
   return (
     <>
       <Header />
       {
-            a.map((s, i)=>{
-              return(
-                <div>             
-                  <table className={styles.show_content}>
-                    <tbody>
-                    <tr>
-                      <td colSpan="1">{s.recommended}</td>
-                      <td colSpan="1">{s.post_value}</td>
-                      <td colSpan="1">{s.id}</td>
-                      <td colSpan="1">{s.date}</td>
-                      </tr>
-                      </tbody>
-                  </table>
-                </div>
-              )
-            })
-          }
+        a.map((s, i) => {
+          return (
+            <div>
+              <table className={styles.show_content}>
+                <tbody>
+                  <tr>
+                    <td colSpan="1">{s.recommended}</td>
+                    <td colSpan="1">{s.post_value}</td>
+                    <td colSpan="1">{s.id}</td>
+                    <td colSpan="1">{s.date}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )
+        })
+      }
     </>
   );
 }

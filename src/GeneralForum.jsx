@@ -51,16 +51,16 @@ export default function GeneralForum() {
             a.map((s, i)=>{
               return(
                 <div>             
-      <table className={styles.show_content}>
-        <tbody>
-        <tr>
-          <td colSpan="1">{s.recommended}</td>
-          <td colSpan="1">{s.post_value}</td>
-          <td colSpan="1">{s.id}</td>
-          <td colSpan="1">{s.date}</td>
-          </tr>
-          </tbody>
-      </table>
+                  <table className={styles.show_content}>
+                    <tbody>
+                    <tr>
+                      <td colSpan="1">{s.recommended}</td>
+                      <td colSpan="1">{s.post_value}</td>
+                      <td colSpan="1">{s.id}</td>
+                      <td colSpan="1">{s.date}</td>
+                      </tr>
+                      </tbody>
+                  </table>
                 </div>
               )
             })
