@@ -1,0 +1,70 @@
+.search{
+    margin-top: 10px;
+    margin-left: 30vw;
+    margin-bottom: 10px;
+    width: 40vw;
+}
+
+.DetailTop{
+    display: flex;
+    flex-direction: row;
+}
+
+.Nickname{
+    font-size: 2em;
+    margin-left: 10vw;
+}
+
+.Date{
+    font-size: 0.8em;
+    padding-top: 2em;
+    margin-left: 5vw;
+}
+
+.Delete{
+    font-size: 0.8em;
+    padding-top: 2em;
+    margin-left: 55vw;
+}
+
+.Delete:hover{
+    cursor: pointer;
+}
+
+.Line{
+    margin-left: 5vw;
+    width: 90vw;
+}
+
+.Title{
+    font-size: 1.2em;
+    margin-left: 10vw;
+}
+
+.Post{
+    margin-top: 10px;
+    margin-left: 12vw;
+    margin-right: 10vw;
+    height: 300px;
+}
+
+.RegisterContent{
+    width: 65vw;
+    height: 100px;
+}
+
+.RegisterContentTable{
+    margin-left:10vw;
+    margin-bottom: 10px;
+    width:80vw;
+    overflow: scroll;
+    border: solid black 1px;
+}
+
+.ShowComment{
+    margin-left:10vw;
+    margin-bottom: 10px;
+    width:80vw;
+    border: solid black 1px;
+
+}
