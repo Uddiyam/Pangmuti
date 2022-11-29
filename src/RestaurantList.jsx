@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import styles from "./styles/RestaurantList.module.css";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Pagination from "./Pagination";
+import axios from "axios";
+import Posts from "./Posts";
 
 export default function RestaurantList() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      setPosts(response.data);
+      setLoading(false);
+      setLoading(true);
+      console.log(response);
+    };
+    fetchData();
+  }, []);
+
+  /* 새로 추가한 부분 */
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
   return (
     <>
       <Header />
@@ -43,6 +72,12 @@ export default function RestaurantList() {
           </Row>
         </Container>
       </div>
+      <Posts posts={currentPosts(posts)} loading={loading}></Posts>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={posts.length}
+        paginate={setCurrentPage}
+      ></Pagination>
     </>
   );
 }

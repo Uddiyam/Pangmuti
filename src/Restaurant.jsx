@@ -11,17 +11,21 @@ import Button from "react-bootstrap/Button";
 import { useLocation } from "react-router-dom";
 import Modal_ from "./Modal_";
 import Table from "./Table";
+import Pagination from "./Pagination";
+import axios from "axios";
+import Posts from "./Posts";
 
 export default function Restaurant() {
   const [starBtn, setStartBtn] = useState(false);
   const location = useLocation();
-  console.log(location.state);
 
   let review = location.state && location.state.review;
   let date = location.state && location.state.date;
+  let star = location.state && location.state.star;
+  console.log(star);
   const navermaps = window.naver.maps;
   let position = new navermaps.LatLng(37.6203955, 127.0584779); // 통신시 변수로 받기
-  const AVR_RATE = 80; // 통신시 변수로 받아야 함
+  const AVR_RATE = star; // 통신시 변수로 받아야 함
   const STAR_IDX_ARR = ["first", "second", "third", "fourth", "last"];
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
   const calcStarRates = () => {
@@ -65,6 +69,10 @@ export default function Restaurant() {
         accessor: "date",
         Header: "등록날짜",
       },
+      {
+        accessor: "star",
+        Header: "평점",
+      },
     ],
     []
   );
@@ -72,13 +80,43 @@ export default function Restaurant() {
   let dd =
     date &&
     review &&
+    star &&
     Array(review.length)
       .fill()
       .map((a, i) => ({
         review: review[i],
         date: date[i],
+        star: star[i],
       }));
+
   console.log(dd);
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      setPosts(response.data);
+      setLoading(false);
+      setLoading(true);
+      console.log(response);
+    };
+    fetchData();
+  }, []);
+
+  /* 새로 추가한 부분 */
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
   return (
     <>
       <Header />
@@ -208,7 +246,13 @@ export default function Restaurant() {
         </Button>
         <Modal_ open={modalOpen} close={closeModal} />
       </div>
-      {date && review && <Table columns={columns} data={dd} />};
+      {dd && <Table columns={columns} data={dd} />}
+
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={posts.length}
+        paginate={setCurrentPage}
+      ></Pagination>
     </>
   );
 }

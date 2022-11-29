@@ -4,6 +4,7 @@ import styles from "./styles/Modal.module.css";
 import { useEffect } from "react";
 import Header from "./Header";
 import { AiFillStar, AiOutlineStar, AiFillTag } from "react-icons/ai";
+import { ImStarFull } from "react-icons/im";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -12,6 +13,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import styled from "styled-components";
 
 const Modal_ = (props) => {
   const { open, close, message } = props;
@@ -19,25 +21,26 @@ const Modal_ = (props) => {
 
   const [starBtn, setStartBtn] = useState(false);
 
-  const AVR_RATE = 80; // 통신시 변수로 받아야 함
-  const STAR_IDX_ARR = ["first", "second", "third", "fourth", "last"];
-  const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
-  const calcStarRates = () => {
-    let tempStarRatesArr = [0, 0, 0, 0, 0]; // 임시 리스트.
-    let starVerScore = (AVR_RATE * 70) / 100; // 별 한 개 당 width가 14이므로 총 70. 100점 만점인 현재와 비율을 맞춰줌
-    let idx = 0;
-    while (starVerScore > 14) {
-      // 14를 starVerScore에서 하나씩 빼가면서 별 하나하나에 채워질 width를 지정해줍니다. 다 채워지지 않을 인덱스의 별은 아래 tempStarRatesArr[idx] = starVerScore; 에서 채워줍니다.
-      tempStarRatesArr[idx] = 14;
-      idx += 1;
-      starVerScore -= 14;
-    }
-    tempStarRatesArr[idx] = starVerScore;
-    return tempStarRatesArr; // 평균이 80이라면 [14, 14, 14, 14, 0] 이 되겠죠?
-  };
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const [score, setScore] = useState();
   useEffect(() => {
-    setRatesResArr(calcStarRates); // 별점 리스트는 첫 렌더링 때 한번만 상태를 설정해줍니다.
-  }, []);
+    sendReview();
+  }, [clicked]);
+
+  const sendReview = () => {
+    setScore(clicked.filter(Boolean).length * 20);
+    console.log(score); // 별점하나당 값 = 20
+  };
+
+  const array = [0, 1, 2, 3, 4];
+  const handleStarClick = (index) => {
+    let clickStates = [...clicked];
+    for (let i = 0; i < 5; i++) {
+      clickStates[i] = i <= index ? true : false;
+    }
+    setClicked(clickStates);
+  };
+
   const [btnTF, setBtnTF] = useState([
     false,
     false,
@@ -61,8 +64,10 @@ const Modal_ = (props) => {
   const [review, setReview] = useState();
   const [reviewList, setReviewList] = useState([]);
   const [dateList, setDateList] = useState([]);
+  const [scoreList, setScoreList] = useState([]);
   let review_ = [...reviewList];
   let date = [...dateList];
+  let star_ = [...scoreList];
 
   const todayTime = () => {
     let now = new Date();
@@ -179,38 +184,19 @@ const Modal_ = (props) => {
               </Col>
             </Row>
           </Container>
-          <div className={styles.ReviewRate}>
-            {STAR_IDX_ARR.map((item, idx) => {
-              return (
-                <>
-                  <span className={styles.Rating} key={`${item}_${idx}`}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="40"
-                      height="39"
-                      viewBox="0 0 14 13"
-                      fill="#CCCCCC"
-                    >
-                      <clipPath id={`${item}StarClip`}>
-                        {/* 새로 생성한 리스트에서 별 길이를 넣어줍니다. */}
-                        <rect width={`${ratesResArr[idx]}`} height="39" />
-                      </clipPath>
-                      <path
-                        id={`${item}Star`}
-                        d="M9,2l2.163,4.279L16,6.969,12.5,10.3l.826,4.7L9,12.779,4.674,15,5.5,10.3,2,6.969l4.837-.69Z"
-                        transform="translate(-2 -2)"
-                      />
-                      <use
-                        clipPath={`url(#${item}StarClip)`}
-                        href={`#${item}Star`}
-                        fill="#FFCC33"
-                      />
-                    </svg>
-                  </span>
-                </>
-              );
-            })}
-          </div>
+
+          <Stars>
+            {array.map((el) => (
+              <ImStarFull
+                key={el}
+                onClick={() => handleStarClick(el)}
+                className={clicked[el] && "yellow"}
+                size="35"
+                style={{ marginRight: "2%" }}
+              />
+            ))}
+          </Stars>
+
           <InputGroup className={styles.ReviewInput}>
             <Form.Control
               as="textarea"
@@ -225,14 +211,17 @@ const Modal_ = (props) => {
 
               review_.unshift(review);
               date.unshift(todayTime());
+              star_.unshift(score);
               setDateList(date);
               setReviewList(review_);
+              setScoreList(star_);
               console.log(review_, date);
               navigate("/Restaurant", {
                 state: {
                   tag: btnTF.indexOf(true),
                   review: review_,
                   date: date,
+                  star: star_,
                 },
               });
               close();
@@ -247,3 +236,17 @@ const Modal_ = (props) => {
 };
 
 export default Modal_;
+
+const Stars = styled.div`
+  padding-top: 3%;
+  width: 100%;
+
+  & svg {
+    color: gray;
+    cursor: pointer;
+  }
+
+  .yellow {
+    color: #fcc419;
+  }
+`;

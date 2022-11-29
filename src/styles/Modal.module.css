@@ -201,14 +201,15 @@
   }
 
   .ReviewRate{
-    margin-top: 3%;
     text-align: center;
+    margin-top: 4%;
   }
 
   .ReviewInput{
     margin-top: 5%;
     height: 100%;
   }
+
 
   .TagBtn{
     margin-top: 4%;

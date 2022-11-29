@@ -43,7 +43,7 @@ export default function Header() {
           {resize > 700 && (
             <Col sm className={styles.List}>
               <Link to="/Main" className={styles.Link}>
-                로고
+                팡뮤티
               </Link>
             </Col>
           )}

@@ -9,7 +9,7 @@ export default function SignUp() {
   return (
     <div className={styles.Container}>
       <Form className={styles.SignWrap}>
-        <div className={styles.Logo}>로고</div>
+        <div className={styles.Logo}>팡뮤티 회원가입</div>
 
         <Form.Group className={styles.KwIdWrap} controlId="formBasicEmail">
           <Form.Label className={styles.KwId}>광운대학생 인증</Form.Label>

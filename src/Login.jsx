@@ -19,6 +19,7 @@ export default function Login() {
     <div className={styles.Container}>
       <Form className={styles.LoginForm}>
         <div className={styles.FormWrap}>
+          <h2 className={styles.Logo}>팡뮤티에 오신걸 환영합니다</h2>
           <Form.Group className={styles.IdWrap} controlId="formBasicEmail">
             <Form.Label className={styles.Id}>ID</Form.Label>
             <Form.Control
