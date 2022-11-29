@@ -14,10 +14,16 @@
     background-color: #F5F5F5;
     cursor: pointer;
     border: 0;
-    font-size: 35px;
+    font-size: 3em;
     margin-right: 5%;
-    height: 3px;
   }
+
+  .Title{
+    float: left;
+    font-weight: bolder;
+    font-size: 2em;
+    margin: 2% 0 0 5%;
+}
 
   .CloseBtn {
     width: 100%;
@@ -51,20 +57,9 @@
     border: 2px solid grey;
   }
 
-  .Container {
-    width: 100%;
-    height: 50%;
-    margin: 0 auto;
-    border-radius: 7px;
-    background-color: #F5F5F5;
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: modal-show 0.3s;
-    overflow: hidden;
-  }
-
   .ContainerSmall {
     width: 40%;
-    height: 70%;
+    height: 80%;
     margin: 0 auto;
     border-radius: 7px;
     background-color: #F5F5F5;
@@ -169,16 +164,6 @@
     float: right;
 
 }
-.Map{
-    height: 350px;
-    margin-left: 2%;
-    width: 100%;
-}
-
-.MapWrap{
-    width: 100%;
-    height: 400px;
-}
 
 .Rating {
     display: inline-flex;
@@ -216,15 +201,17 @@
   }
 
   .ReviewRate{
-    margin-top: 1%;
+    margin-top: 3%;
     text-align: center;
   }
 
   .ReviewInput{
-    margin-top: 2%;
+    margin-top: 5%;
+    height: 100%;
   }
 
   .TagBtn{
+    margin-top: 4%;
     width: 100%;
     color: black;
     margin-bottom: 4%;
@@ -232,6 +219,7 @@
     border: 1px solid blue;
   }
   .TagBtnOn{
+    margin-top: 4%;
     width: 100%;
     background-color: blue;
     color: white;
@@ -258,3 +246,11 @@
     font-size: 1.8em;
     margin-top: 4%;
 }
+
+.ResBtn{
+    margin-top: 5%;
+    width: 50%;
+    font-weight: bold;
+    font-size: large;
+}
+

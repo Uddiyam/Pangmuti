@@ -14,12 +14,11 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 const Modal_ = (props) => {
-  const { open, close, message, id, modalId, userEmail } = props;
+  const { open, close, message } = props;
   let navigate = useNavigate();
 
   const [starBtn, setStartBtn] = useState(false);
-  const navermaps = window.naver.maps;
-  let position = new navermaps.LatLng(37.6208, 127.0585); // 통신시 변수로 받기
+
   const AVR_RATE = 80; // 통신시 변수로 받아야 함
   const STAR_IDX_ARR = ["first", "second", "third", "fourth", "last"];
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
@@ -59,17 +58,45 @@ const Modal_ = (props) => {
     setBtnTF(btnTF_copy);
   };
 
-  const [review, setReview] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [review, setReview] = useState();
+  const [reviewList, setReviewList] = useState([]);
+  const [dateList, setDateList] = useState([]);
+  let review_ = [...reviewList];
+  let date = [...dateList];
+
+  const todayTime = () => {
+    let now = new Date();
+    let todayYear = now.getFullYear();
+    let todayMonth = now.getMonth() + 1;
+    let todayDate = now.getDate();
+    const week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    let dayOfWeek = week[now.getDay()];
+    let hours = now.getHours();
+    let min = now.getMinutes();
+
+    return (
+      todayYear +
+      "." +
+      todayMonth +
+      "." +
+      todayDate +
+      " " +
+      dayOfWeek +
+      " " +
+      hours +
+      "시" +
+      min +
+      "분"
+    );
+  };
 
   return (
     <div className={open ? styles.OpenModal : styles.Modal}>
-      <section
-        className={modalId == 1 ? styles.Container : styles.ContainerSmall}
-      >
+      <section className={styles.ContainerSmall}>
         <div style={{ textAlign: "right" }}>
+          <span className={styles.Title}>리뷰를 등록해주세요</span>
           <button className={styles.CloseX} onClick={close}>
-            <span>리뷰를 등록해주세요</span> &times;
+            &times;
           </button>
         </div>
         <div className={styles.Content}>
@@ -190,9 +217,29 @@ const Modal_ = (props) => {
               aria-label="With textarea"
               onChange={(e) => setReview(e.target.value)}
             />
-            {console.log(review)}
           </InputGroup>
-          <Button onClick={props.onHide}>등록하기</Button>
+          <Button
+            className={styles.ResBtn}
+            onClick={() => {
+              console.log(btnTF.indexOf(true));
+
+              review_.unshift(review);
+              date.unshift(todayTime());
+              setDateList(date);
+              setReviewList(review_);
+              console.log(review_, date);
+              navigate("/Restaurant", {
+                state: {
+                  tag: btnTF.indexOf(true),
+                  review: review_,
+                  date: date,
+                },
+              });
+              close();
+            }}
+          >
+            등록하기
+          </Button>
         </div>
       </section>
     </div>
