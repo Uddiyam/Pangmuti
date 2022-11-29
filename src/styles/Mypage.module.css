@@ -1,0 +1,30 @@
+.Intro{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    height: 200px;
+    border-bottom: 1px ridge black; 
+}
+
+.MyIcon{
+    font-size: 3.9em;
+    margin-left: 12vw
+}
+
+.Nickname{
+    font-size: 1.5em;
+    margin-left: 3vw;
+}
+
+.ShowContent{
+    margin-left: 10vw;
+    padding-top: 10px;
+    margin-top: 10px;
+    width: 80vw;
+    border: solid black 1px;
+}
+
+.Writed{
+    margin-left: 5vw;
+}

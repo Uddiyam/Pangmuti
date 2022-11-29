@@ -2,11 +2,14 @@ import React from "react";
 import Header from "./Header";
 import styles from "./styles/GeneralForum.module.css";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { addItem } from './post/postSlice';
 
 export default function GeneralForum() {
   let dispatch = useDispatch();
   let a = useSelector((state) => { return state.user})
+  let navigate = useNavigate()
   return (
     <>
       <Header />
@@ -49,19 +52,17 @@ export default function GeneralForum() {
 
       {
             a.map((s, i)=>{
-              return(
-                <div>             
-      <table className={styles.show_content}>
-        <tbody>
-        <tr>
-          <td colSpan="1">{s.recommended}</td>
-          <td colSpan="1">{s.post_value}</td>
-          <td colSpan="1">{s.id}</td>
-          <td colSpan="1">{s.date}</td>
-          </tr>
-          </tbody>
-      </table>
-                </div>
+              return(   
+                  <table className={styles.show_content}>
+                    <tbody>
+                    <tr onClick={()=>{navigate('/ForumDetail/'+i)}}>
+                      <td colSpan="1">{s.recommended}</td>
+                      <td colSpan="1">{s.post_value}</td>
+                      <td colSpan="1">{s.id}</td>
+                      <td colSpan="1">{s.date}</td>
+                      </tr>
+                      </tbody>
+                  </table>
               )
             })
           }

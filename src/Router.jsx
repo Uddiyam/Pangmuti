@@ -4,6 +4,7 @@ import RestaurantList from "./RestaurantList";
 import Restaurant from "./Restaurant";
 import Mypage from "./Mypage";
 import GeneralForum from "./GeneralForum";
+import ForumDetail from "./ForumDetail"
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -16,6 +17,7 @@ const AppRouter = () => {
       <Route exact path="/RestaurantList" element={<RestaurantList />} />
       <Route exact path="/Mypage" element={<Mypage />} />
       <Route exact path="/Forum" element={<GeneralForum />} />
+      <Route exact path="/ForumDetail/:id" element={<ForumDetail/>}/>
       <Route exact path="/Restaurant" element={<Restaurant />} />
     </Routes>
   );
