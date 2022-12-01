@@ -38,13 +38,13 @@ public class StoreService {
 
     public StoreDTO viewStore(ReqStoreDTO dto, Pageable pageable) {
         List<String> tagList = new ArrayList<String>();
-        List<StoreTag> storeTag = storeTagRepository.findByStoreId(dto.getStoreId());
+        List<StoreTag> storeTag = storeTagRepository.findByStore_StoreId(dto.getStoreId());
         for(StoreTag tag : storeTag) {
             if(tag.getTagCount() > 5) {
                 tagList.add(tag.getTag().getTagName());
             }
         }
-        Store store = storeRepository.findById(dto.getStoreId()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게정보입니다"));
+        Store store = storeRepository.findByStoreId(dto.getStoreId()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게정보입니다"));
         Page<ReviewDTO> reviewList = pagingReview(dto.getStoreId(), pageable);
         return StoreDTO.builder()
                 .storeId(store.getStoreId())
@@ -67,7 +67,7 @@ public class StoreService {
     }
 
     public Page<ReviewDTO> pagingReview(Long storeId, Pageable pageable) {
-        Page<Review> page = reviewRepository.findByStoreIdOrderByDateDesc(storeId, pageable);
+        Page<Review> page = reviewRepository.findByStore_StoreIdOrderByDateDesc(storeId, pageable);
         return responseReviewList(page);
     }
 

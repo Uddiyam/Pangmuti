@@ -41,7 +41,7 @@ public class Store {
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Review> reviewList;
 
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
     private List<StoreTag> storeTag;
 
     @ManyToOne

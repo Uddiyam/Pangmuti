@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    Review findByStoreId(String name);
-    Page<Review> findByStoreIdOrderByDateDesc(Long storeId, Pageable pageable);
+    Review findByStore_StoreId(String name);
+    Page<Review> findByStore_StoreIdOrderByDateDesc(Long storeId, Pageable pageable);
 }

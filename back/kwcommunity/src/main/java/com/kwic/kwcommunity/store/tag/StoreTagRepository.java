@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface StoreTagRepository extends JpaRepository<StoreTag, Long> {
 
-    List<StoreTag> findByStoreId(Long storeId);
-    List<StoreTag> findByStoreIdAndTagId(Long storeId, Long tagId);
+    List<StoreTag> findByStore_StoreId(Long storeId);
+    List<StoreTag> findByStore_StoreIdAndTag_TagId(Long storeId, Long tagId);
 }
