@@ -18,6 +18,7 @@ public class PostDTO {
     private String date;
     private String contents;
     private String category;
+    private boolean writer;
     private List<Comment> commentList;
 
 }

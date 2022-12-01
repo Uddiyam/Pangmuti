@@ -25,7 +25,7 @@ public class Post {
     private String contents;
     private String date;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY) //EAGER이 맞나..?
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //EAGER이 맞나..?
     private List<Comment> commentList;
 
     @ManyToOne

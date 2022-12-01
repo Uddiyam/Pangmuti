@@ -57,7 +57,7 @@ public class PostController {
         try {
             Long postId = postService.deletePost(reqPostDTO);
             return ResponseEntity.ok().body(postId);
-        } catch (NoSuchDataException e) {
+        } catch (IllegalArgumentException e) {
             ResponseDTO<Object> res = ResponseDTO.builder()
                     .status(ApiStatus.FAIL)
                     .error(e.getMessage())

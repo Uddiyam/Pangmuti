@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -66,17 +67,19 @@ public class PostService {
 
     public PostDTO viewPost(ReqPostDTO reqPostDTO) {
         Post post = postRepository.findById(reqPostDTO.getPostId()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글입니다"));
-        return new PostDTO(post.getUser().getNickname(), post.getDate(), post.getContents(), post.getPostCategory().getCategoryName(), post.getCommentList());
+        boolean isWriter = false;
+        if(Objects.equals(reqPostDTO.getUserId(), post.getUser().getUserId())) {
+            isWriter = true;
+        }
+        return new PostDTO(post.getUser().getNickname(), post.getDate(), post.getContents(),
+                post.getPostCategory().getCategoryName(), isWriter, post.getCommentList());
     }
 
     @Transactional
     public Long deletePost(ReqPostDTO reqPostDTO) {
-        if(postRepository.existsByUser_UserIdAndPostId(reqPostDTO.getUserId(), reqPostDTO.getPostId())) {
-            postRepository.deleteByPostId(reqPostDTO.getUserId());
-        }
-        else {
-            throw new NoSuchDataException("삭제할 권한이 없거나, 게시글이 존재하지 않습니다");
-        }
+        Post post = postRepository.findByUser_UserIdAndPostId(reqPostDTO.getUserId(), reqPostDTO.getPostId()).orElseThrow(() ->
+                new IllegalArgumentException("삭제할 권한이 없거나, 게시글이 존재하지 않습니다"));
+        postRepository.delete(post);
         return reqPostDTO.getPostId();
     }
 

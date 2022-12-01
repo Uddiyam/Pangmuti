@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SearchDTO {
     //TODO 임시
 
-    //private Long userId;
+    private Long userId;
     private String keyword;
 
 }
