@@ -13,7 +13,6 @@ import Modal_ from "./Modal_";
 import Table from "./Table";
 import Pagination from "./Pagination";
 import axios from "axios";
-import Posts from "./Posts";
 
 export default function Restaurant() {
   const [starBtn, setStartBtn] = useState(false);
@@ -94,7 +93,7 @@ export default function Restaurant() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(8);
+  const [postsPerPage, setPostsPerPage] = useState(50);
 
   useEffect(() => {
     const fetchData = async () => {

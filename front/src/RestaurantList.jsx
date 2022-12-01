@@ -7,7 +7,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
 import axios from "axios";
-import Posts from "./Posts";
 
 export default function RestaurantList() {
   const [posts, setPosts] = useState([]);
@@ -72,7 +71,7 @@ export default function RestaurantList() {
           </Row>
         </Container>
       </div>
-      <Posts posts={currentPosts(posts)} loading={loading}></Posts>
+
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={posts.length}
