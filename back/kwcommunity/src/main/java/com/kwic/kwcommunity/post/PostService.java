@@ -31,27 +31,27 @@ public class PostService {
 
     //TODO 다 토큰처리 필요. 아직 안되어있음
 
-    public Page<PostListDTO> viewPostList(ReqPostListDTO dto, Pageable pageable) {
+    public Page<PostListDTO> viewPostList(Long categoryId, Pageable pageable) {
         Page<Post> postPage;
-        if(dto.getCategoryId() == 1) {
+        if(categoryId == 1) {
             postPage = postRepository.findAllByOrderByDateDesc(pageable);
         }
         else {
-            postPage = postRepository.findByPostCategory_CategoryIdOrderByDateDesc(dto.getCategoryId(), pageable);
+            postPage = postRepository.findByPostCategory_CategoryIdOrderByDateDesc(categoryId, pageable);
         }
         return responsePostList(postPage);
     }
 
-    public Page<PostListDTO> searchPost(SearchDTO dto, Pageable pageable) {
-        Page<Post> boardList = postRepository.findByContentsContainingOrderByDateDesc(dto.getKeyword(), pageable);
+    public Page<PostListDTO> searchPost(String keyword, Pageable pageable) {
+        Page<Post> boardList = postRepository.findByContentsContainingOrderByDateDesc(keyword, pageable);
         return responsePostList(boardList);
     }
 
-    public Post createPost(CreatePostDTO createPostDTO) {
+    public Post createPost(String userId, CreatePostDTO createPostDTO) {
         LocalDateTime now = LocalDateTime.now();
         String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         PostCategory postCategory = postCategoryRepository.findByCategoryId(createPostDTO.getCategoryId());
-        User user = userRepository.findByUserId(createPostDTO.getUserId());
+        User user = userRepository.findByUserId(userId);
 
         Post post = Post.builder().contents(createPostDTO.getContents())
                 .date(formattedNow)
@@ -65,10 +65,10 @@ public class PostService {
         return post;
     }
 
-    public PostDTO viewPost(ReqPostDTO reqPostDTO) {
-        Post post = postRepository.findById(reqPostDTO.getPostId()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글입니다"));
+    public PostDTO viewPost(String userId, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글입니다"));
         boolean isWriter = false;
-        if(Objects.equals(reqPostDTO.getUserId(), post.getUser().getUserId())) {
+        if(Objects.equals(userId, post.getUser().getUserId())) {
             isWriter = true;
         }
         return new PostDTO(post.getUser().getNickname(), post.getDate(), post.getContents(),
@@ -76,11 +76,11 @@ public class PostService {
     }
 
     @Transactional
-    public Long deletePost(ReqPostDTO reqPostDTO) {
-        Post post = postRepository.findByUser_UserIdAndPostId(reqPostDTO.getUserId(), reqPostDTO.getPostId()).orElseThrow(() ->
+    public Long deletePost(String userId, Long postId) {
+        Post post = postRepository.findByUser_UserIdAndPostId(userId, postId).orElseThrow(() ->
                 new IllegalArgumentException("삭제할 권한이 없거나, 게시글이 존재하지 않습니다"));
         postRepository.delete(post);
-        return reqPostDTO.getPostId();
+        return postId;
     }
 
     public Page<PostListDTO> responsePostList(Page<Post> pp) {

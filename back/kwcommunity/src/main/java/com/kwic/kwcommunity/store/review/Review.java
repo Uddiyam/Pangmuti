@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 
@@ -21,10 +22,12 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
     private String contents;
-    private String date;
     private int grade;
     private String tag;
     private int likeCount;
+
+    @CreatedDate
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -2,7 +2,14 @@ package com.kwic.kwcommunity.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
 
-    User findByUserId(Long id);
+public interface UserRepository extends JpaRepository<User, String> {
+
+    User findByUserId(String id);
+
+    Optional<User> findByEmail(String email);
+
+    boolean existsByEmail(String email);
+    boolean existsByNickname(String name);
 }

@@ -1,18 +1,15 @@
 package com.kwic.kwcommunity.user;
 
-import com.kwic.kwcommunity.user.dto.UserDTO;
+import com.kwic.kwcommunity.security.AuthToken;
+import com.kwic.kwcommunity.security.TokenProvider;
+import com.kwic.kwcommunity.user.dto.CreateUserDTO;
+import com.kwic.kwcommunity.user.dto.LoginDTO;
+import com.kwic.kwcommunity.user.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.MailException;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
-import java.util.Random;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -20,19 +17,47 @@ import java.util.Random;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
-    //TODO 회원가입. 현재는 임시
-    public User createUser(UserDTO userDTO) {
+    public boolean checkNickname(String nickname) {
+        return !userRepository.existsByNickname(nickname);
+    }
+    @Transactional
+    public User createUser(CreateUserDTO dto) {
+        String hashPassword = passwordEncoder.encode(dto.getPassword());
         User user = User.builder()
-                .email(userDTO.getEmail())
-                .password(userDTO.getPassword())
-                .nickname(userDTO.getNickname())
+                .userId(User.createUserId())
+                .email(dto.getEmail())
+                .password(hashPassword)
+                .nickname(dto.getNickname())
+                .roleType(RoleType.USER)
                 .build();
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
     }
 
+    @Transactional
+    public UserInfoDTO login(LoginDTO dto) {
+        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
+        if(passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            return UserInfoDTO.builder()
+                    .email(user.getEmail())
+                    .nickname(user.getNickname())
+                    .token(makeNewAllToken(user))
+                    .build();
+        }
+        else {
+            throw new IllegalArgumentException("존재하지 않는 회원입니다(비번)");
+        }
+    }
 
-    //TODO 로그인
-    //TODO 검색
+    private String makeNewAllToken(User user){
+        AuthToken accessToken = makeAccessToken(user);
+        return accessToken.getToken();
+    }
+
+    private AuthToken makeAccessToken(User user) {
+        return tokenProvider.createAccessToken(user.getUserId(),user.getRoleType().getName());
+    }
+
 }

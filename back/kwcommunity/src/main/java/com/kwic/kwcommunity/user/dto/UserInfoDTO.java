@@ -1,4 +1,4 @@
-package com.kwic.kwcommunity.post.dto;
+package com.kwic.kwcommunity.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePostDTO {
+public class UserInfoDTO {
 
-    private String contents;
-    private Long categoryId;
+    private String email;
+    private String nickname;
+
+    private String token;
 
 }

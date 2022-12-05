@@ -1,10 +1,13 @@
 package com.kwic.kwcommunity.user.mail;
 
+import com.kwic.kwcommunity.user.UserRepository;
+import com.kwic.kwcommunity.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,12 +21,18 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MailService {
     private final JavaMailSender mailSender;
+    private final UserRepository userRepository;
     private String code;
 
-    public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
+    @Transactional
+    public MimeMessage createMessage(String email) throws Exception{
+        if(!userRepository.existsByEmail(email)) {
+            throw new Exception("이미 가입한 이메일입니다");
+        }
+
         MimeMessage message = mailSender.createMimeMessage();
 
-        message.addRecipients(Message.RecipientType.TO, to);
+        message.addRecipients(Message.RecipientType.TO, email);
         message.setSubject("[팡뮤티] 이메일 계정 확인");
 
         String msg = "";
@@ -43,7 +52,7 @@ public class MailService {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
-        for (int i = 0; i < 6; i++) { // 인증코드 6자리
+        for (int i = 0; i < 6; i++) {
             key.append((rnd.nextInt(10)));
         }
         return key.toString();
@@ -53,11 +62,11 @@ public class MailService {
         code = createKey();
         MimeMessage message = createMessage(to);
         try{
-            mailSender.send(message); // 메일 발송
+            mailSender.send(message);
         }catch(MailException es){
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-        return code; // 메일로 보냈던 인증 코드를 서버로 리턴
+        return code;
     }
 }

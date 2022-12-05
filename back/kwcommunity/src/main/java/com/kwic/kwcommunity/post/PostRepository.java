@@ -12,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findByContentsContainingOrderByDateDesc(String keyword, Pageable pageable);
     Page<Post> findAllByOrderByDateDesc(Pageable pageable);
     Page<Post> findByPostCategory_CategoryIdOrderByDateDesc(Long categoryId, Pageable pageable);
-    Optional<Post> findByUser_UserIdAndPostId(Long UserId, Long postId);
+    Optional<Post> findByUser_UserIdAndPostId(String UserId, Long postId);
     void deleteByPostId(Long postId);
 
 }

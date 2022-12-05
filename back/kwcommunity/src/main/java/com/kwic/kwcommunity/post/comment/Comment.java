@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 
@@ -21,6 +22,8 @@ public class Comment {
     private Long commentId;
     private Long userId;
     private String contents;
+
+    @CreatedDate
     private String date;
 
     @ManyToOne

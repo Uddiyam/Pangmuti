@@ -1,14 +1,13 @@
 package com.kwic.kwcommunity.user;
 
-import com.kwic.kwcommunity.user.dto.UserDTO;
+import com.kwic.kwcommunity.user.dto.CreateUserDTO;
+import com.kwic.kwcommunity.user.dto.LoginDTO;
+import com.kwic.kwcommunity.user.dto.UserInfoDTO;
 import com.kwic.kwcommunity.user.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -25,9 +24,21 @@ public class UserController {
         return ResponseEntity.ok().body(code);
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<?> checkName(@RequestBody String name) {
+        boolean check = userService.checkNickname(name);
+        return ResponseEntity.ok().body(check);
+    }
+
     @PostMapping("/signup")
-    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO userDTO){
         User user = userService.createUser(userDTO);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO){
+        UserInfoDTO user = userService.login(loginDTO);
         return ResponseEntity.ok().body(user);
     }
 
