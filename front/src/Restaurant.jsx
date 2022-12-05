@@ -171,7 +171,7 @@ export default function Restaurant() {
             </Row>
             <Row>
               <Col className={styles.RateWrap} xs={3}>
-                <span className={styles.RateTitle}>평점</span>
+                <div className={styles.RateTitle}>평점</div>
                 <div className={styles.RatingWrap}>
                   {STAR_IDX_ARR.map((item, idx) => {
                     return (
@@ -212,7 +212,7 @@ export default function Restaurant() {
                     onClick={() => {
                       setStartBtn(!starBtn);
                     }}
-                    style={{ fill: "red" }}
+                    style={{ fill: "#06A77D" }}
                   />
                 ) : (
                   <AiOutlineStar
@@ -237,7 +237,7 @@ export default function Restaurant() {
       <div className={styles.ReviewWrap}>
         <h3 style={{ float: "left" }}>리뷰</h3>
         <Button
-          variant="warning"
+          variant="primary"
           className={styles.Btn}
           onClick={() => openModal()}
         >

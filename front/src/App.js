@@ -52,15 +52,11 @@ function App() {
     <>
       <Header />
       <div className={styles.Container}>
-        <span>
-          <b>검색</b>
-        </span>
+        <h3>검색</h3>
         <form>
           <input type="search" className={styles.Search}></input>
         </form>
-        <p>
-          <b>학식</b>
-        </p>
+        <h3>학식</h3>
 
         <Button
           className={styles.Btn}
@@ -72,9 +68,7 @@ function App() {
           이번주 학식 보러가기
         </Button>
 
-        <p>
-          <b>추천 음식점</b>
-        </p>
+        <h3>추천 음식점</h3>
         <Slider {...settingsWithModules}>
           <div className={styles.Img}>
             <img

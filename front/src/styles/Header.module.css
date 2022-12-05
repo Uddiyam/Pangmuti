@@ -1,6 +1,6 @@
 .Container{
-    height: 30%;
-    background-color: black;
+    height: 60%;
+    background-color: #052F5F;
     display: block;
     position: sticky;
     top: 0;
@@ -8,22 +8,22 @@
 }
 
 .List{
-    height: 70px;
+    height: 85px;
     text-align: center;
     vertical-align: middle;
-    padding-top: 1.5%;
+    padding-top: 1.8%;
 
 }
 
 .Link{
     text-decoration: none;
-    color: white;
-    font-size: larger;
+    color: #F1A208;
+    font-size: 1.5em;
     font-weight: bold;
 
 }
 .Link:hover{
-    color: rgb(235, 235, 235);
+    color: #D5C67A;
 }
 
 .MyIcon{

@@ -98,7 +98,7 @@ const Modal_ = (props) => {
   return (
     <div className={open ? styles.OpenModal : styles.Modal}>
       <section className={styles.ContainerSmall}>
-        <div style={{ textAlign: "right" }}>
+        <div className={styles.TitleWrap}>
           <span className={styles.Title}>리뷰를 등록해주세요</span>
           <button className={styles.CloseX} onClick={close}>
             &times;

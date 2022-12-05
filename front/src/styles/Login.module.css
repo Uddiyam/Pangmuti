@@ -19,11 +19,13 @@
 .Id{
     margin-left: 15%;
     margin-right: 2%;
+    color: #D5C67A;
 }
 
 .Password{
     margin-left: 15%;
     margin-right: 2%;
+    color: #D5C67A;
 }
 
 .Input{
@@ -35,28 +37,39 @@
     width: 40%;
     margin: auto;
     margin-top: 11%;
-    border-radius: 4px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 15px;
+    box-shadow: 6px 6px 6px rgba(5, 47, 95, 0.3);
+    background-color: rgba(5, 47, 95, 1);
 }
 
 .SignUp{
     text-align: center;
     margin-top: 2%;
+
 }
 
 .Btn{
     margin-left: 30%;
     width: 40%;
+    background-color: #06A77D;
+    border: #06A77D;
+}
+
+.Btn:hover{
+    margin-left: 30%;
+    width: 40%;
+    background-color: #06A77D;
+    border: #06A77D;
 }
 
 .Link{
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: larger;
 }
 .Link:hover{
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: larger;
 }
 
@@ -75,4 +88,9 @@
     width: 100%;
     text-align: center;
     margin-bottom: 6%;
+    color: #F1A208;
+  }
+
+  .LinkSignUp{
+    color: #06A77D;
   }

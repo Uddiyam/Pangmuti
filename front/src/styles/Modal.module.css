@@ -11,86 +11,66 @@
 
   .CloseX {
     outline: none;
-    background-color: #F5F5F5;
+    background-color: #052F5F;
     cursor: pointer;
     border: 0;
-    font-size: 3em;
+    font-size: 4em;
     margin-right: 5%;
+    color:#F1A208;
+
   }
 
   .Title{
     float: left;
     font-weight: bolder;
     font-size: 2em;
-    margin: 2% 0 0 5%;
+    margin: 5% 0 0 5%;
 }
 
-  .CloseBtn {
-    width: 100%;
-    outline: none;
-    background-color: #4569F0;
-    cursor: pointer;
-    font-size: 20px;
-    width: 170px;
-    height: 40px;
-    display: inline-block;
-    padding: 5px 15px 5px 15px;
-    line-height: 20px;
-    border-radius: 8px;
-    color: white;
-    border: #4569F0;
-    margin-top: 2%;
-  }
-
-  .CloseBtn_1 {
-    width: 100%;
-    outline: none;
-    background-color: #F5F5F5;
-    cursor: pointer;
-    font-size: 15px;
-    width: 150px;
-    height: 40px;
-    display: inline-block;
-    padding: 5px 15px 5px 15px;
-    line-height: 20px;
-    border-radius: 8px;
-    border: 2px solid grey;
+  .TitleWrap{
+    background-color: #052F5F;
+    text-align: right;
+    color: #F1A208;
+    padding: 1.5%;
+    vertical-align: middle;
+    margin-bottom: -2%;
   }
 
   .ContainerSmall {
-    width: 40%;
+    width: 45%;
     height: 80%;
     margin: 0 auto;
     border-radius: 7px;
-    background-color: #F5F5F5;
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    background-color: #052F5F;
     animation: modal-show 0.3s;
-    overflow: hidden;
+    overflow: auto;
+    margin-top: 6%;
+
   }
 
   .Content{
-    background-color: #F5F5F5;
+    background-color: #052F5F;
     text-align: center;
-    margin-bottom: 8%;
+    margin-bottom: 5%;
     font-size: medium;
     color: black;
     line-height: 13px;
-    margin-top: 3%;
+    padding: 4%;
   }
 
- .OpenModal {
-    display: flex;
-    align-items: center;
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: modal-bg-show 0.3s;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 99;
-    background-color: rgba(0, 0, 0, 0.6);
-  }
+.OpenModal {
+  display: flex;
+  align-items: center;
+  animation: modal-bg-show 0.3s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.6);
+
+}
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -111,24 +91,6 @@
   }
 
 
-
-.Wrap{
-    margin-top: 3%;
-    margin-left: 2%;
-    height: 400px;
-}
-
-.StoreImg{
-    width: 100%;
-    max-height: 350px;
-    box-shadow: 5px 5px 5px black;
-}
-
-.StoreImgWrap{
-    float: left;
-    margin-right: 1%;
-}
-
 .Tag{
     font-size: 1.8em;
     margin-top: 6%;
@@ -141,29 +103,6 @@
     vertical-align: bottom;
 }
 
-.StoreInfo{
-    width: 100%;
-    height: 350px;
-    float: left;
-    border: 2px solid rgba(0,0,0,0.2);
-    text-align: center;
-    box-shadow: 5px 5px 5px black;
-}
-
-.StoreName{
-    margin-left: 15%;
-    margin-top: 2%;
-    font-weight: bold;
-}
-
-.StarIcon{
-    font-size: 4em;
-    cursor: pointer;
-    display: inline;
-    width: 20%;
-    float: right;
-
-}
 
 .Rating {
     display: inline-flex;
@@ -217,18 +156,19 @@
     color: black;
     margin-bottom: 4%;
     background-color: white;
-    border: 1px solid blue;
+    border: 1px solid rgba(5, 47, 95, 0.3);
   }
   .TagBtnOn{
     margin-top: 4%;
     width: 100%;
-    background-color: blue;
-    color: white;
+    background-color: #D5C67A;
+    border: #D5C67A;
+    color: black;
     margin-bottom: 4%;
   }
   .TagBtnOn:hover{
-    background-color: blue;
-    color: white;
+    background-color: #D5C67A;
+    color: black;
    }
 
   .TagBtn:hover{
@@ -250,8 +190,22 @@
 
 .ResBtn{
     margin-top: 5%;
-    width: 50%;
+    width: 45%;
     font-weight: bold;
     font-size: large;
+    background-color: #06A77D;
+    border: #06A77D;
+    height: 40%;
+    color: black;
+}
+.ResBtn:hover{
+  margin-top: 5%;
+  width: 45%;
+  font-weight: bold;
+  font-size: large;
+  background-color: #06A77D;
+  border: #06A77D;
+  height: 40%;
+  color: black;
 }
 

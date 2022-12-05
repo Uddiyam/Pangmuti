@@ -20,7 +20,7 @@
 .StoreImg{
     width: 100%;
     max-height: 350px;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px rgba(5, 47, 95, 0.3);
 }
 
 .StoreImgWrap{
@@ -44,9 +44,10 @@
     width: 100%;
     height: 350px;
     float: left;
-    border: 2px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(5, 47, 95, 0.3);
+    padding: 2%;
     text-align: center;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px rgba(5, 47, 95, 0.3);
 }
 
 .StoreName{
@@ -68,6 +69,7 @@
     margin-left: 2%;
     width: 100%;
     z-index: -999;
+    box-shadow: 5px 5px 5px rgba(5, 47, 95, 0.3);
 }
 
 .MapWrap{
@@ -88,6 +90,7 @@
   .RateTitle{
     font-size: larger;
     font-weight: bolder;
+    margin-bottom: 3%;
   }
 
   .RateWrap{
@@ -102,13 +105,27 @@
 
   .Btn{
     margin-left: 2%;
-    width: 10%;
+    width: 15%;
+    height:40%;
+    font-size: large;
     font-weight: bold;
+    background-color: #06A77D;
+    border: #06A77D;
+  }
+  .Btn:hover{
+    margin-left: 2%;
+    width: 15%;
+    height:40%;
+    font-size: large;
+    font-weight: bold;
+    background-color: #06A77D;
+    border: #06A77D;
   }
 
   .ReviewModal{
     height: 100%;
   }
+
 
   .ReviewRate{
     margin-top: 1%;
