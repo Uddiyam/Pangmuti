@@ -26,7 +26,7 @@ public class MailService {
 
     @Transactional
     public MimeMessage createMessage(String email) throws Exception{
-        if(!userRepository.existsByEmail(email)) {
+        if(userRepository.existsByEmail(email)) {
             throw new Exception("이미 가입한 이메일입니다");
         }
 
@@ -43,7 +43,7 @@ public class MailService {
         msg += "<p><strong>";
         msg += code+"</strong></p></div>";
         message.setText(msg, "utf-8", "html");
-        message.setFrom(new InternetAddress("kwicproject@naver.com","admin"));
+        message.setFrom(new InternetAddress("kwicproject@naver.com","팡뮤티관리자"));
 
         return message;
     }

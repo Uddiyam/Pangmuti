@@ -1,8 +1,8 @@
 package com.kwic.kwcommunity.user;
 
-import com.kwic.kwcommunity.user.dto.CreateUserDTO;
-import com.kwic.kwcommunity.user.dto.LoginDTO;
-import com.kwic.kwcommunity.user.dto.homeDTO;
+import com.kwic.kwcommunity.ApiStatus;
+import com.kwic.kwcommunity.ResponseDTO;
+import com.kwic.kwcommunity.user.dto.*;
 import com.kwic.kwcommunity.user.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +19,22 @@ public class UserController {
     private final MailService mailService;
 
     @PostMapping("/mail")
-    public ResponseEntity<?> sendMail(@RequestBody String email) throws Exception {
-        String code = mailService.sendMail(email);
-        return ResponseEntity.ok().body(code);
+    public ResponseEntity<?> sendMail(@RequestBody EmailDTO dto) {
+        try {
+            String code = mailService.sendMail(dto.getEmail());
+            return ResponseEntity.ok().body(code);
+        } catch (Exception e) {
+            ResponseDTO<Object> res = ResponseDTO.builder()
+                    .status(ApiStatus.ERROR)
+                    .error(e.getMessage())
+                    .build();
+            return ResponseEntity.ok().body(res);
+        }
     }
 
     @PostMapping("/check")
-    public ResponseEntity<?> checkName(@RequestBody String name) {
-        boolean check = userService.checkNickname(name);
+    public ResponseEntity<?> checkName(@RequestBody NicknameDTO dto) {
+        boolean check = userService.checkNickname(dto.getNickname());
         return ResponseEntity.ok().body(check);
     }
 

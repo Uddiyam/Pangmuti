@@ -47,7 +47,7 @@ public class UserService {
                     .build();
         }
         else {
-            throw new IllegalArgumentException("존재하지 않는 회원입니다(비번)");
+            throw new IllegalArgumentException("존재하지 않는 회원입니다");
         }
     }
 
