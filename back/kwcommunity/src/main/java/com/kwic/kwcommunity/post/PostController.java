@@ -13,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/post")
@@ -35,7 +37,7 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@AuthenticationPrincipal User user, @RequestBody CreatePostDTO dto) {
+    public ResponseEntity<?> createPost(@AuthenticationPrincipal User user, @RequestBody @Valid CreatePostDTO dto) {
         Post post = postService.createPost(user.getUsername(), dto);
         return ResponseEntity.ok().body(post);
     }

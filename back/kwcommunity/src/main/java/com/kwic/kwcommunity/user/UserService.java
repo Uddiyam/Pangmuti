@@ -4,7 +4,7 @@ import com.kwic.kwcommunity.security.AuthToken;
 import com.kwic.kwcommunity.security.TokenProvider;
 import com.kwic.kwcommunity.user.dto.CreateUserDTO;
 import com.kwic.kwcommunity.user.dto.LoginDTO;
-import com.kwic.kwcommunity.user.dto.UserInfoDTO;
+import com.kwic.kwcommunity.user.dto.homeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,10 +37,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserInfoDTO login(LoginDTO dto) {
+    public homeDTO login(LoginDTO dto) {
         User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
         if(passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            return UserInfoDTO.builder()
+            return homeDTO.builder()
                     .email(user.getEmail())
                     .nickname(user.getNickname())
                     .token(makeNewAllToken(user))

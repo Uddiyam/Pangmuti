@@ -1,6 +1,5 @@
 package com.kwic.kwcommunity.security;
 
-import com.kwic.kwcommunity.user.UserId;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;

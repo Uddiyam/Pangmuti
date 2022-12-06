@@ -31,6 +31,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/admin/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(

@@ -1,6 +1,7 @@
 package com.kwic.kwcommunity.post.comment;
 
 import com.kwic.kwcommunity.post.Post;
+import com.kwic.kwcommunity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,6 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
-    private Long userId;
     private String contents;
 
     @CreatedDate
@@ -29,5 +29,10 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }

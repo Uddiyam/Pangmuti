@@ -1,7 +1,5 @@
 package com.kwic.kwcommunity.store.review;
 
-import com.kwic.kwcommunity.post.dto.ReqPostDTO;
-import com.kwic.kwcommunity.post.exception.NoSuchDataException;
 import com.kwic.kwcommunity.store.Store;
 import com.kwic.kwcommunity.store.StoreRepository;
 import com.kwic.kwcommunity.store.dto.CreateReviewDTO;
@@ -10,7 +8,6 @@ import com.kwic.kwcommunity.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,10 +22,10 @@ public class ReviewService {
     private final StoreRepository storeRepository;
 
     //리뷰 등록(날짜 반환해줄까)
-    public String createReview(CreateReviewDTO dto) {
+    public String createReview(String userId, CreateReviewDTO dto) {
         LocalDateTime now = LocalDateTime.now();
         String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        User user = userRepository.findById(dto.getUserId()).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
         Store store = storeRepository.findById(dto.getStoreId()).orElseThrow();
 
         Review review = Review.builder()

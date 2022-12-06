@@ -2,7 +2,7 @@ package com.kwic.kwcommunity.user;
 
 import com.kwic.kwcommunity.user.dto.CreateUserDTO;
 import com.kwic.kwcommunity.user.dto.LoginDTO;
-import com.kwic.kwcommunity.user.dto.UserInfoDTO;
+import com.kwic.kwcommunity.user.dto.homeDTO;
 import com.kwic.kwcommunity.user.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO){
-        UserInfoDTO user = userService.login(loginDTO);
+        homeDTO user = userService.login(loginDTO);
         return ResponseEntity.ok().body(user);
     }
 

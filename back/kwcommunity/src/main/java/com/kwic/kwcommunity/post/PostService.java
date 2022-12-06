@@ -51,7 +51,7 @@ public class PostService {
         LocalDateTime now = LocalDateTime.now();
         String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         PostCategory postCategory = postCategoryRepository.findByCategoryId(createPostDTO.getCategoryId());
-        User user = userRepository.findByUserId(userId);
+        User user = userRepository.findByUserId(userId).orElseThrow();
 
         Post post = Post.builder().contents(createPostDTO.getContents())
                 .date(formattedNow)
