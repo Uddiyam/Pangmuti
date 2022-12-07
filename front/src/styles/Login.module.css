@@ -31,14 +31,40 @@
 .Input{
     width: 70%;
     margin: auto;
+    border: 3px solid #D5C67A;
+    padding: 1.2%;
+}
+.InputIDWrap{
+    width: 70%;
+    margin: auto;
+}
+.InputID{
+    width: 70%;
+    margin: auto;
+    border: 3px solid #D5C67A;
+    padding: 1.5%;
+}
+.Default{
+    width: 30%;
+    padding: 1.2%;
+    border-bottom: 3px solid #D5C67A;
+    border-top: 3px solid #D5C67A;;
+    border-right: 3px solid #D5C67A;
+}
+
+.DefaultText{
+    width: 100%;
+    text-align:center;
+    font-size: large;
+    font-weight: bold;
 }
 
 .LoginForm{
-    width: 40%;
+    width: 48%;
     margin: auto;
-    margin-top: 11%;
+    margin-top: 9%;
     border-radius: 15px;
-    box-shadow: 6px 6px 6px rgba(5, 47, 95, 0.3);
+    box-shadow: 8px 8px 8px rgba(5, 47, 95, 0.3);
     background-color: rgba(5, 47, 95, 1);
 }
 
@@ -75,7 +101,7 @@
 
 .FalseEmail{
     font-size: medium;
-    color: red;
+    color: white;
     margin-top: 1%;
     margin-left: 15%;
   }
@@ -92,5 +118,9 @@
   }
 
   .LinkSignUp{
+    color: #06A77D;
+  }
+
+  .LinkSignUp:hover{
     color: #06A77D;
   }

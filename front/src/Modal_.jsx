@@ -19,8 +19,6 @@ const Modal_ = (props) => {
   const { open, close, message } = props;
   let navigate = useNavigate();
 
-  const [starBtn, setStartBtn] = useState(false);
-
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [score, setScore] = useState();
   useEffect(() => {
@@ -94,7 +92,7 @@ const Modal_ = (props) => {
       "분"
     );
   };
-
+  const [inputContent, setInputContent] = useState("");
   return (
     <div className={open ? styles.OpenModal : styles.Modal}>
       <section className={styles.ContainerSmall}>
@@ -201,7 +199,11 @@ const Modal_ = (props) => {
             <Form.Control
               as="textarea"
               aria-label="With textarea"
-              onChange={(e) => setReview(e.target.value)}
+              value={inputContent}
+              onChange={(e) => {
+                setReview(e.target.value);
+                setInputContent(e.target.value);
+              }}
             />
           </InputGroup>
           <Button
@@ -216,6 +218,9 @@ const Modal_ = (props) => {
               setReviewList(review_);
               setScoreList(star_);
               console.log(review_, date);
+              setInputContent("");
+              BtnOnOff(-1);
+              handleStarClick(-1);
               navigate("/Restaurant", {
                 state: {
                   tag: btnTF.indexOf(true),
@@ -224,6 +229,7 @@ const Modal_ = (props) => {
                   star: star_,
                 },
               });
+
               close();
             }}
           >
