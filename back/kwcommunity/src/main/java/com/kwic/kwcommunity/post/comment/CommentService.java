@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -22,10 +25,13 @@ public class CommentService {
 
     //댓글생성
     public Comment createComment(String userId, CreateCommentDTO dto) {
+        LocalDateTime now = LocalDateTime.now();
+        String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Post post = postRepository.findByPostId(dto.getPostId()).orElseThrow();
         User user = userRepository.findByUserId(userId).orElseThrow();
         Comment comment = Comment.builder()
                 .contents(dto.getContents())
+                .date(formattedNow)
                 .post(post)
                 .user(user)
                 .build();

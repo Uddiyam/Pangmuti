@@ -1,5 +1,6 @@
 package com.kwic.kwcommunity.store;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kwic.kwcommunity.post.category.PostCategory;
 import com.kwic.kwcommunity.post.comment.Comment;
 import com.kwic.kwcommunity.store.category.StoreCategory;
@@ -38,6 +39,7 @@ public class Store {
     private String menuImage;
     private String updateDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Review> reviewList;
 
