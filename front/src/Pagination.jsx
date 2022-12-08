@@ -38,6 +38,10 @@ const PageSpan = styled.span`
     color: white;
     background-color: #263a6c;
   }
+  margin-top:30px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-40%);
 `;
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
