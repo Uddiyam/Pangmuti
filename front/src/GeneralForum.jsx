@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Header from "./Header";
 import styles from "./styles/GeneralForum.module.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
@@ -11,6 +11,9 @@ import Pagination from "./Pagination";
 import Table from "./Table";
 
 export default function GeneralForum() {
+  let location = useLocation();
+  console.log(location.state);
+
   const [content, setContent] = useState();
   //카테고리 선택
   const [f_categoryId, setCategoryId] = useState(1);
@@ -62,11 +65,11 @@ export default function GeneralForum() {
           size: postsPerPage,
         },
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxdkJlY0Y4b29CaTdPcGkxZHFBSEgiLCJyb2xlIjoi7J2867CYIOyCrOyaqeyekCIsImV4cCI6MTY3Mjk0NDk1OH0._iIXYR1vpFXcfhjYFjAlyVadZIKm011e0vlsvr14RRM",
+          Authorization: `Bearer ${location.state.token}`,
         },
       })
       .then((result) => {
+        console.log(result);
         setPosts(result.data.content);
         setPostsnum(result.data.totalElements);
       })
@@ -77,7 +80,11 @@ export default function GeneralForum() {
 
   return (
     <>
-      <Header />
+      <Header
+        email={location.state.email}
+        nickname={location.state.nickname}
+        token={location.state.token}
+      />
       <input className={styles.search} type="search"></input>
 
       <Container className={styles.ListForm}>
@@ -88,6 +95,13 @@ export default function GeneralForum() {
               onClick={() => {
                 setCategoryId(1);
                 setCurrentPage(1);
+              }}
+              style={{
+                backgroundColor:
+                  f_categoryId == 1
+                    ? "rgba(5, 47, 95, 1)"
+                    : "rgba(5, 47, 95, 0.3)",
+                color: f_categoryId == 1 ? "#F1A208" : "rgba(0,0,0,0.5)",
               }}
             >
               전체
@@ -100,17 +114,30 @@ export default function GeneralForum() {
                 setCategoryId(2);
                 setCurrentPage(1);
               }}
+              style={{
+                backgroundColor:
+                  f_categoryId == 2
+                    ? "rgba(5, 47, 95, 1)"
+                    : "rgba(5, 47, 95, 0.3)",
+                color: f_categoryId == 2 ? "#F1A208" : "rgba(0,0,0,0.5)",
+              }}
             >
-              {" "}
               추천합니다
             </li>
           </Col>
-          <Col xs={2}>
+          <Col>
             <li
               className={styles.List}
               onClick={() => {
                 setCategoryId(3);
                 setCurrentPage(1);
+              }}
+              style={{
+                backgroundColor:
+                  f_categoryId == 3
+                    ? "rgba(5, 47, 95, 1)"
+                    : "rgba(5, 47, 95, 0.3)",
+                color: f_categoryId == 3 ? "#F1A208" : "rgba(0,0,0,0.5)",
               }}
             >
               추천해주세요
@@ -123,6 +150,13 @@ export default function GeneralForum() {
                 setCategoryId(4);
                 setCurrentPage(1);
               }}
+              style={{
+                backgroundColor:
+                  f_categoryId == 4
+                    ? "rgba(5, 47, 95, 1)"
+                    : "rgba(5, 47, 95, 0.3)",
+                color: f_categoryId == 4 ? "#F1A208" : "rgba(0,0,0,0.5)",
+              }}
             >
               같이 밥 먹을 사람
             </li>
@@ -130,89 +164,64 @@ export default function GeneralForum() {
         </Row>
       </Container>
 
-      <table className={styles.register_content_table}>
-        <tbody>
-          <tr>
-            <td>
-              <input
-                id="post"
-                className={styles.register_content}
-                type="text"
-                value={content}
-                autoComplete="off"
-              ></input>
-            </td>
-            <td>
-              <button
-                onClick={() => {
-                  if (document.getElementById("post").value.length > 0) {
-                    axios
-                      .post(
-                        "http://52.44.107.157:8080/api/post/create",
-                        {
-                          contents: document.getElementById("post").value,
-                          categoryId: f_categoryId,
-                        },
-                        {
-                          headers: {
-                            Authorization:
-                              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxdkJlY0Y4b29CaTdPcGkxZHFBSEgiLCJyb2xlIjoi7J2867CYIOyCrOyaqeyekCIsImV4cCI6MTY3Mjk0NDk1OH0._iIXYR1vpFXcfhjYFjAlyVadZIKm011e0vlsvr14RRM",
+      {f_categoryId != 1 && (
+        <table className={styles.register_content_table}>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  id="post"
+                  className={styles.register_content}
+                  type="text"
+                  value={content}
+                  autoComplete="off"
+                ></input>
+              </td>
+              <td>
+                <button
+                  onClick={() => {
+                    if (
+                      document.getElementById("post").value.length > 0 &&
+                      f_categoryId != 1
+                    ) {
+                      axios
+                        .post(
+                          "http://52.44.107.157:8080/api/post/create",
+                          {
+                            contents: document.getElementById("post").value,
+                            categoryId: f_categoryId,
                           },
-                        }
-                      )
-                      .then((result) => {
-                        if (write === false) {
-                          setWrite(true);
-                        } else {
-                          setWrite(false);
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  } else {
-                    alert("내용을 입력해주세요!");
-                  }
-                }}
-                className={styles.register_button}
-              >
-                등록
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table className={styles.show_content}>
-        <tbody>
-          <tr>
-            <td colSpan="1">추천합니다</td>
-            <td colSpan="1">게시글 내용</td>
-
-            <td colSpan="1">작성자</td>
-            <td colSpan="1">날짜</td>
-          </tr>
-        </tbody>
-      </table>
-
-      {a.map((s, i) => {
-        return (
-          <table className={styles.show_contentList} key={i}>
-            <tbody>
-              <tr
-                onClick={() => {
-                  navigate("/ForumDetail/" + i);
-                }}
-              >
-                {s.recommended && <td colSpan="1">{s.recommended}</td>}
-                {s.post_value && <td colSpan="1">{s.post_value}</td>}
-                {s.id && <td colSpan="1">{s.id}</td>}
-                {s.date && <td colSpan="1">{s.date}</td>}
-              </tr>
-            </tbody>
-          </table>
-        );
-      })}
+                          {
+                            headers: {
+                              Authorization: `Bearer ${location.state.token}`,
+                            },
+                          }
+                        )
+                        .then((result) => {
+                          console.log(result);
+                          if (write === false) {
+                            setWrite(true);
+                          } else {
+                            setWrite(false);
+                          }
+                          document.getElementById("post").value = "";
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                    } else {
+                      alert("내용을 입력해주세요!");
+                    }
+                  }}
+                  className={styles.register_button}
+                >
+                  등록
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
 
       {posts && <Table columns={columns} data={posts} />}
       <Pagination
