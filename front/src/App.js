@@ -5,8 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from "./styles/App.module.css";
 import "./styles/Slick.css";
 import Button from "react-bootstrap/Button";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  let location = useLocation();
+  console.log(location.state);
   const settingsWithModules = {
     dots: true,
     infinite: true,
@@ -50,12 +53,12 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header
+        email={location.state.email}
+        nickname={location.state.nickname}
+        token={location.state.token}
+      />
       <div className={styles.Container}>
-        <h3>검색</h3>
-        <form>
-          <input type="search" className={styles.Search}></input>
-        </form>
         <h3>학식</h3>
 
         <Button

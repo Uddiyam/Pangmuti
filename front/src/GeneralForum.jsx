@@ -91,7 +91,7 @@ export default function GeneralForum() {
 
       {a.map((s, i) => {
         return (
-          <table className={styles.show_contentList}>
+          <table className={styles.show_contentList} key={i}>
             <tbody>
               <tr
                 onClick={() => {

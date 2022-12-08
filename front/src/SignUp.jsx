@@ -2,48 +2,50 @@ import React from "react";
 import styles from "./styles/SignUp.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 
 export default function SignUp() {
-  const [certification, setCertification] = useState();
-  const [userInput, setUserInput] = useState();
-  const [userNickname, setUserNickname] = useState();
+  let navigate = useNavigate();
+  const [certification, setCertification] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [userNickname, setUserNickname] = useState("");
   const [TF, setTF] = useState(false);
+  const [nicknameTF, setNicknameTF] = useState();
+
+  const [userEmail, setUserEmail] = useState();
+  const [emailCheck, setEmailCheck] = useState(false);
+  const [number, setNumber] = useState();
+  const [Error, setError] = useState(false);
+  const handleClose = () => setError(false);
+
   const Confirm = () => {
-    certification == userInput ? setTF(true) : setTF(false);
+    number == userInput ? setTF(true) : setTF(false);
+    setError(true);
   };
+
   const SendMail = () => {
     axios
       .post("http://52.44.107.157:8080/api/user/mail", {
-        email: "yjasd1234@kw.ac.kr",
+        email: `${userEmail}@kw.ac.kr`,
       })
       .then((res) => {
         console.log(res);
-        //setCertification(res)
+
+        if (res.data.status == "ERROR") setCertification(true);
+        else {
+          setCertification(false);
+          setNumber(res.data);
+        }
+
+        setEmailCheck(true);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    /*axios
-      .post(
-        "http://52.44.107.157:8080/api/post/create",
-        {
-          contents: "hi",
-          categoryId: 3,
-        },
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxdkJlY0Y4b29CaTdPcGkxZHFBSEgiLCJyb2xlIjoi7J2867CYIOyCrOyaqeyekCIsImV4cCI6MTY3Mjk0NDk1OH0._iIXYR1vpFXcfhjYFjAlyVadZIKm011e0vlsvr14RRM",
-          },
-        }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));*/
   };
 
   const Nickname = () => {
@@ -54,16 +56,17 @@ export default function SignUp() {
       .then((res) => {
         console.log(res);
         //setCertification(res)
+        res.data == true ? setNicknameTF(true) : setNicknameTF(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const SignUp = () => {
-    axios
+  const SignUp = async () => {
+    await axios
       .post("http://52.44.107.157:8080/api/user/signup", {
-        email: "",
+        email: `${userEmail}@kw.ac.kr`,
         password: userInput,
         nickname: userNickname,
       })
@@ -74,6 +77,7 @@ export default function SignUp() {
       .catch((err) => {
         console.log(err);
       });
+    navigate("/");
   };
   return (
     <div className={styles.Container}>
@@ -90,15 +94,38 @@ export default function SignUp() {
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               autoComplete="off"
+              onChange={(e) => {
+                e.preventDefault();
+                setUserEmail(e.target.value);
+                setEmailCheck(false);
+              }}
             />
             <InputGroup.Text id="basic-addon2" className={styles.Default}>
               <span className={styles.DefaultText}>@kw.ac.kr</span>
             </InputGroup.Text>
           </InputGroup>
 
-          <Button className={styles.Btn} variant="primary" onClick={SendMail}>
+          <Button
+            className={styles.Btn}
+            variant="primary"
+            onClick={SendMail}
+            disabled={userEmail.length > 0 ? false : true}
+            style={{
+              backgroundColor: userEmail.length == 0 && "#06A77D",
+              color: userEmail.length == 0 && "white",
+            }}
+          >
             인증하기
           </Button>
+          <div
+            className={styles.EmailCheck}
+            style={{ color: certification ? "red" : "white" }}
+          >
+            {emailCheck &&
+              (certification
+                ? "이미 존재하는 아이디 입니다"
+                : "사용가능한 아이디 입니다")}
+          </div>
         </Form.Group>
         {console.log(userInput)}
         <Form.Group className={styles.KwIdWrap} controlId="formBasicEmail">
@@ -109,17 +136,32 @@ export default function SignUp() {
             pattern="[0-9]*"
             autoComplete="off"
             placeholder="인증번호를 입력해 주세요"
+            readOnly={TF ? true : false}
             onChange={(e) => {
               e.preventDefault();
               setUserInput(e.target.value);
             }}
           />
-          <Button className={styles.Btn} variant="primary" onClick={Confirm}>
-            인증 확인
-          </Button>
+          {userInput.length > 0 ? (
+            <Button className={styles.Btn} variant="primary" onClick={Confirm}>
+              인증 확인
+            </Button>
+          ) : (
+            <Button
+              className={styles.Btn}
+              variant="primary"
+              disabled
+              style={{
+                backgroundColor: "#06A77D",
+                color: "white",
+              }}
+            >
+              인증 확인
+            </Button>
+          )}
         </Form.Group>
       </Form>
-      {TF == false && (
+      {TF ? (
         <>
           <hr style={{ marginTop: "4%" }} />
           <Form className={styles.SignWrap}>
@@ -134,6 +176,7 @@ export default function SignUp() {
                 placeholder="비밀번호를 입력해 주세요"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
+                type="password"
                 autoComplete="off"
               />
             </Form.Group>
@@ -142,8 +185,7 @@ export default function SignUp() {
               <Form.Label className={styles.KwId}>Password 확인</Form.Label>
               <Form.Control
                 className={styles.InputPassword}
-                type="number"
-                pattern="[0-9]*"
+                type="password"
                 autoComplete="off"
                 placeholder="비밀번호를 다시 입력해 주세요"
                 onChange={(e) => {
@@ -156,8 +198,7 @@ export default function SignUp() {
               <Form.Label className={styles.KwId}>Nickname</Form.Label>
               <Form.Control
                 className={styles.Input}
-                type="number"
-                pattern="[0-9]*"
+                type="text"
                 autoComplete="off"
                 placeholder="닉네임을 입력해 주세요"
                 onChange={(e) => {
@@ -169,6 +210,11 @@ export default function SignUp() {
                 className={styles.Btn}
                 variant="primary"
                 onClick={Nickname}
+                style={{
+                  backgroundColor: userNickname.length == 0 && "#06A77D",
+                  color: userNickname.length == 0 && "white",
+                }}
+                disabled={userNickname.length == 0 ? true : false}
               >
                 중복 확인
               </Button>
@@ -178,12 +224,30 @@ export default function SignUp() {
                 className={styles.ResBtn}
                 variant="primary"
                 onClick={SignUp}
+                style={{
+                  backgroundColor:
+                    emailCheck && nicknameTF && TF ? null : "#06A77D",
+                  color: emailCheck && nicknameTF && TF ? null : "white",
+                }}
+                disabled={emailCheck && nicknameTF && TF ? false : true}
               >
                 가입
               </Button>
             </div>
           </Form>
         </>
+      ) : (
+        <Modal show={Error} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ color: "red" }}>Error</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>인증번호를 잘못 입력하셨습니다</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              확인
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ email, nickname, token }) {
   const toggleMenu = () => {
     document.getElementById("sidebar").style.transform = `translatex(23rem)`;
     document.getElementById("background").style.transform = `translatex(100vw)`;
@@ -42,28 +42,44 @@ export default function Header() {
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/Main" className={styles.Link}>
+              <Link
+                to="/Main"
+                className={styles.Link}
+                state={{ email: email, token: token, nickname: nickname }}
+              >
                 팡뮤티
               </Link>
             </Col>
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/RestaurantList" className={styles.Link}>
+              <Link
+                to="/RestaurantList"
+                className={styles.Link}
+                state={{ email: email, token: token, nickname: nickname }}
+              >
                 음식점 리스트
               </Link>
             </Col>
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/Forum" className={styles.Link}>
+              <Link
+                to="/Forum"
+                className={styles.Link}
+                state={{ email: email, token: token, nickname: nickname }}
+              >
                 게시판
               </Link>
             </Col>
           )}
           {resize > 700 && (
             <Col sm className={styles.List}>
-              <Link to="/Mypage" className={styles.Link}>
+              <Link
+                to="/Mypage"
+                className={styles.Link}
+                state={{ email: email, token: token, nickname: nickname }}
+              >
                 <CgProfile className={styles.MyIcon} />
               </Link>
             </Col>
@@ -74,19 +90,31 @@ export default function Header() {
         <Container className={styles.Container}>
           <div id="sidebar" className={styles.sidebar}>
             <div className="customer_info">
-              <Link to="/Mypage" className={styles.Link}>
+              <Link
+                to="/Mypage"
+                className={styles.Link}
+                state={{ email: email, token: token, nickname: nickname }}
+              >
                 <CgProfile className={styles.MyIcon} />
               </Link>
             </div>
             <ul className="categories">
               <li className="title">메뉴</li>
               <li className="menu-item">
-                <Link to="/Restaurant" className={styles.Link}>
+                <Link
+                  to="/RestaurantList"
+                  className={styles.Link}
+                  state={{ email: email, token: token, nickname: nickname }}
+                >
                   음식점 리스트
                 </Link>
               </li>
               <li className="menu-item">
-                <Link to="/Forum" className={styles.Link}>
+                <Link
+                  to="/Forum"
+                  className={styles.Link}
+                  state={{ email: email, token: token, nickname: nickname }}
+                >
                   게시판
                 </Link>
               </li>
