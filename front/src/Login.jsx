@@ -3,33 +3,40 @@ import styles from "./styles/Login.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CgDanger } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
 
 export default function Login() {
-  const [userEmail, setUserEmail] = useState("");
+  let navigate = useNavigate();
+
   const [userPassword, setUserPassword] = useState("");
-  const [isEmail, setIsEmail] = useState("");
-  const checkEmail = (e) => {
-    let regExp =
-      /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})\.([a-z\.]{2,6})$/;
-    // 형식에 맞는 경우 true 리턴
-    setIsEmail(regExp.test(e.target.value));
-  };
-  console.log(`${userEmail}@kw.ac.kr`);
-  const SendData = () => {
-    axios
+  const [inputEmail, setInputEmail] = useState("");
+
+  const [Error, setError] = useState(false);
+  const handleClose = () => setError(false);
+
+  const SendData = async () => {
+    await axios
       .post("http://52.44.107.157:8080/api/user/login", {
-        email: `${userEmail}@kw.ac.kr`,
+        email: `${inputEmail}@kw.ac.kr`,
         password: userPassword,
       })
       .then((res) => {
         console.log(res);
-        //setCertification(res)
+
+        navigate("/Main", {
+          state: {
+            email: res.data.email,
+            nickname: res.data.nickname,
+            token: res.data.token,
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
       });
   };
 
@@ -47,8 +54,7 @@ export default function Login() {
                 placeholder="아이디를 입력해 주세요"
                 autoComplete="off"
                 onChange={(e) => {
-                  setUserEmail(e.target.value);
-                  checkEmail(e);
+                  setInputEmail(e.target.value);
                 }}
               />
               <InputGroup.Text id="basic-addon2" className={styles.Default}>
@@ -75,13 +81,36 @@ export default function Login() {
               </Link>
             </div>
           </Form.Group>
-          <Button className={styles.Btn} variant="primary" onClick={SendData}>
-            <Link to="/Main" className={styles.Link}>
-              로그인
-            </Link>
+          <Button
+            className={styles.Btn}
+            style={{
+              backgroundColor:
+                (inputEmail.length == 0 || userPassword.length == 0) &&
+                "#06A77D",
+              color:
+                (inputEmail.length == 0 || userPassword.length == 0) && "black",
+            }}
+            variant="primary"
+            onClick={SendData}
+            disabled={
+              inputEmail.length > 0 && userPassword.length > 0 ? false : true
+            }
+          >
+            로그인
           </Button>
         </div>
       </Form>
+      <Modal show={Error} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "red" }}>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>아이디 또는 비밀번호를 다시 입력해 주세요</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

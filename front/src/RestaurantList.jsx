@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import styles from "./styles/RestaurantList.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,6 +13,8 @@ export default function RestaurantList() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
+  let location = useLocation();
+  console.log(location.state);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +39,11 @@ export default function RestaurantList() {
   };
   return (
     <>
-      <Header />
+      <Header
+        email={location.state.email}
+        nickname={location.state.nickname}
+        token={location.state.token}
+      />
       <div className={styles.Container}>
         <form className={styles.SearchBox}>
           <input type="search" className={styles.Search}></input>
