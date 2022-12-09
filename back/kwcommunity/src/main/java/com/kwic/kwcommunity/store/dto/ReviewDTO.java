@@ -15,6 +15,5 @@ public class ReviewDTO {
     private String date;
     private int grade;
     private String tag;
-    private int likeCount;
 
 }

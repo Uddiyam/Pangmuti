@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class StoreListDTO {
 
+    private Long storeId;
     private String storeName;
     private String storeImage;
     private String category;

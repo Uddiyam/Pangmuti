@@ -29,6 +29,12 @@ public class StoreController {
         return ResponseEntity.ok().body(storeList);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchStore(@RequestParam String keyword, Pageable pageable) {
+        Page<StoreListDTO> storeList = storeService.searchStoreList(keyword, pageable);
+        return ResponseEntity.ok().body(storeList);
+    }
+
     @GetMapping("/detail")
     public ResponseEntity<?> getStore(@AuthenticationPrincipal User user, @RequestParam Long storeId, Pageable pageable) {
         StoreDTO store = storeService.viewStore(user.getUsername(), storeId, pageable);

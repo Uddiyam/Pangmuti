@@ -28,17 +28,22 @@ public class StoreService {
     private final BookmarkRepository bookmarkRepository;
 
     public Page<StoreListDTO> getStoreList(Long categoryId, Long tagId, Pageable pageable) {
-        Page<Store> postPage;
+        Page<Store> storePage;
         if(categoryId == 1 && tagId == 1) {
-            postPage = storeRepository.findAll(pageable);
+            storePage = storeRepository.findAll(pageable);
         }
         else if(tagId == 1){
-            postPage = storeRepository.findByStoreCategory_CategoryId(categoryId, pageable);
+            storePage = storeRepository.findByStoreCategory_CategoryId(categoryId, pageable);
         }
         else {
-            postPage = storeRepository.findByStoreCategory_CategoryIdAndStoreTag_Tag_TagId(categoryId, tagId, pageable);
+            storePage = storeRepository.findByStoreCategory_CategoryIdAndStoreTag_Tag_TagId(categoryId, tagId, pageable);
         }
-        return responseStoreList(postPage);
+        return responseStoreList(storePage);
+    }
+
+    public Page<StoreListDTO> searchStoreList(String keyword, Pageable pageable) {
+        Page<Store> storeList = storeRepository.findByStoreNameContaining(keyword, pageable);
+        return responseStoreList(storeList);
     }
 
     public StoreDTO viewStore(String userId, Long storeId, Pageable pageable) {
@@ -68,7 +73,7 @@ public class StoreService {
     }
 
     public Page<ReviewDTO> pagingReview(Long storeId, Pageable pageable) {
-        Page<Review> page = reviewRepository.findByStore_StoreIdOrderByDateDesc(storeId, pageable);
+        Page<Review> page = reviewRepository.findByStore_StoreId(storeId, pageable);
         return responseReviewList(page);
     }
 
@@ -76,12 +81,12 @@ public class StoreService {
         return pp.map(
                 review -> new ReviewDTO(review.getReviewId(), review.getUser().getNickname(),
                         review.getContents(), review.getDate(), review.getGrade(),
-                        review.getTag().getTagName(), review.getLikeCount()));
+                        review.getTag().getTagName()));
     }
 
     public Page<StoreListDTO> responseStoreList(Page<Store> pp) {
         return pp.map(
-                store -> new StoreListDTO(store.getStoreName(), store.getStoreImage(), store.getStoreCategory().getCategoryName(),
+                store -> new StoreListDTO(store.getStoreId(), store.getStoreName(), store.getStoreImage(), store.getStoreCategory().getCategoryName(),
                         store.getStoreTag(), store.getGrade(), store.getReviewCount(), store.getBookmarkCount()));
     }
 

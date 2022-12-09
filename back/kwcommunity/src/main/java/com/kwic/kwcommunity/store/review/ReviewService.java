@@ -3,6 +3,8 @@ package com.kwic.kwcommunity.store.review;
 import com.kwic.kwcommunity.store.Store;
 import com.kwic.kwcommunity.store.StoreRepository;
 import com.kwic.kwcommunity.store.dto.CreateReviewDTO;
+import com.kwic.kwcommunity.store.tag.StoreTag;
+import com.kwic.kwcommunity.store.tag.StoreTagRepository;
 import com.kwic.kwcommunity.store.tag.Tag;
 import com.kwic.kwcommunity.store.tag.TagRepository;
 import com.kwic.kwcommunity.user.User;
@@ -24,7 +26,8 @@ public class ReviewService {
     private final StoreRepository storeRepository;
     private final TagRepository tagRepository;
 
-    //리뷰 등록(날짜 반환해줄까)
+    private final StoreTagRepository storeTagRepository;
+
     public String createReview(String userId, CreateReviewDTO dto) {
         LocalDateTime now = LocalDateTime.now();
         String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -42,10 +45,23 @@ public class ReviewService {
                 .date(formattedNow)
                 .grade(dto.getGrade())
                 .tag(tag)
-                .likeCount(0).build();
+                .build();
 
         reviewRepository.save(review);
+        createTag(store);
         return formattedNow;
+    }
+
+    public void updateStore(Store store) {
+
+    }
+    //5개 이상이면 태그 등록
+    public void createTag(Store store) {
+        StoreTag storeTag = StoreTag.builder()
+                .store(store)
+                .tag(tag)
+                .build();
+        storeTagRepository.save(storeTag);
     }
 
     //TODO 리뷰삭제

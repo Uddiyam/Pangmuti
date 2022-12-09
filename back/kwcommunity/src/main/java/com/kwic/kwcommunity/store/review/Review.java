@@ -24,7 +24,6 @@ public class Review {
     private Long reviewId;
     private String contents;
     private int grade;
-    private int likeCount;
     private String date;
 
     @ManyToOne
