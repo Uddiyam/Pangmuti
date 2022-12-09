@@ -59,7 +59,7 @@ function App() {
         token={location.state.token}
       />
       <div className={styles.Container}>
-        <h3>학식</h3>
+        <h4 style={{ color: "black", fontWeight: "bold" }}>학식</h4>
 
         <Button
           className={styles.Btn}
@@ -71,7 +71,7 @@ function App() {
           이번주 학식 보러가기
         </Button>
 
-        <h3>추천 음식점</h3>
+        <h4 style={{ color: "black", fontWeight: "bold" }}>추천 음식점</h4>
         <Slider {...settingsWithModules}>
           <div className={styles.Img}>
             <img

@@ -88,7 +88,7 @@ export default function Login() {
                 (inputEmail.length == 0 || userPassword.length == 0) &&
                 "#06A77D",
               color:
-                (inputEmail.length == 0 || userPassword.length == 0) && "black",
+                (inputEmail.length == 0 || userPassword.length == 0) && "white",
             }}
             variant="primary"
             onClick={SendData}

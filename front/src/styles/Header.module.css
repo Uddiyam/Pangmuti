@@ -8,7 +8,7 @@
 }
 
 .List{
-    height: 85px;
+    height: 80px;
     text-align: center;
     vertical-align: middle;
     padding-top: 1.8%;
@@ -18,7 +18,7 @@
 .Link{
     text-decoration: none;
     color: #F1A208;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bold;
 
 }

@@ -9,10 +9,10 @@
 .List{
     float: left;
     list-style-type: none;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
-    padding: 3%;
+    padding: 3% 4% 3% 4%;
     border-radius: 13px;
 }
 .search{

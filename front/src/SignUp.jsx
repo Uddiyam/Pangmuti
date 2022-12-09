@@ -16,7 +16,7 @@ export default function SignUp() {
   const [TF, setTF] = useState(false);
   const [nicknameTF, setNicknameTF] = useState();
 
-  const [userEmail, setUserEmail] = useState();
+  const [userEmail, setUserEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
   const [number, setNumber] = useState();
   const [Error, setError] = useState(false);

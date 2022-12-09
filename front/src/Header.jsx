@@ -84,6 +84,13 @@ export default function Header({ email, nickname, token }) {
               </Link>
             </Col>
           )}
+          {resize > 700 && (
+            <Col sm className={styles.List}>
+              <Link to="/" className={styles.Link}>
+                로그아웃
+              </Link>
+            </Col>
+          )}
         </Row>
       </Container>
       <>
@@ -116,6 +123,15 @@ export default function Header({ email, nickname, token }) {
                   state={{ email: email, token: token, nickname: nickname }}
                 >
                   게시판
+                </Link>
+              </li>
+              <li className="menu-item">
+                <Link
+                  to="/"
+                  className={styles.Link}
+                  state={{ email: email, token: token, nickname: nickname }}
+                >
+                  로그아웃
                 </Link>
               </li>
             </ul>
