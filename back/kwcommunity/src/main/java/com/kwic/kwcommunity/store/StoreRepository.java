@@ -6,11 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     Optional<Store> findByStoreId(Long storeId);
+
+    List<Store> findAll();
 
     //카테고리 전체, 태그 전체일때 (완전 초기)
     Page<Store> findAll(Pageable pageable);
