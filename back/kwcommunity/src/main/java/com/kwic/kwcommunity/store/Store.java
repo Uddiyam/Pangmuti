@@ -39,8 +39,8 @@ public class Store {
     private String menuImage;
     private String updateDate;
     private double grade;       //총평점
-    private int reviewCount;    //리뷰수
-    private int bookmarkCount; //즐겨찾기 수
+    private long reviewCount;    //리뷰수
+    private long bookmarkCount; //즐겨찾기 수
 
     @JsonIgnore
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

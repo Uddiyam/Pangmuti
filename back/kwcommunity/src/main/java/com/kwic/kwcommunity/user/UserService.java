@@ -4,6 +4,7 @@ import com.kwic.kwcommunity.security.AuthToken;
 import com.kwic.kwcommunity.security.TokenProvider;
 import com.kwic.kwcommunity.user.dto.CreateUserDTO;
 import com.kwic.kwcommunity.user.dto.LoginDTO;
+import com.kwic.kwcommunity.user.dto.MyPageDTO;
 import com.kwic.kwcommunity.user.dto.homeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,16 @@ public class UserService {
         else {
             throw new IllegalArgumentException("존재하지 않는 회원입니다");
         }
+    }
+
+    public MyPageDTO getMyPage(String userId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
+        return MyPageDTO.builder()
+                .bookmarkList(user.getBookmarkList())
+                .postList(user.getPostList())
+                .commentList(user.getCommentList())
+                .reviewList(user.getReviewList())
+                .build();
     }
 
     private String makeNewAllToken(User user){

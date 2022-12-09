@@ -7,14 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDTO {
+public class ReviewIdDTO {
 
     private Long reviewId;
-    private String nickname;
-    private String contents;
-    private String date;
-    private int grade;
-    private String tag;
-    //private boolean isMyReview;
 
 }

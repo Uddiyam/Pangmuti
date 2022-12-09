@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostListDTO {
 
+    private Long postId;
     private String nickname;
     private String date;
     private String contents;

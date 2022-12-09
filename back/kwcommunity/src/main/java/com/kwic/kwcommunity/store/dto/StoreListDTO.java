@@ -18,7 +18,7 @@ public class StoreListDTO {
     private String category;
     private List<StoreTag> tagList;
     private double grade;       //총평점
-    private int reviewCount;    //리뷰수
-    private int bookmarkCount; //즐겨찾기 수
+    private long reviewCount;    //리뷰수
+    private long bookmarkCount; //즐겨찾기 수
 
 }

@@ -2,7 +2,12 @@ package com.kwic.kwcommunity.user;
 
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kwic.kwcommunity.post.Post;
+import com.kwic.kwcommunity.post.comment.Comment;
+import com.kwic.kwcommunity.store.bookmark.Bookmark;
+import com.kwic.kwcommunity.store.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +47,22 @@ public class User {
 
     @Column(nullable = false)
     private RoleType roleType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Review> reviewList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Bookmark> bookmarkList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Post> postList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 
     public static String createUserId(){return NanoIdUtils.randomNanoId();}
 

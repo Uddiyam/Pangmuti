@@ -21,5 +21,4 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     Page<Store> findByStoreNameContaining(String keyword, Pageable pageable);
 
-
 }
