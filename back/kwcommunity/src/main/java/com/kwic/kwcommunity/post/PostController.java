@@ -49,8 +49,8 @@ public class PostController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deletePost(@AuthenticationPrincipal User user, @RequestBody Long postId) {
-        Long id = postService.deletePost(user.getUsername(), postId);
+    public ResponseEntity<?> deletePost(@AuthenticationPrincipal User user, @RequestBody PostIdDTO dto) {
+        Long id = postService.deletePost(user.getUsername(), dto.getPostId());
         return ResponseEntity.ok().body(id);
     }
 

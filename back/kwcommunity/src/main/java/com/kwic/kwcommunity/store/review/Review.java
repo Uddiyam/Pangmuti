@@ -1,6 +1,7 @@
 package com.kwic.kwcommunity.store.review;
 
 import com.kwic.kwcommunity.store.Store;
+import com.kwic.kwcommunity.store.tag.Tag;
 import com.kwic.kwcommunity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,10 +24,7 @@ public class Review {
     private Long reviewId;
     private String contents;
     private int grade;
-    private String tag;
     private int likeCount;
-
-    @CreatedDate
     private String date;
 
     @ManyToOne
@@ -36,6 +34,10 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @OneToOne
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
 
 
 }

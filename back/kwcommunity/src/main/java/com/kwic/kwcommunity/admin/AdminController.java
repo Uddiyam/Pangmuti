@@ -1,4 +1,4 @@
-package com.kwic.kwcommunity.store.admin;
+package com.kwic.kwcommunity.admin;
 
 import com.kwic.kwcommunity.ApiStatus;
 import com.kwic.kwcommunity.ResponseDTO;

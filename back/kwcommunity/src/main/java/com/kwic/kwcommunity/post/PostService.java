@@ -29,7 +29,6 @@ public class PostService {
     private final PostCategoryRepository postCategoryRepository;
     private final UserRepository userRepository;
 
-    //TODO 다 토큰처리 필요. 아직 안되어있음
 
     public Page<PostListDTO> viewPostList(Long categoryId, Pageable pageable) {
         Page<Post> postPage;

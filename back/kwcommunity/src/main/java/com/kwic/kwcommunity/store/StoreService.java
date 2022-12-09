@@ -2,6 +2,7 @@ package com.kwic.kwcommunity.store;
 
 import com.kwic.kwcommunity.post.Post;
 import com.kwic.kwcommunity.post.dto.PostListDTO;
+import com.kwic.kwcommunity.store.bookmark.BookmarkRepository;
 import com.kwic.kwcommunity.store.dto.*;
 import com.kwic.kwcommunity.store.review.Review;
 import com.kwic.kwcommunity.store.review.ReviewRepository;
@@ -15,44 +16,42 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class StoreService {
-    //TODO 어떤 카테고리 및 정렬기능이 눌렸는지
     private final StoreRepository storeRepository;
     private final ReviewRepository reviewRepository;
     private final StoreTagRepository storeTagRepository;
+    private final BookmarkRepository bookmarkRepository;
 
-//    public List<StoreListDTO> getStoreList(Long userId) { //임시로 id 받는다고 해놓음 실제는 시큐리티 적용 예정
-//        //TODO 토큰처리 필요
-//        List<Store> storeList = storeRepository.findAll();
-//
-//        for(Store store : storeList) {
-//            Review review = reviewRepository.findByStoreId(store.getStoreId().toString());
-//
-//        }
-//
-//    }
-
-    public StoreDTO viewStore(ReqStoreDTO dto, Pageable pageable) {
-        List<String> tagList = new ArrayList<String>();
-        List<StoreTag> storeTag = storeTagRepository.findByStore_StoreId(dto.getStoreId());
-        for(StoreTag tag : storeTag) {
-            if(tag.getTagCount() > 5) {
-                tagList.add(tag.getTag().getTagName());
-            }
+    public Page<StoreListDTO> getStoreList(Long categoryId, Long tagId, Pageable pageable) {
+        Page<Store> postPage;
+        if(categoryId == 1 && tagId == 1) {
+            postPage = storeRepository.findAll(pageable);
         }
-        Store store = storeRepository.findByStoreId(dto.getStoreId()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게정보입니다"));
-        Page<ReviewDTO> reviewList = pagingReview(dto.getStoreId(), pageable);
+        else if(tagId == 1){
+            postPage = storeRepository.findByStoreCategory_CategoryId(categoryId, pageable);
+        }
+        else {
+            postPage = storeRepository.findByStoreCategory_CategoryIdAndStoreTag_Tag_TagId(categoryId, tagId, pageable);
+        }
+        return responseStoreList(postPage);
+    }
+
+    public StoreDTO viewStore(String userId, Long storeId, Pageable pageable) {
+        boolean isBookmark = bookmarkRepository.existsByStore_StoreIdAndUser_UserId(storeId, userId);
+        Store store = storeRepository.findByStoreId(storeId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게정보입니다"));
+        Page<ReviewDTO> reviewList = pagingReview(storeId, pageable);
         return StoreDTO.builder()
                 .storeId(store.getStoreId())
                 .storeName(store.getStoreName())
                 .storeImage(store.getStoreImage())
                 .category(store.getStoreCategory().getCategoryName())
                 .address(store.getAddress())
-                .tagList(tagList)
+                .tagList(store.getStoreTag())
                 .maxPrice(store.getMaxPrice())
                 .minPrice(store.getMinPrice())
                 .latitude(store.getLatitude())
@@ -62,6 +61,8 @@ public class StoreService {
                 .closeTime(store.getCloseTime())
                 .menuImage(store.getMenuImage())
                 .updateDate(store.getUpdateDate())
+                .grade(store.getGrade())
+                .isBookmark(isBookmark)
                 .reviewList(reviewList)
                 .build();
     }
@@ -75,7 +76,13 @@ public class StoreService {
         return pp.map(
                 review -> new ReviewDTO(review.getReviewId(), review.getUser().getNickname(),
                         review.getContents(), review.getDate(), review.getGrade(),
-                        review.getTag(), review.getLikeCount()));
+                        review.getTag().getTagName(), review.getLikeCount()));
+    }
+
+    public Page<StoreListDTO> responseStoreList(Page<Store> pp) {
+        return pp.map(
+                store -> new StoreListDTO(store.getStoreName(), store.getStoreImage(), store.getStoreCategory().getCategoryName(),
+                        store.getStoreTag(), store.getGrade(), store.getReviewCount(), store.getBookmarkCount()));
     }
 
 }

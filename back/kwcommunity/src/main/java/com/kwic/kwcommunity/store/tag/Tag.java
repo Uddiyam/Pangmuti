@@ -19,7 +19,4 @@ public class Tag {
     private Long tagId;
     private String tagName;
 
-    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
-    private List<StoreTag> storeTag;
-
 }

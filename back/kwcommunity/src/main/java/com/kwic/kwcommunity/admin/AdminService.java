@@ -1,4 +1,4 @@
-package com.kwic.kwcommunity.store.admin;
+package com.kwic.kwcommunity.admin;
 
 import com.kwic.kwcommunity.post.category.PostCategory;
 import com.kwic.kwcommunity.post.category.PostCategoryRepository;
@@ -61,6 +61,9 @@ public class AdminService {
                 .closeTime(dto.getCloseTime())
                 .menuImage(dto.getMenuImage())
                 .updateDate(formattedNow)
+                .grade(0)
+                .reviewCount(0)
+                .bookmarkCount(0)
                 .reviewList(null)
                 .build();
         storeRepository.save(store);
