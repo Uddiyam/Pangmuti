@@ -1,70 +1,130 @@
-.search{
-    margin-top: 10px;
-    margin-left: 30vw;
-    margin-bottom: 10px;
-    width: 40vw;
-}
-
 .DetailTop{
     display: flex;
     flex-direction: row;
 }
 
+.Line{
+    margin-left: 14vw;
+    width: 72vw;
+}
+
+.Title{
+    font-size: 1.2em;
+    margin-left: 15vw;
+}
+
 .Nickname{
+    margin-top: 10px;
     font-size: 2em;
-    margin-left: 10vw;
+    margin-left: 17vw;
 }
 
 .Date{
     font-size: 0.8em;
-    padding-top: 2em;
-    margin-left: 5vw;
+    padding-top: 2.5em;
+    margin-left: 3vw;
 }
 
 .Delete{
     font-size: 0.8em;
     padding-top: 2em;
-    margin-left: 55vw;
+    margin-left: 45vw;
 }
 
 .Delete:hover{
     cursor: pointer;
 }
 
-.Line{
-    margin-left: 5vw;
-    width: 90vw;
-}
-
-.Title{
-    font-size: 1.2em;
-    margin-left: 10vw;
-}
-
 .Post{
-    margin-top: 10px;
-    margin-left: 12vw;
-    margin-right: 10vw;
+    border: solid rgb(211, 211, 211) 1px;
+    margin-top: 30px;
+    margin-left: 15vw;
+    margin-right: 14vw;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    padding-left: 3vw;
+    padding-right: 3vw;
     height: 300px;
 }
 
+.RegisterContentTable{
+    align-items: center;
+    margin-left:15vw;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width:70vw;
+    border: solid #e8eef7 1px;  
+    background-color: #e8eef7;
+}
+
+.RegisterContentTableBody{
+    border-top: solid #e8eef7 1px;
+    background-color: #e8eef7;
+}
+
 .RegisterContent{
-    width: 65vw;
+    border: solid #e8eef7 1px;
+    margin-top: 1vw;
+    margin-left: 4vw;
+    margin-bottom: 1vw;
+    width: 55vw;
     height: 100px;
 }
 
-.RegisterContentTable{
-    margin-left:10vw;
-    margin-bottom: 10px;
-    width:80vw;
-    overflow: scroll;
-    border: solid black 1px;
+.CommentTitle{
+    margin-left:15vw;
+    width: 100px;
+    height: 25px;     
+    text-align: center;
+    font-size: 17px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #e8eef7;
 }
 
-.ShowComment{
-    margin-left:10vw;
-    margin-bottom: 10px;
-    width:80vw;
-    border: solid black 1px;
+.RegisterButton{
+    border: none;
+    margin-left: 10px;
+    width: 90px;
+    height: 100px;
+    color: white;
+    background-color: #224874;
+}
 
+.CommentLine{
+    margin-top: -16px;
+    margin-bottom: 0px;
+    margin-left:15vw;
+    width:70vw;
+    background-color: #e8eef7;
+}
+
+.CommentCLine{
+    width:64vw;
+    margin-left: 3vw;
+}
+
+.CommentHeader{
+    margin-left: 5vw;
+    display: flex;
+}
+
+.NicknameSecond{
+    font-size: 18px;
+}
+
+.Delete2{
+    padding-top: 3px;
+    font-size: 12px;
+    margin-left: 53vw;
+}
+
+.Delete2:hover{
+    cursor: pointer;
+}
+
+.CommentContent{
+    margin-left: 6vw;
+    margin-top: 20px;
+    padding-bottom: 20px;
 }
