@@ -48,7 +48,7 @@ public class ReviewService {
                 .user(user)
                 .contents(dto.getContents())
                 .date(formattedNow)
-                .grade(dto.getGrade())
+                .grade(dto.getGrade()/20)
                 .tag(tag)
                 .build();
 
@@ -78,7 +78,7 @@ public class ReviewService {
     //5개 이상이면 태그 등록
     public void createTag(Store store, Tag tag) {
         long tagCount = reviewRepository.countByTag_TagId(tag.getTagId());
-        if(tagCount > 5) {
+        if(tagCount >= 5) {
             if(!storeTagRepository.existsByStore_StoreIdAndTag_TagId(store.getStoreId(), tag.getTagId())) {
                 StoreTag storeTag = StoreTag.builder()
                         .store(store)

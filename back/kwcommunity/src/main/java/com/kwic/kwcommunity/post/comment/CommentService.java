@@ -27,8 +27,10 @@ public class CommentService {
     public Comment createComment(String userId, CreateCommentDTO dto) {
         LocalDateTime now = LocalDateTime.now();
         String formattedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Post post = postRepository.findByPostId(dto.getPostId()).orElseThrow();
-        User user = userRepository.findByUserId(userId).orElseThrow();
+        Post post = postRepository.findByPostId(dto.getPostId()).orElseThrow(() ->
+                new IllegalArgumentException("게시글이 존재하지 않습니다"));
+        User user = userRepository.findByUserId(userId).orElseThrow(() ->
+                new IllegalArgumentException("존재하는 회원이 아닙니다"));
         Comment comment = Comment.builder()
                 .contents(dto.getContents())
                 .date(formattedNow)

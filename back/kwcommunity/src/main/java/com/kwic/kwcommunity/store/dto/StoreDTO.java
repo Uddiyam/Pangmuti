@@ -3,6 +3,7 @@ package com.kwic.kwcommunity.store.dto;
 import com.kwic.kwcommunity.post.comment.Comment;
 import com.kwic.kwcommunity.store.review.Review;
 import com.kwic.kwcommunity.store.tag.StoreTag;
+import com.kwic.kwcommunity.store.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class StoreDTO {
     private String storeName;
     private String storeImage;
     private String category;
-    private List<StoreTag> tagList;
+    private List<Tag> tagList;
     private double minPrice;
     private double maxPrice;
     private String address;

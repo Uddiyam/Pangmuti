@@ -31,11 +31,11 @@ public class StoreService {
         Page<Store> storePage;
         if(categoryId == 1 && tagId == 1) {
             storePage = storeRepository.findAll(pageable);
-        }
-        else if(tagId == 1){
+        } else if(tagId == 1){
             storePage = storeRepository.findByStoreCategory_CategoryId(categoryId, pageable);
-        }
-        else {
+        } else if(categoryId == 1){
+            storePage = storeRepository.findByStoreTag_Tag_TagId(tagId, pageable);
+        } else {
             storePage = storeRepository.findByStoreCategory_CategoryIdAndStoreTag_Tag_TagId(categoryId, tagId, pageable);
         }
         return responseStoreList(storePage);
@@ -49,14 +49,14 @@ public class StoreService {
     public StoreDTO viewStore(String userId, Long storeId, Pageable pageable) {
         boolean isBookmark = bookmarkRepository.existsByStore_StoreIdAndUser_UserId(storeId, userId);
         Store store = storeRepository.findByStoreId(storeId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게정보입니다"));
-        Page<ReviewDTO> reviewList = pagingReview(storeId, pageable);
+        Page<ReviewDTO> reviewList = pagingReview(userId, storeId, pageable);
         return StoreDTO.builder()
                 .storeId(store.getStoreId())
                 .storeName(store.getStoreName())
                 .storeImage(store.getStoreImage())
                 .category(store.getStoreCategory().getCategoryName())
                 .address(store.getAddress())
-                .tagList(store.getStoreTag())
+                .tagList(store.getStoreTag().stream().map(StoreTag::getTag).collect(Collectors.toList()))
                 .maxPrice(store.getMaxPrice())
                 .minPrice(store.getMinPrice())
                 .latitude(store.getLatitude())
@@ -72,22 +72,22 @@ public class StoreService {
                 .build();
     }
 
-    public Page<ReviewDTO> pagingReview(Long storeId, Pageable pageable) {
+    public Page<ReviewDTO> pagingReview(String userId, Long storeId, Pageable pageable) {
         Page<Review> page = reviewRepository.findByStore_StoreId(storeId, pageable);
-        return responseReviewList(page);
+        return responseReviewList(userId, page);
     }
 
-    public Page<ReviewDTO> responseReviewList(Page<Review> pp) {
+    public Page<ReviewDTO> responseReviewList(String userId, Page<Review> pp) {
         return pp.map(
                 review -> new ReviewDTO(review.getReviewId(), review.getUser().getNickname(),
                         review.getContents(), review.getDate(), review.getGrade(),
-                        review.getTag().getTagName()));
+                        review.getTag().getTagName(), review.checkMyReview(userId)));
     }
 
     public Page<StoreListDTO> responseStoreList(Page<Store> pp) {
         return pp.map(
                 store -> new StoreListDTO(store.getStoreId(), store.getStoreName(), store.getStoreImage(), store.getStoreCategory().getCategoryName(),
-                        store.getStoreTag(), store.getGrade(), store.getReviewCount(), store.getBookmarkCount()));
+                        store.getStoreTag().stream().map(StoreTag::getTag).collect(Collectors.toList()), store.getGrade(), store.getReviewCount(), store.getBookmarkCount()));
     }
 
 }

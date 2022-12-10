@@ -15,6 +15,6 @@ public class ReviewDTO {
     private String date;
     private int grade;
     private String tag;
-    //private boolean isMyReview;
+    private boolean isMyReview;
 
 }

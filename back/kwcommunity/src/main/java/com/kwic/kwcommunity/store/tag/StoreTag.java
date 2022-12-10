@@ -1,5 +1,6 @@
 package com.kwic.kwcommunity.store.tag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kwic.kwcommunity.store.Store;
 import com.kwic.kwcommunity.store.category.StoreCategory;
 import lombok.AllArgsConstructor;

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Builder
@@ -38,5 +39,8 @@ public class Review {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
+    public boolean checkMyReview(String userId) {
+        return Objects.equals(userId, this.user.getUserId());
+    }
 
 }

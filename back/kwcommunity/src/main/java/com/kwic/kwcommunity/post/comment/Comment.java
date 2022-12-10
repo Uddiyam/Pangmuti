@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Builder
@@ -37,5 +38,8 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public boolean checkMyComment(String userId) {
+        return Objects.equals(userId, this.user.getUserId());
+    }
 
 }

@@ -43,8 +43,8 @@ public class PostController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getPostDetail(@AuthenticationPrincipal User user, @RequestParam Long postId) {
-        PostDTO post = postService.viewPost(user.getUsername(), postId);
+    public ResponseEntity<?> getPostDetail(@AuthenticationPrincipal User user, @RequestParam Long postId, Pageable pageable) {
+        PostDTO post = postService.viewPost(user.getUsername(), postId, pageable);
         return ResponseEntity.ok().body(post);
     }
 

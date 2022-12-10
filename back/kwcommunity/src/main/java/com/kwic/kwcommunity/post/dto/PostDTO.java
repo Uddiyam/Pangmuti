@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public class PostDTO {
     private String contents;
     private String category;
     private boolean writer;
-    private List<Comment> commentList;
+    private Page<CommentDTO> commentList;
 
 }

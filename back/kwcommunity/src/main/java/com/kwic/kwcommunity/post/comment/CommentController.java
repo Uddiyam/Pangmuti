@@ -1,6 +1,7 @@
 package com.kwic.kwcommunity.post.comment;
 
 import com.kwic.kwcommunity.post.Post;
+import com.kwic.kwcommunity.post.dto.CommentIdDTO;
 import com.kwic.kwcommunity.post.dto.CreateCommentDTO;
 import com.kwic.kwcommunity.post.dto.CreatePostDTO;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +22,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@AuthenticationPrincipal User user, @RequestBody @Valid CreateCommentDTO dto) {
+    public ResponseEntity<?> createComment(@AuthenticationPrincipal User user, @RequestBody @Valid CreateCommentDTO dto) {
         Comment comment = commentService.createComment(user.getUsername(), dto);
         return ResponseEntity.ok().body(comment);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deletePost(@AuthenticationPrincipal User user, @RequestBody Long commentId) {
-        Long id = commentService.deleteComment(user.getUsername(), commentId);
+    public ResponseEntity<?> deleteComment(@AuthenticationPrincipal User user, @RequestBody CommentIdDTO dto) {
+        Long id = commentService.deleteComment(user.getUsername(), dto.getCommentId());
         return ResponseEntity.ok().body(id);
     }
 }

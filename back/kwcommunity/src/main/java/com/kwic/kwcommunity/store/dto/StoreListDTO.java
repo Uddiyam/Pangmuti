@@ -1,6 +1,7 @@
 package com.kwic.kwcommunity.store.dto;
 
 import com.kwic.kwcommunity.store.tag.StoreTag;
+import com.kwic.kwcommunity.store.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class StoreListDTO {
     private String storeName;
     private String storeImage;
     private String category;
-    private List<StoreTag> tagList;
+    private List<Tag> tagList;
     private double grade;       //총평점
     private long reviewCount;    //리뷰수
     private long bookmarkCount; //즐겨찾기 수

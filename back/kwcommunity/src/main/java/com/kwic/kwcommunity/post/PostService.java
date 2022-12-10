@@ -2,16 +2,15 @@ package com.kwic.kwcommunity.post;
 
 import com.kwic.kwcommunity.post.category.PostCategory;
 import com.kwic.kwcommunity.post.category.PostCategoryRepository;
+import com.kwic.kwcommunity.post.comment.Comment;
+import com.kwic.kwcommunity.post.comment.CommentRepository;
 import com.kwic.kwcommunity.post.dto.*;
-import com.kwic.kwcommunity.post.exception.NoSuchDataException;
 import com.kwic.kwcommunity.user.User;
 import com.kwic.kwcommunity.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +27,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostCategoryRepository postCategoryRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
 
     public Page<PostListDTO> viewPostList(Long categoryId, Pageable pageable) {
@@ -64,14 +64,16 @@ public class PostService {
         return post;
     }
 
-    public PostDTO viewPost(String userId, Long postId) {
+    public PostDTO viewPost(String userId, Long postId, Pageable pageable) {
         Post post = postRepository.findById(postId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글입니다"));
         boolean isWriter = false;
         if(Objects.equals(userId, post.getUser().getUserId())) {
             isWriter = true;
         }
+        Page<CommentDTO> commentList = pagingComment(userId, postId, pageable);
+
         return new PostDTO(post.getUser().getNickname(), post.getDate(), post.getContents(),
-                post.getPostCategory().getCategoryName(), isWriter, post.getCommentList());
+                post.getPostCategory().getCategoryName(), isWriter, commentList);
     }
 
     @Transactional
@@ -82,6 +84,16 @@ public class PostService {
         return postId;
     }
 
+    public Page<CommentDTO> pagingComment(String userId, Long postId, Pageable pageable) {
+        Page<Comment> page = commentRepository.findByPost_PostId(postId, pageable);
+        return responseCommentList(userId, page);
+    }
+
+    public Page<CommentDTO> responseCommentList(String userId, Page<Comment> pp) {
+        return pp.map(
+                comment -> new CommentDTO(comment.getCommentId(), comment.getUser().getNickname(),
+                        comment.getContents(), comment.getDate(), comment.checkMyComment(userId)));
+    }
     public Page<PostListDTO> responsePostList(Page<Post> pp) {
         return pp.map(
                 post -> new PostListDTO(post.getPostId(), post.getUser().getNickname(), post.getDate(),
