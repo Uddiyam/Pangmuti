@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NicknameDTO {
+public class MyPostDTO {
 
-    @NotBlank
-    private String nickname;
+    private Long postId;
+    private String date;
+    private String contents;
+    private String category;
+
 }

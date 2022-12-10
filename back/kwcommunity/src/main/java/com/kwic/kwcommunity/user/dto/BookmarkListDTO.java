@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NicknameDTO {
+public class BookmarkListDTO {
 
-    @NotBlank
-    private String nickname;
+    private Long storeId;
+    private String storeName;
+    private String storeImage;
+    private String category;
+    private double grade;
+
 }

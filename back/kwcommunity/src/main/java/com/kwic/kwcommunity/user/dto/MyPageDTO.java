@@ -17,9 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MyPageDTO {
 
-    private List<Bookmark> bookmarkList;
-    private List<Post> postList;
-    private List<Comment> commentList;
-    private List<Review> reviewList;
+    private String nickname;
+    private String email;
 
 }

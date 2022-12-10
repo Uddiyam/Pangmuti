@@ -62,16 +62,6 @@ public class UserService {
         }
     }
 
-    public MyPageDTO getMyPage(String userId) {
-        User user = userRepository.findByUserId(userId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
-        return MyPageDTO.builder()
-                .bookmarkList(user.getBookmarkList())
-                .postList(user.getPostList())
-                .commentList(user.getCommentList())
-                .reviewList(user.getReviewList())
-                .build();
-    }
-
     public List<String> getRandomStore() {
         List<Store> storeList = storeRepository.findAll();
         List<String> imageList = new ArrayList<>();

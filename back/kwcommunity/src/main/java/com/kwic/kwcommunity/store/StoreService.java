@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 public class StoreService {
     private final StoreRepository storeRepository;
     private final ReviewRepository reviewRepository;
-    private final StoreTagRepository storeTagRepository;
     private final BookmarkRepository bookmarkRepository;
 
     public Page<StoreListDTO> getStoreList(Long categoryId, Long tagId, Pageable pageable) {
@@ -66,7 +65,7 @@ public class StoreService {
                 .closeTime(store.getCloseTime())
                 .menuImage(store.getMenuImage())
                 .updateDate(store.getUpdateDate())
-                .grade(store.getGrade())
+                .grade(Math.round(store.getGrade()*100)/100.0)
                 .isBookmark(isBookmark)
                 .reviewList(reviewList)
                 .build();
@@ -87,7 +86,7 @@ public class StoreService {
     public Page<StoreListDTO> responseStoreList(Page<Store> pp) {
         return pp.map(
                 store -> new StoreListDTO(store.getStoreId(), store.getStoreName(), store.getStoreImage(), store.getStoreCategory().getCategoryName(),
-                        store.getStoreTag().stream().map(StoreTag::getTag).collect(Collectors.toList()), store.getGrade(), store.getReviewCount(), store.getBookmarkCount()));
+                        store.getStoreTag().stream().map(StoreTag::getTag).collect(Collectors.toList()), Math.round(store.getGrade()*100)/100.0, store.getReviewCount(), store.getBookmarkCount()));
     }
 
 }

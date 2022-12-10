@@ -40,7 +40,7 @@ public class ReviewService {
                 new IllegalArgumentException("존재하지 않는 회원입니다"));
         Store store = storeRepository.findById(dto.getStoreId()).orElseThrow(() ->
                 new IllegalArgumentException("존재하지 않는 가게입니다"));
-        Tag tag = tagRepository.findByTagName(dto.getTag()).orElseThrow(() ->
+        Tag tag = tagRepository.findByTagId(dto.getTagId()).orElseThrow(() ->
                 new IllegalArgumentException("존재하지 않는 태그입니다"));
 
         Review review = Review.builder()
