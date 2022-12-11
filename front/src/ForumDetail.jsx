@@ -119,32 +119,7 @@ export default function ForumDetail() {
             <hr className={styles.CommentCLine}></hr>
             <div className={styles.CommentHeader}>
             <div className={styles.NicknameSecond}>{a.nickname}</div> 
-            {
-              a.myComment?
-              <div onClick={()=>{
-                axios
-                .delete("http://52.44.107.157:8080/api/comment/delete",{ 
-                data:{
-                  commentId: a.commentId
-                },
-                headers: {
-                    Authorization: `Bearer ${location.state.token}`,
-                  },
-                })
-                .then((result) => {
-                  if(pagere === true){
-                    setPageRe(false);
-                  }
-                  else{
-                    setPageRe(true);
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-              }} className={styles.Delete2}>삭제</div>:
-              <div></div>
-            }
+            <div className={styles.CommentDate}>{a.date}</div>
             </div>
             <div className={styles.CommentContent}>{a.contents}</div>
             </div>

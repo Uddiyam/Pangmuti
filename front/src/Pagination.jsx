@@ -27,6 +27,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
       <nav>
         <div className="pagination">
           {pageNumbers.map((number) => (
+            console.log(number),
+            number == 1?
             <div key={number} className="page-item">
               <PageSpan
                 onClick={() => {
@@ -43,12 +45,34 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                   backgroundColor:
                     document.getElementById(number) &&
                     document.getElementById(number).id == num &&
-                    "rgba(5, 47, 95, 1)",
+                    "rgba(5, 47, 95, 0.3)",
                 }}
               >
                 {number}
               </PageSpan>
-            </div>
+            </div>:
+            <div key={number} className="page-item">
+            <PageSpan
+              onClick={() => {
+                paginate(number);
+                setNum(number);
+              }}
+              className="page-link"
+              id={number}
+              style={{
+                color:
+                  document.getElementById(number) &&
+                  document.getElementById(number).id == num &&
+                  "#D5C67A",
+                backgroundColor:
+                  document.getElementById(number) &&
+                  document.getElementById(number).id == num &&
+                  "rgba(5, 47, 95, 1)",
+              }}
+            >
+              {number}
+            </PageSpan>
+          </div>
           ))}
         </div>
       </nav>
