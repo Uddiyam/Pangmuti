@@ -52,14 +52,15 @@
     margin-left:15vw;
     margin-top: 0px;
     margin-bottom: 10px;
-    width:70vw;
-    border: solid #e8eef7 1px;  
+    width:71%;
+    border: solid #e8eef7 1px;
     background-color: #e8eef7;
 }
 
 .RegisterContentTableBody{
     border-top: solid #e8eef7 1px;
     background-color: #e8eef7;
+    width: 100%;
 }
 
 .RegisterContent{
@@ -67,14 +68,15 @@
     margin-top: 1vw;
     margin-left: 4vw;
     margin-bottom: 1vw;
-    width: 55vw;
+    width: 75%;
     height: 100px;
+    border-radius: 15px;
 }
 
 .CommentTitle{
     margin-left:15vw;
     width: 100px;
-    height: 25px;     
+    height: 25px;
     text-align: center;
     font-size: 17px;
     border-top-left-radius: 3px;
@@ -85,17 +87,19 @@
 .RegisterButton{
     border: none;
     margin-left: 10px;
-    width: 90px;
+    margin-right: 2%;
+    width: 13%;
     height: 100px;
     color: white;
     background-color: #224874;
+    border-radius: 15px;
 }
 
 .CommentLine{
     margin-top: -16px;
     margin-bottom: 0px;
     margin-left:15vw;
-    width:70vw;
+    width:71%;
     background-color: #e8eef7;
 }
 

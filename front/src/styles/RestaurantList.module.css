@@ -27,3 +27,19 @@
     padding: 3% 4% 3% 4%;
     border-radius: 12px;
 }
+
+.TagList{
+    margin-top: 5%;
+}
+
+.Tag{
+    float: left;
+    margin-right: 1%;
+    list-style-type: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 3% 4% 3% 4%;
+    border-radius: 12px;
+    margin-top: 5%;
+}

@@ -57,6 +57,7 @@ function App() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <div className={styles.Container}>
         <h4 style={{ color: "black", fontWeight: "bold" }}>학식</h4>
@@ -75,37 +76,43 @@ function App() {
         <Slider {...settingsWithModules}>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBMsXIyVI_klwdSTFJVzOT3-MgHC7JS8TvSQ&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[0]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHD_6BH9TeYm8t3mXjOk8T3j4WXzKtDjJoGA&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[1]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbqJyNsmOHFwhAczOF5BGVyGV00TrjcTSOBg&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[2]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZzRpBlbnogFySQeIR6ttK2JHRQaluregrg&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[3]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1GT3nAxriAC4h7BLcQYpZAtOjw0Jjx4NvAw&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[4]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4TlaLpGHeLiYqEchmVgGYK1GFoHYGbdqRMg&usqp=CAU"
+              className={styles.ImgContent}
+              src={location.state.Img[5]}
               style={{ width: "100%" }}
             />
           </div>

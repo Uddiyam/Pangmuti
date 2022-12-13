@@ -128,6 +128,7 @@ export default function Restaurant() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <div className={styles.Container}>
         <form className={styles.SearchBox}>

@@ -42,3 +42,7 @@
   width: 68% !important;
   object-fit: contain;
 }
+
+.ImgContent{
+  min-height: 350px;
+}

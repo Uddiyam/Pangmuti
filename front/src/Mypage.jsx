@@ -18,6 +18,7 @@ export default function Mypage() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <div className={styles.Intro}>
         <CgProfile className={styles.MyIcon} />

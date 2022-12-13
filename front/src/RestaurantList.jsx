@@ -48,13 +48,14 @@ export default function RestaurantList() {
 
   //카테고리 선택
   const [categoryId, setCategoryId] = useState(1);
+  const [tagId, setTagId] = useState(1);
 
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/store", {
         params: {
           categoryId: categoryId,
-          tagId: 1,
+          tagId: tagId,
           page: currentPage - 1,
           size: postsPerPage,
           sort: "storeName,desc",
@@ -72,7 +73,7 @@ export default function RestaurantList() {
       .catch((err) => {
         console.log(err);
       });
-  }, [currentPage, categoryId]);
+  }, [currentPage, categoryId, tagId]);
 
   return (
     <>
@@ -80,6 +81,7 @@ export default function RestaurantList() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <div className={styles.Container}>
         <form className={styles.SearchBox}>
@@ -96,10 +98,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 1
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 1 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 1 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 1 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 전체
@@ -114,10 +114,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 2
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 2 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 2 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 2 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 한식
@@ -132,10 +130,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 4
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 4 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 4 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 4 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 일식
@@ -150,10 +146,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 5
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 5 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 5 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 5 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 양식/패스트푸드
@@ -168,10 +162,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 3
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 3 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 3 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 3 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 중식/아시안
@@ -192,10 +184,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 9
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 9 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 9 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 9 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 분식
@@ -210,10 +200,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 8
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 8 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 8 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 8 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 술집
@@ -234,10 +222,8 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 6
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 6 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 6 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 6 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 카페/디저트
@@ -252,13 +238,135 @@ export default function RestaurantList() {
                 }}
                 style={{
                   backgroundColor:
-                    categoryId == 7
-                      ? "rgba(5, 47, 95, 1)"
-                      : "rgba(5, 47, 95, 0.3)",
-                  color: categoryId == 7 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                    categoryId == 7 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: categoryId == 7 ? "white" : "rgba(0,0,0,0.5)",
                 }}
               >
                 편의점
+              </li>
+            </Col>
+          </Row>
+
+          <Row
+            style={{ textAlign: "center", margin: "0 auto" }}
+            className={styles.TagList}
+          >
+            <Col>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(1);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 1 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 1 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                태그전체
+              </li>
+            </Col>
+            <Col>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(2);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 2 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 2 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                혼밥하기좋은
+              </li>
+            </Col>
+            <Col>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(3);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 3 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 3 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                분위기좋은
+              </li>
+            </Col>
+            <Col xs={2}>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(4);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 4 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 4 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                가성비좋은
+              </li>
+            </Col>
+            <Col>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(5);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 5 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 5 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                모임하기좋은
+              </li>
+            </Col>
+            <Col
+              style={{
+                textAlign: "center",
+                margin: "0 auto",
+                paddingLeft: "5%",
+              }}
+            >
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(6);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 6 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 6 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                맛있는
+              </li>
+            </Col>
+            <Col>
+              <li
+                className={styles.Tag}
+                onClick={() => {
+                  setTagId(7);
+                  setCurrentPage(1);
+                }}
+                style={{
+                  backgroundColor:
+                    tagId == 7 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                  color: tagId == 7 ? "white" : "rgba(0,0,0,0.5)",
+                }}
+              >
+                청결한
               </li>
             </Col>
           </Row>

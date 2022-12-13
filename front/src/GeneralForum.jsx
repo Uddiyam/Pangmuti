@@ -83,6 +83,7 @@ export default function GeneralForum() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <input className={styles.search} type="search"></input>
 
@@ -97,10 +98,8 @@ export default function GeneralForum() {
               }}
               style={{
                 backgroundColor:
-                  f_categoryId == 1
-                    ? "rgba(5, 47, 95, 1)"
-                    : "rgba(5, 47, 95, 0.3)",
-                color: f_categoryId == 1 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                  f_categoryId == 1 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                color: f_categoryId == 1 ? "white" : "rgba(0,0,0,0.5)",
               }}
             >
               전체
@@ -115,10 +114,8 @@ export default function GeneralForum() {
               }}
               style={{
                 backgroundColor:
-                  f_categoryId == 2
-                    ? "rgba(5, 47, 95, 1)"
-                    : "rgba(5, 47, 95, 0.3)",
-                color: f_categoryId == 2 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                  f_categoryId == 2 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                color: f_categoryId == 2 ? "white" : "rgba(0,0,0,0.5)",
               }}
             >
               추천합니다
@@ -133,10 +130,8 @@ export default function GeneralForum() {
               }}
               style={{
                 backgroundColor:
-                  f_categoryId == 3
-                    ? "rgba(5, 47, 95, 1)"
-                    : "rgba(5, 47, 95, 0.3)",
-                color: f_categoryId == 3 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                  f_categoryId == 3 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                color: f_categoryId == 3 ? "white" : "rgba(0,0,0,0.5)",
               }}
             >
               추천해주세요
@@ -151,10 +146,8 @@ export default function GeneralForum() {
               }}
               style={{
                 backgroundColor:
-                  f_categoryId == 4
-                    ? "rgba(5, 47, 95, 1)"
-                    : "rgba(5, 47, 95, 0.3)",
-                color: f_categoryId == 4 ? "#F1A208" : "rgba(0,0,0,0.5)",
+                  f_categoryId == 4 ? "#06A77D" : "rgba(5, 47, 95, 0.1)",
+                color: f_categoryId == 4 ? "white" : "rgba(0,0,0,0.5)",
               }}
             >
               같이 밥 먹을 사람

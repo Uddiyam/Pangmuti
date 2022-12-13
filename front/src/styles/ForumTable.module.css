@@ -2,3 +2,8 @@
     text-decoration: none;
     color: black
 }
+
+.Content:hover{
+    cursor: pointer;
+    color: #0d6efd;
+}

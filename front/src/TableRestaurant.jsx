@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
+import styles from "./styles/ForumTable.module.css";
 
 function Table({ columns, data, email, nickname, token }) {
   let navigate = useNavigate();
@@ -49,7 +50,9 @@ function Table({ columns, data, email, nickname, token }) {
               }}
             >
               {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                <td className={styles.Content} {...cell.getCellProps()}>
+                  {cell.render("Cell")}
+                </td>
               ))}
             </tr>
           );
