@@ -102,9 +102,11 @@ export default function ForumDetail() {
               .then((result) => {
                 if(pagere === true){
                   setPageRe(false);
+                  document.getElementById("post").value = "";
                 }
                 else{
                   setPageRe(true);
+                  document.getElementById("post").value = "";
                 }
               })
               .catch((err) => {
