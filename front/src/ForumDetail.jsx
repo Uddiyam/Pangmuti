@@ -13,6 +13,7 @@ export default function ForumDetail() {
   let [detail, setDetail] = useState({});
   let [comments, setComments] = useState({ content: "" });
   let [pagere, setPageRe] = useState(true);
+  let [usernick, setUsernick] = useState("");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function ForumDetail() {
       .then((result) => {
         setDetail(result.data);
         setComments(result.data.commentList);
+        setUsernick(result.data.nickname);
         console.log(result);
       })
       .catch((err) => {

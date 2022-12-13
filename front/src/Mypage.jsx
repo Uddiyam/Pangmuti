@@ -265,7 +265,7 @@ export default function Mypage() {
             }):
             //내가 쓴 댓글
             categoryId === "comment" ?
-            userlist.reverse.map((a,i)=>{
+            userlist.reverse().map((a,i)=>{
               return(<div>
                 <div className={styles.CommentLine}>
                 <hr className={styles.CommentCLine}></hr>
