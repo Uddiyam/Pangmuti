@@ -12,12 +12,12 @@ import axios from "axios";
 export default function ForumDetail() {
   let {id} = useParams();
   let location = useLocation();
-  let [usernick, setUsernick] = useState("");
   let [detail, setDetail] = useState({});
   let [comments, setComments] = useState({content:""});
   let [pagere, setPageRe] = useState(true);
   let navigate = useNavigate();
-  console.log(location.state)
+  console.log(comments)
+  console.log(detail)
 
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export default function ForumDetail() {
       .then((result) => {
         setDetail(result.data);
         setComments(result.data.commentList);
-        setUsernick(result.data.nickname);
         console.log(result);
       })
       .catch((err) => {
@@ -54,30 +53,23 @@ export default function ForumDetail() {
       <div className={styles.DetailTop}>
       <div className={styles.Nickname} >{detail.nickname}</div>
       <div className={styles.Date}>{detail.date}</div>
-      {
-        usernick === location.state.nickname?
-        <a className={styles.Delete} onClick={()=>{
-          window.confirm("정말로 삭제하시겠습니까??")?
-          axios
-          .delete("http://52.44.107.157:8080/api/post/delete",{ 
-          data:{
-            postId: id
+      <a className={styles.Delete} onClick={()=>{
+        axios
+        .delete("http://52.44.107.157:8080/api/post/delete",{ 
+        data:{
+          postId: id
+        },
+        headers: {
+            Authorization: `Bearer ${location.state.token}`,
           },
-          headers: {
-              Authorization: `Bearer ${location.state.token}`,
-            },
-          })
-          .then((result) => {
-            navigate("/Forum",{state: {email: location.state.email, token: location.state.token, nickname: location.state.nickname}} );
-          })
-          .catch((err) => {
-            console.log(err);
-          }):
-          console.log("취소");
-        }}>삭제</a>:
-        <div></div>
-      }
-      
+        })
+        .then((result) => {
+          navigate("/Forum",{state: {email: location.state.email, token: location.state.token, nickname: location.state.nickname}} );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }}>삭제</a>
       </div>
       <hr className={styles.Line}></hr>
       <div className={styles.Post} >{detail.contents}</div>
@@ -86,7 +78,7 @@ export default function ForumDetail() {
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
         <div className ={styles.RegisterContentTableBody}>
-             <textarea id = 'comment' className={styles.RegisterContent} type="text"></textarea>
+             <input id = 'comment' className={styles.RegisterContent} type="text"></input>
              <button onClick={()=>{
              if(document.getElementById('comment').value.length>0){
               axios

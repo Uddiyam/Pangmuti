@@ -58,7 +58,6 @@
 }
 
 .RegisterContentTableBody{
-    display: flex;
     border-top: solid #e8eef7 1px;
     background-color: #e8eef7;
     width: 100%;
@@ -87,7 +86,6 @@
 
 .RegisterButton{
     border: none;
-    margin-top: 1vw;
     margin-left: 10px;
     margin-right: 2%;
     width: 13%;
