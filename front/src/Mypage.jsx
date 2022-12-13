@@ -149,6 +149,7 @@ export default function Mypage() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
       <div className={styles.Container}>
         <div className={styles.LeftContainer}>

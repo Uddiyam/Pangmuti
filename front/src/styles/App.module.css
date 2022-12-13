@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Poor+Story&display=swap');
+*{
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -19,7 +24,7 @@
   border: #06A77D;
   color: black;
   font-weight: bold;
-  font-size: large;
+  font-size: 1.1em;
 }
 
 .Btn:hover{
@@ -30,10 +35,14 @@
   border: #06A77D;
   color: black;
   font-weight: bold;
-  font-size: large;
+  font-size: 1.2em;
 }
 
 .Img{
   width: 68% !important;
   object-fit: contain;
+}
+
+.ImgContent{
+  min-height: 350px;
 }

@@ -13,23 +13,28 @@
   color: black;
   font-size: 70px;
 }
+.slick-slider, .slick-initialized, .slick-list{
+  height: 540px;
+}
 
 .slick-prev{
-  margin-top: -5%;
+  margin-top: -13%;
   left: -10px;
 }
 
 
 .slick-next{
-  margin-top: -5%;
+  margin-top: -13%;
   right: 40px;
 }
 
 .slick-dots{
-  bottom: 18%;
+  margin-bottom: 5%;
   justify-content: center;
-  max-width:1200px;
+  margin-left: -8%;
 }
+
+
 @media ( max-width: 20px){
   .slick-slider{
     padding: 2% 0 0 0;

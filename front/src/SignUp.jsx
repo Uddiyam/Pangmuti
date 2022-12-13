@@ -16,7 +16,7 @@ export default function SignUp() {
   const [TF, setTF] = useState(false);
   const [nicknameTF, setNicknameTF] = useState();
 
-  const [userEmail, setUserEmail] = useState();
+  const [userEmail, setUserEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
   const [number, setNumber] = useState();
   const [Error, setError] = useState(false);
@@ -90,7 +90,7 @@ export default function SignUp() {
           <InputGroup className={styles.InputID}>
             <Form.Control
               className={styles.InputEmail}
-              placeholder="Enter email"
+              placeholder="이메일을 입력해 주세요"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               autoComplete="off"

@@ -31,6 +31,7 @@ export default function Login() {
             email: res.data.email,
             nickname: res.data.nickname,
             token: res.data.token,
+            Img: res.data.storeImage,
           },
         });
       })
@@ -71,7 +72,7 @@ export default function Login() {
             <Form.Control
               className={styles.Input}
               type="password"
-              placeholder="Password"
+              placeholder="비밀번호를 입력해주세요"
               autoComplete="off"
               onChange={(e) => setUserPassword(e.target.value)}
             />
@@ -88,7 +89,7 @@ export default function Login() {
                 (inputEmail.length == 0 || userPassword.length == 0) &&
                 "#06A77D",
               color:
-                (inputEmail.length == 0 || userPassword.length == 0) && "black",
+                (inputEmail.length == 0 || userPassword.length == 0) && "white",
             }}
             variant="primary"
             onClick={SendData}
