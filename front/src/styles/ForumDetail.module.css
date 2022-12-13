@@ -52,12 +52,13 @@
     margin-left:15vw;
     margin-top: 0px;
     margin-bottom: 10px;
-    width:71%;
-    border: solid #e8eef7 1px;
+    width:71vw;
+    border: solid #e8eef7 1px;  
     background-color: #e8eef7;
 }
 
 .RegisterContentTableBody{
+    display: flex;
     border-top: solid #e8eef7 1px;
     background-color: #e8eef7;
     width: 100%;
@@ -86,6 +87,7 @@
 
 .RegisterButton{
     border: none;
+    margin-top: 1vw;
     margin-left: 10px;
     margin-right: 2%;
     width: 13%;
@@ -99,7 +101,7 @@
     margin-top: -16px;
     margin-bottom: 0px;
     margin-left:15vw;
-    width:71%;
+    width:71vw;
     background-color: #e8eef7;
 }
 
@@ -117,10 +119,16 @@
     font-size: 18px;
 }
 
+.CommentDate{
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size:10px;
+}
+
 .Delete2{
     padding-top: 3px;
     font-size: 12px;
-    margin-left: 53vw;
+    margin-left: 50vw;
 }
 
 .Delete2:hover{
