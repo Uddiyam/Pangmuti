@@ -255,9 +255,7 @@ export default function Mypage() {
                 <hr className={styles.CommentCLine}></hr>
                 <div className={styles.CommentHeader}>
                 <img src={a.storeImage} className={styles.imageHandler}/>
-                <div className={styles.NicknameSecond}>{a.category}</div> 
-
-                <div className={styles.CommentContent}>{a.storeName}</div>
+                <div className={styles.NicknameSecond}>{a.storeName}({a.category})</div> 
                 </div>
                 </div>)
             }):
