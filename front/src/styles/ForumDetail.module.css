@@ -23,6 +23,7 @@
     font-size: 0.8em;
     padding-top: 2.5em;
     margin-left: 3vw;
+
 }
 
 .Delete{
@@ -141,4 +142,15 @@
 
 .Modal{
    z-index: 10000;
+}
+
+.ModalContent{
+    text-align: center;
+    font-size: large;
+    color:red;
+}
+
+.Btn, .Btn:hover{
+    background-color: #06A77D;
+    border: #06A77D;
 }
