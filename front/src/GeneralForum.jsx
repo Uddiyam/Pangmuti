@@ -8,7 +8,7 @@ import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
-import Table from "./Table";
+import ForumTable from "./ForumTable";
 
 export default function GeneralForum() {
   let location = useLocation();
@@ -54,6 +54,8 @@ export default function GeneralForum() {
   });
   let navigate = useNavigate();
 
+  //posts 데이터
+
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/post/", {
@@ -67,7 +69,6 @@ export default function GeneralForum() {
         },
       })
       .then((result) => {
-        console.log(result);
         setPosts(result.data.content);
         setPostsnum(result.data.totalElements);
       })
@@ -221,7 +222,15 @@ export default function GeneralForum() {
         </table>
       )}
 
-      {posts && <Table columns={columns} data={posts} />}
+      {posts && (
+        <ForumTable
+          columns={columns}
+          data={posts}
+          email={location.state.email}
+          nickname={location.state.nickname}
+          token={location.state.token}
+        />
+      )}
       <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}
