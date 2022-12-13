@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
 import ForumTable from "./ForumTable";
+import { getSelectionRange } from "@testing-library/user-event/dist/utils";
 
 export default function GeneralForum() {
   let location = useLocation();
@@ -162,13 +163,13 @@ export default function GeneralForum() {
           <tbody>
             <tr>
               <td>
-                <input
+                <textarea
                   id="post"
                   className={styles.register_content}
                   type="text"
                   value={content}
                   autoComplete="off"
-                ></input>
+                ></textarea>
               </td>
               <td>
                 <button
