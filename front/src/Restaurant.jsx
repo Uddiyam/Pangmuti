@@ -41,11 +41,10 @@ export default function Restaurant() {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
-    setRe(!re);
   };
-  const closeModal = () => {
+  const closeModal = async () => {
     setModalOpen(false);
-    setRe(!re);
+    await setRe(!re);
   };
   console.log(re);
 
@@ -236,6 +235,7 @@ export default function Restaurant() {
           token={location.state.token}
           storeId={storeId}
           re={re}
+          Img={location.state.Img}
         />
       )}
 
