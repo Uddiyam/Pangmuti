@@ -9,12 +9,15 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
 import ForumTable from "./ForumTable";
+import { getSelectionRange } from "@testing-library/user-event/dist/utils";
 
 export default function GeneralForum() {
   let location = useLocation();
   console.log(location.state);
 
   const [content, setContent] = useState();
+  //검색 단어
+  const [forumSearch, setForumSearch] = useState("");
   //카테고리 선택
   const [f_categoryId, setCategoryId] = useState(1);
 
@@ -85,7 +88,40 @@ export default function GeneralForum() {
         token={location.state.token}
         Img={location.state.Img}
       />
-      <input className={styles.search} type="search"></input>
+      <input id = "ForumSearch" className={styles.search} type="search"></input>
+        <button
+          onClick={() => {
+            if (
+              document.getElementById("ForumSearch").value.length > 0 
+            ) {
+              axios
+                .get("http://52.44.107.157:8080/api/post/search",{
+                  params:{
+                    keyword: document.getElementById("ForumSearch").value,
+                    page: currentPage - 1,
+                    size: postsPerPage,
+                  },
+                  headers: {
+                      Authorization: `Bearer ${location.state.token}`,
+                    },
+                  }
+                )
+                .then((result) => {
+                  console.log(result);
+                  setPosts(result.data.content);
+                  setPostsnum(result.data.totalElements);
+                  document.getElementById("ForumSearch").value = "";
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              alert("내용을 입력해주세요!");
+            }
+          }}
+        >
+          검색
+      </button>
 
       <Container className={styles.ListForm}>
         <Row style={{ margin: "0 auto", textAlign: "center" }}>
@@ -161,13 +197,13 @@ export default function GeneralForum() {
           <tbody>
             <tr>
               <td>
-                <input
+                <textarea
                   id="post"
                   className={styles.register_content}
                   type="text"
                   value={content}
                   autoComplete="off"
-                ></input>
+                ></textarea>
               </td>
               <td>
                 <button
