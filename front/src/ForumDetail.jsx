@@ -12,12 +12,11 @@ import Button from "react-bootstrap/Button";
 export default function ForumDetail() {
   let { id } = useParams();
   let location = useLocation();
-  let [usernick, setUsernick] = useState("");
   let [detail, setDetail] = useState({});
   let [comments, setComments] = useState({ content: "" });
   let [pagere, setPageRe] = useState(true);
+  let [usernick, setUsernick] = useState("");
   let navigate = useNavigate();
-  console.log(location.state);
 
   useEffect(() => {
     axios
@@ -102,51 +101,36 @@ export default function ForumDetail() {
       <div className={styles.CommentTitle}>댓글</div>
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
-        <div className={styles.RegisterContentTableBody}>
-          <textarea
-            id="comment"
-            className={styles.RegisterContent}
-            type="text"
-          ></textarea>
-          <button
-            onClick={() => {
-              if (document.getElementById("comment").value.length > 0) {
-                axios
-                  .post(
-                    "http://52.44.107.157:8080/api/comment/create",
-                    {
-                      postId: id,
-                      contents: document.getElementById("comment").value,
-                    },
-                    {
-                      headers: {
-                        Authorization: `Bearer ${location.state.token}`,
-                      },
-                    }
-                  )
-                  .then((result) => {
-                    navigate("/Forum", {
-                      state: {
-                        email: location.state.email,
-                        token: location.state.token,
-                        nickname: location.state.nickname,
-                        Img: location.state.Img,
-                      },
-                    });
-
-                    if (pagere === true) {
-                      setPageRe(false);
-                      document.getElementById("post").value = "";
-                    } else {
-                      setPageRe(true);
-                      document.getElementById("post").value = "";
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              } else {
-                alert("내용을 입력해주세요!");
+        <div className ={styles.RegisterContentTableBody}>
+             <input id = 'comment' className={styles.RegisterContent} type="text"></input>
+             <button onClick={()=>{
+             if(document.getElementById('comment').value.length>0){
+              axios
+              .post("http://52.44.107.157:8080/api/comment/create", {
+                postId: id,
+                contents: document.getElementById('comment').value
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${location.state.token}`,
+                },
+              })
+              .then((result) => {
+                if(pagere === true){
+                  setPageRe(false);
+                  document.getElementById("post").value = "";
+                }
+                else{
+                  setPageRe(true);
+                  document.getElementById("post").value = "";
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+              }
+              else{
+                alert('내용을 입력해주세요!')
               }
             }}
             className={styles.RegisterButton}

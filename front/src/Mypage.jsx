@@ -20,7 +20,7 @@ export default function Mypage() {
   //카테고리 선택
   let [ categoryId, setCategoryId] = useState("");
   //카테고리 이ㄻ
-  let [ categoryName, setCategoryName] = useState("내 기록들");
+  let [ categoryName, setCategoryName] = useState("");
   //작성했던 글들 리스트,
   let [ userlist, setUserlist] = useState([{contents:""}]);
   //로그인 상태 확인
@@ -36,7 +36,6 @@ export default function Mypage() {
         }
       })
       .then((result) => {
-        console.log(result);
         setUserNickname(result.data.nickname);
         setUserEmail(result.data.email);
       })
@@ -51,7 +50,6 @@ export default function Mypage() {
         }
       })
       .then((result) => {
-        console.log(result.data);
         setUserlist(result.data.content);
         setCategoryName("즐겨찾기한 음식점");
       })
@@ -66,7 +64,6 @@ export default function Mypage() {
         }
       })
       .then((result) => {
-        console.log(result.data);
         setUserlist(result.data.content);
         setCategoryName("내가 쓴 리뷰");
       })
@@ -156,7 +153,6 @@ export default function Mypage() {
           <div className={styles.Intro}>
             <CgProfile className={styles.MyIcon}  
             onClick={()=>{
-              setCategoryName("내 기록들");
               setCategoryId("");
             }}
             />
@@ -180,7 +176,8 @@ export default function Mypage() {
         </div>
 
         <div className={styles.RightContainer}>
-        <div className={styles.HeaderTitle}>개인정보</div>
+        
+            <hr className={styles.Line2}></hr>
             {/* <div className={styles.ListTitle}>{categoryName}</div> */}
             <div className={styles.ListContent}>
             <div className={styles.EmailContainer}>
@@ -228,26 +225,7 @@ export default function Mypage() {
             </Form.Group>
             <div className={styles.BottomTitle}>{categoryName}</div>
         { 
-            //초기화면
-            categoryId === ""?
-            <div>
-              <div className={styles.CommentLine}>
-                <hr className={styles.CommentCLine}></hr>
-                <div className={styles.CommentContent}>즐겨찾기한 음식점</div>
-              </div>
-              <div className={styles.CommentLine}>
-                <hr className={styles.CommentCLine}></hr>
-                <div className={styles.CommentContent}>내가 쓴 리뷰</div>
-              </div>
-              <div className={styles.CommentLine}>
-                <hr className={styles.CommentCLine}></hr>
-                <div className={styles.CommentContent}>내가 쓴 게시글</div>
-              </div>
-              <div className={styles.CommentLine}>
-                <hr className={styles.CommentCLine}></hr>
-                <div className={styles.CommentContent}>내가 쓴 댓글</div>
-              </div>
-          </div>:
+
             //즐겨찾기한 음식점
             categoryId === "bookmark" ?
             userlist.reverse().map((a,i)=>{
@@ -261,15 +239,16 @@ export default function Mypage() {
             }):
             //내가 쓴 리뷰
             categoryId === "review" ?
-            userlist.reverse().map((a,i)=>{
-              return(<div className={styles.CommentLine}>
+            userlist.map((a,i)=>{
+              return(<div>
+                <div className={styles.CommentLine}>
                 <hr className={styles.CommentCLine}></hr>
                 <div className={styles.CommentHeader}>
-                <div className={styles.NicknameSecond}>{a.category}</div> 
+                <div className={styles.NicknameSecond}>{userNickname}</div> 
                 <div className={styles.CommentDate}>{a.date}</div>
                 </div>
                 <div className={styles.CommentContent}>{a.contents}</div>
-                </div>)
+                </div></div>)
             }):
             //내가 쓴 게시글  
             categoryId === "post" ?
