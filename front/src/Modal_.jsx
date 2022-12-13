@@ -25,6 +25,7 @@ const Modal_ = (props) => {
   useEffect(() => {
     sendReview();
   }, [clicked]);
+  const [TF, setTF] = useState(false);
 
   const sendReview = () => {
     setScore(clicked.filter(Boolean).length * 20);
@@ -37,6 +38,7 @@ const Modal_ = (props) => {
       clickStates[i] = i <= index ? true : false;
     }
     setClicked(clickStates);
+    setTF(true);
   };
 
   const [btnTF, setBtnTF] = useState([
@@ -76,6 +78,7 @@ const Modal_ = (props) => {
               close();
               BtnOnOff(-1);
               handleStarClick(-1);
+              setInputContent("");
             }}
           >
             &times;
@@ -185,56 +188,69 @@ const Modal_ = (props) => {
               as="textarea"
               aria-label="With textarea"
               value={inputContent}
+              maxlength="76"
               onChange={(e) => {
                 setReview(e.target.value);
                 setInputContent(e.target.value);
               }}
             />
           </InputGroup>
-          <Button
-            className={styles.ResBtn}
-            onClick={() => {
-              console.log(inputContent);
-              axios
-                .post(
-                  "http://52.44.107.157:8080/api/review/create",
-                  {
-                    storeId: storeId,
-                    contents: inputContent,
-                    grade: score,
-                    tagId: tagId,
-                  },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                )
-                .then((res) => {
-                  console.log(res);
-
-                  navigate("/Restaurant", {
-                    state: {
-                      email: email,
-                      nickname: nickname,
-                      token: token,
+          {console.log(btnTF_copy)}
+          {btnTF_copy.includes(true) &&
+          clicked.includes(true) &&
+          inputContent.length > 0 ? (
+            <Button
+              className={styles.ResBtn}
+              onClick={() => {
+                axios
+                  .post(
+                    "http://52.44.107.157:8080/api/review/create",
+                    {
                       storeId: storeId,
+                      contents: inputContent,
+                      grade: score,
+                      tagId: tagId,
                     },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                    }
+                  )
+                  .then((res) => {
+                    console.log(res);
+
+                    navigate("/Restaurant", {
+                      state: {
+                        email: email,
+                        nickname: nickname,
+                        token: token,
+                        storeId: storeId,
+                      },
+                    });
+                  })
+                  .catch((err) => {
+                    console.log(err);
                   });
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
 
-              setInputContent("");
-              BtnOnOff(-1);
-              handleStarClick(-1);
+                setInputContent("");
+                BtnOnOff(-1);
+                handleStarClick(-1);
 
-              close();
-            }}
-          >
-            등록하기
-          </Button>
+                close();
+              }}
+            >
+              등록하기
+            </Button>
+          ) : (
+            <Button
+              className={styles.ResBtn}
+              style={{ backgroundColor: "#06A77D", color: "white" }}
+              disabled
+            >
+              등록하기
+            </Button>
+          )}
         </div>
       </section>
     </div>

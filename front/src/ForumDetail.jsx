@@ -6,6 +6,8 @@ import styles from "./styles/ForumDetail.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 export default function ForumDetail() {
   let { id } = useParams();
@@ -37,6 +39,35 @@ export default function ForumDetail() {
       });
   }, [pagere]);
 
+  const [Error, setError] = useState(false);
+  const handleCloseOnly = () => {
+    setError(false);
+  };
+  const handleClose = () => {
+    setError(false);
+    axios
+      .delete("http://52.44.107.157:8080/api/post/delete", {
+        data: {
+          postId: id,
+        },
+        headers: {
+          Authorization: `Bearer ${location.state.token}`,
+        },
+      })
+      .then((result) => {
+        navigate("/Forum", {
+          state: {
+            email: location.state.email,
+            token: location.state.token,
+            nickname: location.state.nickname,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       {/* 헤더 */}
@@ -44,6 +75,7 @@ export default function ForumDetail() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
+        Img={location.state.Img}
       />
 
       {/* 게시글 상세페이지 */}
@@ -54,29 +86,7 @@ export default function ForumDetail() {
           <a
             className={styles.Delete}
             onClick={() => {
-              window.confirm("정말로 삭제하시겠습니까??")
-                ? axios
-                    .delete("http://52.44.107.157:8080/api/post/delete", {
-                      data: {
-                        postId: id,
-                      },
-                      headers: {
-                        Authorization: `Bearer ${location.state.token}`,
-                      },
-                    })
-                    .then((result) => {
-                      navigate("/Forum", {
-                        state: {
-                          email: location.state.email,
-                          token: location.state.token,
-                          nickname: location.state.nickname,
-                        },
-                      });
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    })
-                : console.log("취소");
+              setError(true);
             }}
           >
             삭제
@@ -171,7 +181,19 @@ export default function ForumDetail() {
             );
           })
         : console.log("이런")}
-      <div></div>
+      <div>
+        <Modal show={Error} onHide={handleClose} className={styles.Modal}>
+          <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              확인
+            </Button>
+            <Button variant="primary" onClick={handleCloseOnly}>
+              취소
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </>
   );
 }

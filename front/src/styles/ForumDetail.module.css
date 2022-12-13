@@ -53,7 +53,7 @@
     margin-top: 0px;
     margin-bottom: 10px;
     width:71vw;
-    border: solid #e8eef7 1px;  
+    border: solid #e8eef7 1px;
     background-color: #e8eef7;
 }
 
@@ -137,4 +137,8 @@
     margin-left: 6vw;
     margin-top: 20px;
     padding-bottom: 20px;
+}
+
+.Modal{
+   z-index: 10000;
 }
