@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function Header({ email, nickname, token }) {
+export default function Header({ email, nickname, token, Img }) {
   const toggleMenu = () => {
     document.getElementById("sidebar").style.transform = `translatex(23rem)`;
     document.getElementById("background").style.transform = `translatex(100vw)`;
@@ -45,7 +45,12 @@ export default function Header({ email, nickname, token }) {
               <Link
                 to="/Main"
                 className={styles.Link}
-                state={{ email: email, token: token, nickname: nickname }}
+                state={{
+                  email: email,
+                  token: token,
+                  nickname: nickname,
+                  Img: Img,
+                }}
               >
                 팡뮤티
               </Link>
@@ -56,7 +61,12 @@ export default function Header({ email, nickname, token }) {
               <Link
                 to="/RestaurantList"
                 className={styles.Link}
-                state={{ email: email, token: token, nickname: nickname }}
+                state={{
+                  email: email,
+                  token: token,
+                  nickname: nickname,
+                  Img: Img,
+                }}
               >
                 음식점 리스트
               </Link>
@@ -67,7 +77,12 @@ export default function Header({ email, nickname, token }) {
               <Link
                 to="/Forum"
                 className={styles.Link}
-                state={{ email: email, token: token, nickname: nickname }}
+                state={{
+                  email: email,
+                  token: token,
+                  nickname: nickname,
+                  Img: Img,
+                }}
               >
                 게시판
               </Link>
@@ -78,9 +93,21 @@ export default function Header({ email, nickname, token }) {
               <Link
                 to="/Mypage"
                 className={styles.Link}
-                state={{ email: email, token: token, nickname: nickname }}
+                state={{
+                  email: email,
+                  token: token,
+                  nickname: nickname,
+                  Img: Img,
+                }}
               >
                 <CgProfile className={styles.MyIcon} />
+              </Link>
+            </Col>
+          )}
+          {resize > 700 && (
+            <Col sm className={styles.List}>
+              <Link to="/" className={styles.Link}>
+                로그아웃
               </Link>
             </Col>
           )}
@@ -93,7 +120,12 @@ export default function Header({ email, nickname, token }) {
               <Link
                 to="/Mypage"
                 className={styles.Link}
-                state={{ email: email, token: token, nickname: nickname }}
+                state={{
+                  email: email,
+                  token: token,
+                  nickname: nickname,
+                  Img: Img,
+                }}
               >
                 <CgProfile className={styles.MyIcon} />
               </Link>
@@ -104,7 +136,12 @@ export default function Header({ email, nickname, token }) {
                 <Link
                   to="/RestaurantList"
                   className={styles.Link}
-                  state={{ email: email, token: token, nickname: nickname }}
+                  state={{
+                    email: email,
+                    token: token,
+                    nickname: nickname,
+                    Img: Img,
+                  }}
                 >
                   음식점 리스트
                 </Link>
@@ -113,9 +150,28 @@ export default function Header({ email, nickname, token }) {
                 <Link
                   to="/Forum"
                   className={styles.Link}
-                  state={{ email: email, token: token, nickname: nickname }}
+                  state={{
+                    email: email,
+                    token: token,
+                    nickname: nickname,
+                    Img: Img,
+                  }}
                 >
                   게시판
+                </Link>
+              </li>
+              <li className="menu-item">
+                <Link
+                  to="/"
+                  className={styles.Link}
+                  state={{
+                    email: email,
+                    token: token,
+                    nickname: nickname,
+                    Img: Img,
+                  }}
+                >
+                  로그아웃
                 </Link>
               </li>
             </ul>

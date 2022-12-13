@@ -2,7 +2,7 @@
   "name": "teamproject-team-1",
   "version": "0.1.0",
   "private": true,
-  "proxy":"http://52.44.107.157:8080",
+  "proxy": "http://52.44.107.157:8080",
   "dependencies": {
     "-": "^0.0.1",
     "@reduxjs/toolkit": "^1.9.0",
@@ -16,7 +16,6 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-js-pagination": "^3.0.3",
-    "react-naver-maps": "^0.0.13",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
