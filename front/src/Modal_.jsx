@@ -14,9 +14,10 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import styled from "styled-components";
+import axios from "axios";
 
 const Modal_ = (props) => {
-  const { open, close, message } = props;
+  const { open, close, email, nickname, token, storeId } = props;
   let navigate = useNavigate();
 
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -27,7 +28,6 @@ const Modal_ = (props) => {
 
   const sendReview = () => {
     setScore(clicked.filter(Boolean).length * 20);
-    console.log(score); // 별점하나당 값 = 20
   };
 
   const array = [0, 1, 2, 3, 4];
@@ -51,7 +51,6 @@ const Modal_ = (props) => {
 
   const BtnOnOff = (e) => {
     btnTF_copy.map((as, i) => {
-      console.log(btnTF_copy[i]);
       btnTF_copy[i] = false;
       return (btnTF_copy[i] = false);
     });
@@ -63,42 +62,22 @@ const Modal_ = (props) => {
   const [reviewList, setReviewList] = useState([]);
   const [dateList, setDateList] = useState([]);
   const [scoreList, setScoreList] = useState([]);
-  let review_ = [...reviewList];
-  let date = [...dateList];
-  let star_ = [...scoreList];
+  const [tagId, setTagId] = useState(2);
 
-  const todayTime = () => {
-    let now = new Date();
-    let todayYear = now.getFullYear();
-    let todayMonth = now.getMonth() + 1;
-    let todayDate = now.getDate();
-    const week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    let dayOfWeek = week[now.getDay()];
-    let hours = now.getHours();
-    let min = now.getMinutes();
-
-    return (
-      todayYear +
-      "." +
-      todayMonth +
-      "." +
-      todayDate +
-      " " +
-      dayOfWeek +
-      " " +
-      hours +
-      "시" +
-      min +
-      "분"
-    );
-  };
   const [inputContent, setInputContent] = useState("");
   return (
     <div className={open ? styles.OpenModal : styles.Modal}>
       <section className={styles.ContainerSmall}>
         <div className={styles.TitleWrap}>
           <span className={styles.Title}>리뷰를 등록해주세요</span>
-          <button className={styles.CloseX} onClick={close}>
+          <button
+            className={styles.CloseX}
+            onClick={() => {
+              close();
+              BtnOnOff(-1);
+              handleStarClick(-1);
+            }}
+          >
             &times;
           </button>
         </div>
@@ -111,6 +90,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[0] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(0);
+                    setTagId(7);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -123,6 +103,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[1] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(1);
+                    setTagId(6);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -135,6 +116,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[2] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(2);
+                    setTagId(3);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -149,6 +131,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[3] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(3);
+                    setTagId(2);
                     console.log(e.target.id);
                   }}
                 >
@@ -162,6 +145,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[4] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(4);
+                    setTagId(4);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -174,6 +158,7 @@ const Modal_ = (props) => {
                   className={btnTF_copy[5] ? styles.TagBtnOn : styles.TagBtn}
                   onClick={(e) => {
                     BtnOnOff(5);
+                    setTagId(5);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -209,26 +194,41 @@ const Modal_ = (props) => {
           <Button
             className={styles.ResBtn}
             onClick={() => {
-              console.log(btnTF.indexOf(true));
+              console.log(inputContent);
+              axios
+                .post(
+                  "http://52.44.107.157:8080/api/review/create",
+                  {
+                    storeId: storeId,
+                    contents: inputContent,
+                    grade: score,
+                    tagId: tagId,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                )
+                .then((res) => {
+                  console.log(res);
 
-              review_.unshift(review);
-              date.unshift(todayTime());
-              star_.unshift(score);
-              setDateList(date);
-              setReviewList(review_);
-              setScoreList(star_);
-              console.log(review_, date);
+                  navigate("/Restaurant", {
+                    state: {
+                      email: email,
+                      nickname: nickname,
+                      token: token,
+                      storeId: storeId,
+                    },
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+
               setInputContent("");
               BtnOnOff(-1);
               handleStarClick(-1);
-              navigate("/Restaurant", {
-                state: {
-                  tag: btnTF.indexOf(true),
-                  review: review_,
-                  date: date,
-                  star: star_,
-                },
-              });
 
               close();
             }}

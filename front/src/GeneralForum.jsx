@@ -49,8 +49,6 @@ export default function GeneralForum() {
     []
   );
 
-  //posts 데이터
-
   let a = useSelector((state) => {
     return state.user;
   });
@@ -88,7 +86,7 @@ export default function GeneralForum() {
       <input className={styles.search} type="search"></input>
 
       <Container className={styles.ListForm}>
-        <Row>
+        <Row style={{ margin: "0 auto", textAlign: "center" }}>
           <Col>
             <li
               className={styles.List}

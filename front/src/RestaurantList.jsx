@@ -53,10 +53,10 @@ export default function RestaurantList() {
     axios
       .get("http://52.44.107.157:8080/api/store", {
         params: {
-          categoryId: 3,
+          categoryId: categoryId,
           tagId: 1,
-          page: 0,
-          size: 3,
+          page: currentPage - 1,
+          size: postsPerPage,
           sort: "storeName,desc",
         },
 
@@ -66,8 +66,6 @@ export default function RestaurantList() {
       })
       .then((res) => {
         console.log(res);
-        setPosts(res.data.content);
-        setPostsnum(res.data.totalElements);
         setPosts(res.data.content);
         setPostsnum(res.data.totalElements);
       })
@@ -88,7 +86,7 @@ export default function RestaurantList() {
           <input type="search" className={styles.Search}></input>
         </form>
         <Container className={styles.ListForm}>
-          <Row>
+          <Row style={{ textAlign: "center", margin: "0 auto" }}>
             <Col>
               <li
                 className={styles.List}
@@ -112,7 +110,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(2);
-                  setCurrentPage(2);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -130,7 +128,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(4);
-                  setCurrentPage(4);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -148,7 +146,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(5);
-                  setCurrentPage(5);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -166,7 +164,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(3);
-                  setCurrentPage(3);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -179,12 +177,18 @@ export default function RestaurantList() {
                 중식/아시안
               </li>
             </Col>
-            <Col>
+            <Col
+              style={{
+                textAlign: "center",
+                margin: "0 auto",
+                paddingLeft: "5%",
+              }}
+            >
               <li
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(9);
-                  setCurrentPage(9);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -202,7 +206,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(8);
-                  setCurrentPage(8);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -215,12 +219,18 @@ export default function RestaurantList() {
                 술집
               </li>
             </Col>
-            <Col>
+            <Col
+              style={{
+                textAlign: "center",
+                margin: "0 auto",
+                paddingRight: "5%",
+              }}
+            >
               <li
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(6);
-                  setCurrentPage(6);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -238,7 +248,7 @@ export default function RestaurantList() {
                 className={styles.List}
                 onClick={() => {
                   setCategoryId(7);
-                  setCurrentPage(7);
+                  setCurrentPage(1);
                 }}
                 style={{
                   backgroundColor:
@@ -255,7 +265,15 @@ export default function RestaurantList() {
         </Container>
       </div>
       {console.log(posts)}
-      {posts && <Table columns={columns} data={posts} />}
+      {posts && (
+        <Table
+          columns={columns}
+          data={posts}
+          email={location.state.email}
+          token={location.state.token}
+          nickname={location.state.nickname}
+        />
+      )}
       <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}

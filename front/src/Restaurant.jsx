@@ -3,234 +3,208 @@ import Header from "./Header";
 import styles from "./styles/Restaurant.module.css";
 import { AiFillStar, AiOutlineStar, AiFillTag } from "react-icons/ai";
 import { useState, useMemo } from "react";
-import { NaverMap, RenderAfterNavermapsLoaded, Marker } from "react-naver-maps";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useLocation } from "react-router-dom";
 import Modal_ from "./Modal_";
-import Table from "./Table";
+import Table from "./TableReview";
 import Pagination from "./Pagination";
 import axios from "axios";
+import Map from "./Map";
 
 export default function Restaurant() {
   const [starBtn, setStartBtn] = useState(false);
   const location = useLocation();
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+  const [menuImg, setMenuImg] = useState("");
+  const [storeImg, setStoreImg] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const [tags, setTags] = useState([]);
+  const [grade, setGrade] = useState();
+  const [address, setAddress] = useState("");
+  const [closeTime, setCloseTime] = useState("");
+  const [openTime, setOpenTime] = useState("");
+  const [phone, setPhone] = useState("");
+  const [minPrice, setMinPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState();
+  const [category, setCategory] = useState("");
+  const [re, setRe] = useState(false);
 
-  let review = location.state && location.state.review;
-  let date = location.state && location.state.date;
-  let star = location.state && location.state.star;
-  console.log(star);
-  const navermaps = window.naver.maps;
-  let position = new navermaps.LatLng(37.6203955, 127.0584779); // 통신시 변수로 받기
-  const AVR_RATE = star; // 통신시 변수로 받아야 함
-  const STAR_IDX_ARR = ["first", "second", "third", "fourth", "last"];
-  const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
-  const calcStarRates = () => {
-    let tempStarRatesArr = [0, 0, 0, 0, 0]; // 임시 리스트.
-    let starVerScore = (AVR_RATE * 70) / 100; // 별 한 개 당 width가 14이므로 총 70. 100점 만점인 현재와 비율을 맞춰줌
-    let idx = 0;
-    while (starVerScore > 14) {
-      // 14를 starVerScore에서 하나씩 빼가면서 별 하나하나에 채워질 width를 지정해줍니다. 다 채워지지 않을 인덱스의 별은 아래 tempStarRatesArr[idx] = starVerScore; 에서 채워줍니다.
-      tempStarRatesArr[idx] = 14;
-      idx += 1;
-      starVerScore -= 14;
-    }
-    tempStarRatesArr[idx] = starVerScore;
-    return tempStarRatesArr; // 평균이 80이라면 [14, 14, 14, 14, 0] 이 되겠죠?
-  };
-  useEffect(() => {
-    setRatesResArr(calcStarRates); // 별점 리스트는 첫 렌더링 때 한번만 상태를 설정해줍니다.
-  }, []);
+  console.log(location.state);
 
-  //console.log(tag);
+  let storeId = location.state && location.state.storeId;
+  let rr = location.state && location.state.re;
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
+    setRe(!re);
   };
   const closeModal = () => {
     setModalOpen(false);
+    setRe(!re);
   };
+  console.log(re);
 
   const columns = useMemo(
     () => [
       {
-        accessor: "name",
+        accessor: "nickname",
         Header: "닉네임",
       },
       {
-        accessor: "review",
+        accessor: "contents",
         Header: "내용",
+      },
+
+      {
+        accessor: "grade",
+        Header: "평점",
+      },
+      {
+        accessor: "tag",
+        Header: "태그",
       },
       {
         accessor: "date",
         Header: "등록날짜",
       },
-      {
-        accessor: "star",
-        Header: "평점",
-      },
     ],
     []
   );
 
-  let dd =
-    date &&
-    review &&
-    star &&
-    Array(review.length)
-      .fill()
-      .map((a, i) => ({
-        review: review[i],
-        date: date[i],
-        star: star[i],
-      }));
-
-  console.log(dd);
-
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(50);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+  const [postsnum, setPostsnum] = useState(0);
+  const [myReview, setMyReview] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      setPosts(response.data);
-      setLoading(false);
-      setLoading(true);
-      console.log(response);
-    };
-    fetchData();
-  }, []);
+    axios
+      .get("http://52.44.107.157:8080/api/store/detail", {
+        params: {
+          storeId: storeId,
+          page: currentPage - 1,
+          size: postsPerPage,
+          sort: "date,desc",
+        },
 
-  /* 새로 추가한 부분 */
-  const indexOfLast = currentPage * postsPerPage;
-  const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts) => {
-    let currentPosts = 0;
-    currentPosts = posts.slice(indexOfFirst, indexOfLast);
-    return currentPosts;
-  };
+        headers: {
+          Authorization: `Bearer ${location.state.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setLatitude(res.data.latitude);
+        setLongitude(res.data.longitude);
+        setMenuImg(res.data.menuImage);
+        setStoreImg(res.data.storeImage);
+        setStoreName(res.data.storeName);
+        setPosts(res.data.reviewList.content);
+
+        setPostsnum(res.data.reviewList.totalElements);
+        setTags(res.data.tagList);
+        setGrade(res.data.grade);
+        setAddress(res.data.address);
+        setOpenTime(res.data.openTime);
+        setCloseTime(res.data.closeTime);
+        setPhone(res.data.phone);
+        setMinPrice(res.data.minPrice);
+        setMaxPrice(res.data.maxPrice);
+        setCategory(res.data.category);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [re, currentPage, rr]);
+
   return (
     <>
-      <Header />
+      <Header
+        email={location.state.email}
+        nickname={location.state.nickname}
+        token={location.state.token}
+      />
       <div className={styles.Container}>
         <form className={styles.SearchBox}>
           <input type="search" className={styles.Search}></input>
         </form>
+        <hr style={{ marginTop: "3%", width: "110%", marginLeft: "-3%" }} />
+        <div style={{ textAlign: "center", marginTop: "2%" }}>
+          <h1 className={styles.StoreName}>{storeName}</h1>
+          {starBtn ? (
+            <AiFillStar
+              className={styles.StarIcon}
+              onClick={() => {
+                setStartBtn(!starBtn);
+              }}
+              style={{ fill: "#06A77D" }}
+            />
+          ) : (
+            <AiOutlineStar
+              className={styles.StarIcon}
+              onClick={() => {
+                setStartBtn(!starBtn);
+              }}
+            />
+          )}
+        </div>
         <div className={styles.Wrap}>
           <Container>
             <Row>
               <Col className={styles.StoreImgWrap} xs={3}>
-                <img
-                  className={styles.StoreImg}
-                  src="https://ifh.cc/g/75DTS7.jpg" // 통신시 변수로 받기
-                  border="0"
-                />
+                <img className={styles.StoreImg} src={storeImg} border="0" />
                 <div>
                   <AiFillTag className={styles.Tag} />
-                  <span className={styles.TagContent}>청결한</span> {/*통신*/}
+                  {tags &&
+                    tags.map((a, i) => {
+                      return (
+                        <span className={styles.TagContent}>{a.tagName}</span>
+                      );
+                    })}
                 </div>
               </Col>
               <Col>
-                <img
-                  className={styles.StoreImg}
-                  src="https://ifh.cc/g/MmhMc4.jpg" // 통신시 변수로 받기
-                  border="0"
-                />
+                <img className={styles.StoreImg} src={menuImg} border="0" />
               </Col>
+
               <Col>
-                <RenderAfterNavermapsLoaded
-                  ncpClientId="f36v2w1qcs"
-                  error={<p>에러가 발생했어요</p>}
-                  loading={<p>지도가 로딩중이에요</p>}
-                >
-                  <NaverMap
-                    className={styles.Map}
-                    mapDivId="map"
-                    center={position}
-                    zoomControl={true}
-                    defaultZoom={17}
-                  >
-                    <Marker
-                      key={1}
-                      position={position}
-                      animation={2}
-                      onClick={() => {
-                        alert("여기는 디델리 입니다");
-                      }}
-                    />
-                  </NaverMap>
-                </RenderAfterNavermapsLoaded>
+                {latitude && <Map latitude={latitude} longitude={longitude} />}
               </Col>
             </Row>
-            <Row>
+            <Row className={styles.Row2}>
               <Col className={styles.RateWrap} xs={3}>
                 <div className={styles.RateTitle}>평점</div>
                 <div className={styles.RatingWrap}>
-                  {STAR_IDX_ARR.map((item, idx) => {
-                    return (
-                      <>
-                        <span className={styles.Rating} key={`${item}_${idx}`}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="40"
-                            height="39"
-                            viewBox="0 0 14 13"
-                            fill="#CCCCCC"
-                          >
-                            <clipPath id={`${item}StarClip`}>
-                              {/* 새로 생성한 리스트에서 별 길이를 넣어줍니다. */}
-                              <rect width={`${ratesResArr[idx]}`} height="39" />
-                            </clipPath>
-                            <path
-                              id={`${item}Star`}
-                              d="M9,2l2.163,4.279L16,6.969,12.5,10.3l.826,4.7L9,12.779,4.674,15,5.5,10.3,2,6.969l4.837-.69Z"
-                              transform="translate(-2 -2)"
-                            />
-                            <use
-                              clipPath={`url(#${item}StarClip)`}
-                              href={`#${item}Star`}
-                              fill="#FFCC33"
-                            />
-                          </svg>
-                        </span>
-                      </>
-                    );
-                  })}
+                  <AiFillStar
+                    className={styles.Star}
+                    style={{ fill: "#F1A208" }}
+                  />
+                  <span style={{ fontSize: "larger", fontWeight: "bold" }}>
+                    {grade}
+                  </span>
                 </div>
               </Col>
               <Col className={styles.StoreInfo}>
-                {starBtn ? (
-                  <AiFillStar
-                    className={styles.StarIcon}
-                    onClick={() => {
-                      setStartBtn(!starBtn);
-                    }}
-                    style={{ fill: "#06A77D" }}
-                  />
-                ) : (
-                  <AiOutlineStar
-                    className={styles.StarIcon}
-                    onClick={() => {
-                      setStartBtn(!starBtn);
-                    }}
-                  />
-                )}
-                <h2 className={styles.StoreName}>디델리</h2>
                 <br />
-                <br />
-                <span>상세설명 . . .</span>
+
+                <p>주소 : {address}</p>
+                <p>
+                  영업시간 : {openTime}-{closeTime}
+                </p>
+                <p>카테고리 : {category}</p>
+                <p>전화번호 : {phone}</p>
+                <p>
+                  가격대 : {minPrice * 1000}- {maxPrice * 1000}
+                </p>
               </Col>
             </Row>
           </Container>
         </div>
-
         <div className={styles.MapWrap}></div>
       </div>
       <hr />
@@ -243,13 +217,31 @@ export default function Restaurant() {
         >
           등록하기
         </Button>
-        <Modal_ open={modalOpen} close={closeModal} />
+        <Modal_
+          open={modalOpen}
+          close={closeModal}
+          email={location.state.email}
+          nickname={location.state.nickname}
+          token={location.state.token}
+          storeId={storeId}
+        />
       </div>
-      {dd && <Table columns={columns} data={dd} />}
+      {posts && (
+        <Table
+          columns={columns}
+          data={posts}
+          email={location.state.email}
+          nickname={location.state.nickname}
+          token={location.state.token}
+          storeId={storeId}
+          re={re}
+        />
+      )}
 
       <Pagination
+        className={styles.paging}
         postsPerPage={postsPerPage}
-        totalPosts={posts.length}
+        totalPosts={postsnum}
         paginate={setCurrentPage}
       ></Pagination>
     </>

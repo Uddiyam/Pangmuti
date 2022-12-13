@@ -79,6 +79,7 @@
     width: 40%;
     background-color: #06A77D;
     border: #06A77D;
+    font-weight: bold;
 }
 
 .Btn:hover{
@@ -86,7 +87,9 @@
     width: 40%;
     background-color: #06A77D;
     border: #06A77D;
+    font-weight: bold;
 }
+
 
 .Link{
     text-decoration: none;
@@ -120,6 +123,8 @@
 
   .LinkSignUp{
     color: #06A77D;
+    font-size: larger;
+    font-weight: bold;
   }
 
   .LinkSignUp:hover{

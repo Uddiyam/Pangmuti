@@ -71,7 +71,7 @@ export default function Login() {
             <Form.Control
               className={styles.Input}
               type="password"
-              placeholder="Password"
+              placeholder="비밀번호를 입력해주세요"
               autoComplete="off"
               onChange={(e) => setUserPassword(e.target.value)}
             />

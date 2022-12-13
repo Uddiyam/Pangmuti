@@ -3,12 +3,14 @@
 }
 
 .SearchBox{
-    width: 40%;
+    width: 45%;
     margin: 0 auto;
 }
 
 .Search{
     width: 100%;
+    display: inline-block;
+    height: 40px;
 }
 
 .Wrap{
@@ -20,6 +22,7 @@
 .StoreImg{
     width: 100%;
     max-height: 350px;
+    min-height: 300px;
     box-shadow: 5px 5px 5px rgba(5, 47, 95, 0.3);
 }
 
@@ -42,7 +45,7 @@
 
 .StoreInfo{
     width: 100%;
-    height: 350px;
+    height: 300px;
     float: left;
     border: 2px solid rgba(5, 47, 95, 0.3);
     padding: 2%;
@@ -51,19 +54,32 @@
 }
 
 .StoreName{
-    margin-left: 15%;
-    margin-top: 2%;
-    font-weight: bold;
+    margin-top: 2.5%;
+    font-weight: bolder;
+    text-align: center;
+    display: inline;
+    vertical-align: middle;
+    margin-left: 17%;
+}
+
+.Row2{
+  margin-top: 3%;
 }
 
 .StarIcon{
-    font-size: 4em;
+    font-size: 3.5em;
     cursor: pointer;
     display: inline;
     width: 20%;
     float: right;
-
 }
+.Star{
+  font-size: 3.5em;
+  display: inline;
+  width: 20%;
+  margin-right: 3%;
+}
+
 .Map{
     height: 350px;
     margin-left: 2%;
@@ -74,7 +90,7 @@
 
 .MapWrap{
     width: 100%;
-    height: 400px;
+    height: 300px;
 }
 
 .Rating {
@@ -85,25 +101,34 @@
   .RatingWrap{
     align-items: center;
     width: 100%;
+
   }
 
   .RateTitle{
     font-size: larger;
     font-weight: bolder;
     margin-bottom: 3%;
+
   }
 
   .RateWrap{
     text-align: left;
     margin-top: 2%;
+    border: 2px solid rgba(5, 47, 95, 0.3);
+    height: 80%;
+    padding: 1%;
+    padding-left: 5%;
+    margin-right: 5%;
+    box-shadow: 5px 5px 5px rgba(5, 47, 95, 0.3);
   }
+
 
   .ReviewWrap{
     padding-left: 6%;
     margin-top: 2%;
   }
 
-  .Btn{
+  .Btn, .Btn:hover{
     margin-left: 2%;
     width: 15%;
     height:40%;
@@ -111,16 +136,20 @@
     font-weight: bold;
     background-color: #06A77D;
     border: #06A77D;
+    color:black
   }
-  .Btn:hover{
-    margin-left: 2%;
-    width: 15%;
-    height:40%;
-    font-size: large;
+
+  .DeleteBtn, .DeleteBtn:hover{
+    margin-left: 1%;
+    width: 80%;
+    margin-top: 2.5%;
+    font-size: 1em;
     font-weight: bold;
     background-color: #06A77D;
     border: #06A77D;
+    color: black;
   }
+
 
   .ReviewModal{
     height: 100%;
@@ -170,8 +199,6 @@
     font-size: 1.8em;
     margin-top: 4%;
 }
-
-
 
 
 table {

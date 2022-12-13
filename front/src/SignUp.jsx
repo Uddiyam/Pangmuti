@@ -90,7 +90,7 @@ export default function SignUp() {
           <InputGroup className={styles.InputID}>
             <Form.Control
               className={styles.InputEmail}
-              placeholder="Enter email"
+              placeholder="이메일을 입력해 주세요"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               autoComplete="off"

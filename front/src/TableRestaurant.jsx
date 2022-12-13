@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
-function Table({ columns, data }) {
+function Table({ columns, data, email, nickname, token }) {
+  let navigate = useNavigate();
   const {
     getTableProps,
     getTableBodyProps,
@@ -34,7 +36,17 @@ function Table({ columns, data }) {
             <tr
               {...row.getRowProps()}
               key={i}
-              onClick={() => console.log(row.cells[i].row)}
+              onClick={() => {
+                console.log(row.cells[0].row.original);
+                navigate("/Restaurant", {
+                  state: {
+                    storeId: row.cells[0].row.original.storeId,
+                    token: token,
+                    nickname: nickname,
+                    email: email,
+                  },
+                });
+              }}
             >
               {row.cells.map((cell) => (
                 <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
