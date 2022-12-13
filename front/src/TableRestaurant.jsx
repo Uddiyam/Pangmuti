@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import styles from "./styles/ForumTable.module.css";
 
-function Table({ columns, data, email, nickname, token }) {
+function Table({ columns, data, email, nickname, token, Img }) {
   let navigate = useNavigate();
   const {
     getTableProps,
@@ -45,6 +45,7 @@ function Table({ columns, data, email, nickname, token }) {
                     token: token,
                     nickname: nickname,
                     email: email,
+                    Img: Img,
                   },
                 });
               }}

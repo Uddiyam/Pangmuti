@@ -222,6 +222,7 @@ export default function GeneralForum() {
           email={location.state.email}
           nickname={location.state.nickname}
           token={location.state.token}
+          Img={location.state.Img}
         />
       )}
       <Pagination

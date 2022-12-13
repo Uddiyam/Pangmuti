@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import styles from "./styles/Restaurant.module.css";
 import axios from "axios";
 
-function Table({ columns, data, email, nickname, token, re, storeId }) {
+function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
   let navigate = useNavigate();
   const {
     getTableProps,
@@ -73,6 +73,7 @@ function Table({ columns, data, email, nickname, token, re, storeId }) {
                               token: token,
                               re: TF,
                               storeId: storeId,
+                              Img: Img,
                             },
                           });
                         })

@@ -380,6 +380,7 @@ export default function RestaurantList() {
           email={location.state.email}
           token={location.state.token}
           nickname={location.state.nickname}
+          Img={location.state.Img}
         />
       )}
       <Pagination

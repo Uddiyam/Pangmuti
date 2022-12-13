@@ -2,7 +2,7 @@ import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import { Link } from "react-router-dom";
 import styles from "./styles/ForumTable.module.css";
 
-function ForumTable({ columns, data, email, nickname, token }) {
+function ForumTable({ columns, data, email, nickname, token, Img }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -34,11 +34,20 @@ function ForumTable({ columns, data, email, nickname, token }) {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <td {...cell.getCellProps()} >
-                  <Link to = {"/ForumDetail/"+row.original.postId}
-                  state={{ email: email, token: token, nickname: nickname }}
-                  className = {styles.cell}>
-                    {cell.render("Cell")}</Link></td>
+                <td {...cell.getCellProps()}>
+                  <Link
+                    to={"/ForumDetail/" + row.original.postId}
+                    state={{
+                      email: email,
+                      token: token,
+                      nickname: nickname,
+                      Img: Img,
+                    }}
+                    className={styles.cell}
+                  >
+                    {cell.render("Cell")}
+                  </Link>
+                </td>
               ))}
             </tr>
           );
