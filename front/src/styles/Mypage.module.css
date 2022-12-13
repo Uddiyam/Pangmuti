@@ -5,9 +5,8 @@
 }
 
 .LeftContainer{
-    flex-direction: column;
-    min-height: 100vh;
     min-width: 300px;
+    height: 800px;
     border-right: 1px ridge #052F5F;
     background-color: #052F5F;
 }
@@ -41,16 +40,6 @@
     margin-left: 123px;
 }
 
-.HeaderTitle{
-    font-weight: bold;
-    font-size: 25px;
-    padding-left: 30px;
-    padding-top: 10px;
-    background-color: #9bbda4;
-    height: 55px;
-    z-index: 1;
-}
-
 .Writed{
     font-size: 20px;
     padding-top: 10px;
@@ -72,7 +61,7 @@
     width: 200px;
     height: 100px;
     padding-top: 42px;
-    background-color: #e8f7ef;
+    background-color: #e8eef7;
 }
 
 .EmailRight{
@@ -90,7 +79,7 @@
     width: 200px;
     height: 100px;
     padding-top: 42px;
-    background-color: #e8f7ef;
+    background-color: #e8eef7;
 }
 
 .Input{
@@ -166,9 +155,4 @@
     margin-left: 60px;
     margin-top: 20px;
     padding-bottom: 20px;
-}
-
-.imageHandler{
-    width: 80px;
-    height: 100px;
 }
