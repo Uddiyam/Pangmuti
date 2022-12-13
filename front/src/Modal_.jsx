@@ -195,7 +195,7 @@ const Modal_ = (props) => {
               }}
             />
           </InputGroup>
-          {console.log(btnTF_copy)}
+
           {btnTF_copy.includes(true) &&
           clicked.includes(true) &&
           inputContent.length > 0 ? (

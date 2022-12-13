@@ -32,6 +32,7 @@ export default function Restaurant() {
   const [maxPrice, setMaxPrice] = useState();
   const [category, setCategory] = useState("");
   const [re, setRe] = useState(false);
+  const [bookmark, setBookmark] = useState();
 
   console.log(location.state);
 
@@ -46,7 +47,6 @@ export default function Restaurant() {
     setModalOpen(false);
     await setRe(!re);
   };
-  console.log(re);
 
   const columns = useMemo(
     () => [
@@ -115,6 +115,7 @@ export default function Restaurant() {
         setMinPrice(res.data.minPrice);
         setMaxPrice(res.data.maxPrice);
         setCategory(res.data.category);
+        setBookmark(res.data.bookmark);
       })
       .catch((err) => {
         console.log(err);
@@ -136,19 +137,54 @@ export default function Restaurant() {
         <hr style={{ marginTop: "3%", width: "110%", marginLeft: "-3%" }} />
         <div style={{ textAlign: "center", marginTop: "2%" }}>
           <h1 className={styles.StoreName}>{storeName}</h1>
-          {starBtn ? (
+          {console.log(bookmark)}
+          {bookmark ? (
             <AiFillStar
               className={styles.StarIcon}
-              onClick={() => {
-                setStartBtn(!starBtn);
+              onClick={async () => {
+                await axios
+                  .delete("http://52.44.107.157:8080/api/bookmark/delete", {
+                    data: {
+                      storeId: storeId,
+                    },
+                    headers: {
+                      Authorization: `Bearer ${location.state.token}`,
+                    },
+                  })
+                  .then((result) => {
+                    console.log(result);
+                    setBookmark(false);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }}
-              style={{ fill: "#06A77D" }}
+              style={{ fill: "#D5C67A" }}
             />
           ) : (
             <AiOutlineStar
               className={styles.StarIcon}
-              onClick={() => {
-                setStartBtn(!starBtn);
+              style={{ fill: "#e8eef7" }}
+              onClick={async () => {
+                await axios
+                  .post(
+                    "http://52.44.107.157:8080/api/bookmark/create",
+                    {
+                      storeId: storeId,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${location.state.token}`,
+                      },
+                    }
+                  )
+                  .then((res) => {
+                    console.log(res);
+                    setBookmark(true);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }}
             />
           )}

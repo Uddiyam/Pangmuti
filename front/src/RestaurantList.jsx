@@ -8,6 +8,8 @@ import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
 import Table from "./TableRestaurant";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 export default function RestaurantList() {
   //post Table 행이름
@@ -45,6 +47,8 @@ export default function RestaurantList() {
   const [postsPerPage, setPostsPerPage] = useState(6);
   let location = useLocation();
   console.log(location.state);
+  const [Error, setError] = useState(false);
+  const handleClose = () => setError(false);
 
   //카테고리 선택
   const [categoryId, setCategoryId] = useState(1);
@@ -85,7 +89,46 @@ export default function RestaurantList() {
       />
       <div className={styles.Container}>
         <form className={styles.SearchBox}>
-          <input type="search" className={styles.Search}></input>
+          <input
+            id="RestaurantSearch"
+            type="search"
+            className={styles.Search}
+            autoComplete="off"
+          ></input>
+          <Button
+            className={styles.SearchBtn}
+            onClick={() => {
+              if (
+                document.getElementById("RestaurantSearch").value.length > 0
+              ) {
+                axios
+                  .get("http://52.44.107.157:8080/api/store/search", {
+                    params: {
+                      keyword:
+                        document.getElementById("RestaurantSearch").value,
+                      page: currentPage - 1,
+                      size: postsPerPage,
+                    },
+                    headers: {
+                      Authorization: `Bearer ${location.state.token}`,
+                    },
+                  })
+                  .then((result) => {
+                    console.log(result);
+                    setPosts(result.data.content);
+                    setPostsnum(result.data.totalElements);
+                    document.getElementById("ForumSearch").value = "";
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              } else {
+                setError(true);
+              }
+            }}
+          >
+            검색
+          </Button>
         </form>
         <Container className={styles.ListForm}>
           <Row style={{ textAlign: "center", margin: "0 auto" }}>
@@ -389,6 +432,14 @@ export default function RestaurantList() {
         totalPosts={postsnum}
         paginate={setCurrentPage}
       ></Pagination>
+      <Modal show={Error} onHide={handleClose} className={styles.Modal}>
+        <Modal.Body>내용을 입력해 주세요</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

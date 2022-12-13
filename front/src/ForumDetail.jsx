@@ -40,8 +40,12 @@ export default function ForumDetail() {
   }, [pagere]);
 
   const [Error, setError] = useState(false);
+  const [content, setContent] = useState(false);
   const handleCloseOnly = () => {
     setError(false);
+  };
+  const ContentClose = () => {
+    setContent(false);
   };
   const handleClose = () => {
     setError(false);
@@ -101,41 +105,49 @@ export default function ForumDetail() {
       <div className={styles.CommentTitle}>댓글</div>
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
-        <div className ={styles.RegisterContentTableBody}>
-             <input id = 'comment' className={styles.RegisterContent} type="text"></input>
-             <button onClick={()=>{
-             if(document.getElementById('comment').value.length>0){
-              axios
-              .post("http://52.44.107.157:8080/api/comment/create", {
-                postId: id,
-                contents: document.getElementById('comment').value
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${location.state.token}`,
-                },
-              })
-              .then((result) => {
-                if(pagere === true){
-                  setPageRe(false);
-                  document.getElementById("post").value = "";
-                }
-                else{
-                  setPageRe(true);
-                  document.getElementById("post").value = "";
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-              }
-              else{
-                alert('내용을 입력해주세요!')
+        <div className={styles.RegisterContentTableBody}>
+          <input
+            id="comment"
+            className={styles.RegisterContent}
+            type="text"
+            autoComplete="off"
+          ></input>
+          <button
+            onClick={() => {
+              if (document.getElementById("comment").value.length > 0) {
+                axios
+                  .post(
+                    "http://52.44.107.157:8080/api/comment/create",
+                    {
+                      postId: id,
+                      contents: document.getElementById("comment").value,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${location.state.token}`,
+                      },
+                    }
+                  )
+                  .then((result) => {
+                    if (pagere === true) {
+                      setPageRe(false);
+                      document.getElementById("post").value = "";
+                    } else {
+                      setPageRe(true);
+                      document.getElementById("post").value = "";
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+                document.getElementById("comment").value = "";
+              } else {
+                setContent(true);
               }
             }}
             className={styles.RegisterButton}
           >
-            등록{" "}
+            등록
           </button>
         </div>
       </div>
@@ -156,14 +168,38 @@ export default function ForumDetail() {
           })
         : console.log("이런")}
       <div>
-        <Modal show={Error} onHide={handleClose} className={styles.Modal}>
-          <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
+        <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>
+          <Modal.Body className={styles.ModalContent}>
+            정말 삭제하시겠습니까?
+          </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
+            <Button
+              variant="primary"
+              onClick={handleClose}
+              className={styles.Btn}
+            >
               확인
             </Button>
-            <Button variant="primary" onClick={handleCloseOnly}>
+            <Button
+              variant="primary"
+              onClick={handleCloseOnly}
+              className={styles.Btn}
+            >
               취소
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal show={content} onHide={ContentClose} className={styles.Modal}>
+          <Modal.Body className={styles.ModalContent}>
+            내용을 입력해 주세요
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={ContentClose}
+              className={styles.Btn}
+            >
+              확인
             </Button>
           </Modal.Footer>
         </Modal>

@@ -20,13 +20,14 @@
     margin-left: 30vw;
     margin-bottom: 10px;
     width: 40vw;
+    height: 35px;
+    margin-right: 1%;
 }
 
 .register_content_table{
     margin-left:10vw;
     margin-bottom: 10px;
     overflow: scroll;
-
     border-collapse: collapse;
     background-color: rgba(213, 198, 122, 0.2);
     border-radius: 15px;
@@ -34,6 +35,15 @@
     box-shadow: 0 0 0 4px#052F5F;
   }
 
+
+.SearchBtn, .SearchBtn:hover{
+    display: inline;
+    width: 8%;
+    margin-top: -0.4%;
+    background-color: #06A77D;
+    border: #06A77D;
+
+}
 
 .register_content{
     width: 65vw;
@@ -73,4 +83,8 @@
 
 thead{
     background-color: #e8eef7;
+}
+
+.Modal{
+    z-index: 10000;
 }

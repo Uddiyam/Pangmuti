@@ -21,58 +21,53 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     pageNumbers.push(i);
   }
   const [num, setNum] = useState();
-
+  const [a, setA] = useState(1);
   return (
     <>
       <nav>
         <div className="pagination">
           {pageNumbers.map((number) => (
-            console.log(number),
-            number == 1?
             <div key={number} className="page-item">
-              <PageSpan
-                onClick={() => {
-                  paginate(number);
-                  setNum(number);
-                }}
-                className="page-link"
-                id={number}
-                style={{
-                  color:
-                    document.getElementById(number) &&
-                    document.getElementById(number).id == num &&
-                    "#D5C67A",
-                  backgroundColor:
-                    document.getElementById(number) &&
-                    document.getElementById(number).id == num &&
-                    "rgba(5, 47, 95, 0.3)",
-                }}
-              >
-                {number}
-              </PageSpan>
-            </div>:
-            <div key={number} className="page-item">
-            <PageSpan
-              onClick={() => {
-                paginate(number);
-                setNum(number);
-              }}
-              className="page-link"
-              id={number}
-              style={{
-                color:
-                  document.getElementById(number) &&
-                  document.getElementById(number).id == num &&
-                  "#D5C67A",
-                backgroundColor:
-                  document.getElementById(number) &&
-                  document.getElementById(number).id == num &&
-                  "rgba(5, 47, 95, 1)",
-              }}
-            >
-              {number}
-            </PageSpan>
-          </div>
+              {a == 1 ? (
+                <PageSpan
+                  onClick={() => {
+                    paginate(number);
+                    setNum(number);
+                    setA("");
+                  }}
+                  className="page-link"
+                  id={number}
+                  style={{
+                    color: number == 1 && "#D5C67A",
+                    backgroundColor: number == 1 && "rgba(5, 47, 95, 1)",
+                  }}
+                >
+                  {number}
+                </PageSpan>
+              ) : (
+                <PageSpan
+                  onClick={() => {
+                    paginate(number);
+                    setNum(number);
+                    setA("");
+                  }}
+                  className="page-link"
+                  id={number}
+                  style={{
+                    color:
+                      document.getElementById(number) &&
+                      document.getElementById(number).id == num &&
+                      "#D5C67A",
+                    backgroundColor:
+                      document.getElementById(number) &&
+                      document.getElementById(number).id == num &&
+                      "rgba(5, 47, 95, 1)",
+                  }}
+                >
+                  {number}
+                </PageSpan>
+              )}
+            </div>
           ))}
         </div>
       </nav>

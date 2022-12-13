@@ -9,10 +9,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Pagination from "./Pagination";
 import ForumTable from "./ForumTable";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 export default function GeneralForum() {
   let location = useLocation();
   console.log(location.state);
+  const [Error, setError] = useState(false);
+  const handleClose = () => setError(false);
 
   const [content, setContent] = useState();
   //검색 단어
@@ -87,40 +91,43 @@ export default function GeneralForum() {
         token={location.state.token}
         Img={location.state.Img}
       />
-      <input id = "ForumSearch" className={styles.search} type="search"></input>
-        <button
-          onClick={() => {
-            if (
-              document.getElementById("ForumSearch").value.length > 0 
-            ) {
-              axios
-                .get("http://52.44.107.157:8080/api/post/search",{
-                  params:{
-                    keyword: document.getElementById("ForumSearch").value,
-                    page: currentPage - 1,
-                    size: postsPerPage,
-                  },
-                  headers: {
-                      Authorization: `Bearer ${location.state.token}`,
-                    },
-                  }
-                )
-                .then((result) => {
-                  console.log(result);
-                  setPosts(result.data.content);
-                  setPostsnum(result.data.totalElements);
-                  document.getElementById("ForumSearch").value = "";
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            } else {
-              alert("내용을 입력해주세요!");
-            }
-          }}
-        >
-          검색
-      </button>
+      <input
+        id="ForumSearch"
+        className={styles.search}
+        type="search"
+        autoComplete="off"
+      ></input>
+      <Button
+        className={styles.SearchBtn}
+        onClick={() => {
+          if (document.getElementById("ForumSearch").value.length > 0) {
+            axios
+              .get("http://52.44.107.157:8080/api/post/search", {
+                params: {
+                  keyword: document.getElementById("ForumSearch").value,
+                  page: currentPage - 1,
+                  size: postsPerPage,
+                },
+                headers: {
+                  Authorization: `Bearer ${location.state.token}`,
+                },
+              })
+              .then((result) => {
+                console.log(result);
+                setPosts(result.data.content);
+                setPostsnum(result.data.totalElements);
+                document.getElementById("ForumSearch").value = "";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            setError(true);
+          }
+        }}
+      >
+        검색
+      </Button>
 
       <Container className={styles.ListForm}>
         <Row style={{ margin: "0 auto", textAlign: "center" }}>
@@ -237,7 +244,7 @@ export default function GeneralForum() {
                           console.log(err);
                         });
                     } else {
-                      alert("내용을 입력해주세요!");
+                      setError(true);
                     }
                   }}
                   className={styles.register_button}
@@ -266,6 +273,14 @@ export default function GeneralForum() {
         totalPosts={postsnum}
         paginate={setCurrentPage}
       ></Pagination>
+      <Modal show={Error} onHide={handleClose} className={styles.Modal}>
+        <Modal.Body>내용을 입력해 주세요</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

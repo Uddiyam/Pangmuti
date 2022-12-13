@@ -3,12 +3,16 @@
 }
 
 .SearchBox{
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
 }
 
 .Search{
-    width: 100%;
+    width: 80%;
+    display: inline;
+    float: left;
+    height: 36px;
+    margin-right: 2%;
 }
 
 .ListForm{
@@ -42,4 +46,15 @@
     padding: 3% 4% 3% 4%;
     border-radius: 12px;
     margin-top: 5%;
+}
+
+.Modal{
+    z-index: 10000;
+}
+
+.SearchBtn, .SearchBtn:hover{
+    display: inline;
+    width: 15%;
+    background-color: #06A77D;
+    border: #06A77D;
 }
