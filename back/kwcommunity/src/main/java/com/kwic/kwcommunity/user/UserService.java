@@ -49,27 +49,15 @@ public class UserService {
     public homeDTO login(LoginDTO dto) {
         User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
         if(passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            List<String> recommendStore = getRandomStore();
             return homeDTO.builder()
                     .email(user.getEmail())
                     .nickname(user.getNickname())
-                    .storeImage(recommendStore)
                     .token(makeNewAllToken(user))
                     .build();
         }
         else {
             throw new IllegalArgumentException("존재하지 않는 회원입니다");
         }
-    }
-
-    public List<String> getRandomStore() {
-        List<Store> storeList = storeRepository.findAll();
-        List<String> imageList = new ArrayList<>();
-        Collections.shuffle(storeList);
-        for(int i = 0; i < 6; i++) {
-            imageList.add(storeList.get(i).getStoreImage());
-        }
-        return imageList;
     }
 
     private String makeNewAllToken(User user){
