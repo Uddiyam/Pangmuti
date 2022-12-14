@@ -97,7 +97,7 @@ public class PostService {
     public Page<PostListDTO> responsePostList(Page<Post> pp) {
         return pp.map(
                 post -> new PostListDTO(post.getPostId(), post.getUser().getNickname(), post.getDate(),
-                        post.getContents(), post.getPostCategory().getCategoryName()));
+                        post.getContents(), post.getPostCategory().getCategoryName(), post.getCommentList().size()));
     }
 
 

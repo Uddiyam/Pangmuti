@@ -6,6 +6,7 @@ import com.kwic.kwcommunity.post.dto.PostIdDTO;
 import com.kwic.kwcommunity.store.category.StoreCategory;
 import com.kwic.kwcommunity.store.dto.CreateReviewDTO;
 import com.kwic.kwcommunity.store.dto.ReviewIdDTO;
+import com.kwic.kwcommunity.store.tag.StoreTag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

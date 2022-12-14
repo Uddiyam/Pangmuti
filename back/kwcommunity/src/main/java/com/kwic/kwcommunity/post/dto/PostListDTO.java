@@ -15,5 +15,6 @@ public class PostListDTO {
     private String date;
     private String contents;
     private String category;
+    private long commentCount;
 
 }

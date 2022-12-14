@@ -8,4 +8,6 @@ public interface StoreTagRepository extends JpaRepository<StoreTag, Long> {
 
     boolean existsByStore_StoreIdAndTag_TagId(Long storeId, Long tagId);
 
+    StoreTag findByStore_StoreIdAndTag_TagId(Long storeId, Long tagId);
+
 }
