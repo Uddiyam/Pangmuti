@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.kwic'
-version = '0.4.7-SNAPSHOT'
+version = '0.5.0-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
