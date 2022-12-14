@@ -46,7 +46,7 @@ export default function ForumDetail() {
         setDetail(result.data);
         setComments(result.data.commentList);
         setUsernick(result.data.nickname);
-        setCommentNum(result.data.commentList.numberOfElements);
+        setCommentNum(result.data.commentList.totalElements);
         console.log(result);
 
         setPostsnum(result.data.commentList.totalElements);

@@ -92,53 +92,55 @@ export default function RestaurantList() {
         Img={location.state.Img}
       />
       <div className={styles.Container}>
-        <form className={styles.SearchBox}>
-          <input
-            id="RestaurantSearch"
-            type="search"
-            className={styles.Search}
-            autoComplete="off"
-          ></input>
-          <Button
-            className={styles.SearchBtn}
-            onClick={() => {
-              ReactGA.event({
-                category: "Button",
-                action: "음식점 검색",
-                label: "search",
-              });
-              if (
-                document.getElementById("RestaurantSearch").value.length > 0
-              ) {
-                axios
-                  .get("http://52.44.107.157:8080/api/store/search", {
-                    params: {
-                      keyword:
-                        document.getElementById("RestaurantSearch").value,
-                      page: currentPage - 1,
-                      size: postsPerPage,
-                    },
-                    headers: {
-                      Authorization: `Bearer ${location.state.token}`,
-                    },
-                  })
-                  .then((result) => {
-                    console.log(result);
-                    setPosts(result.data.content);
-                    setPostsnum(result.data.totalElements);
-                    document.getElementById("ForumSearch").value = "";
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              } else {
-                setError(true);
-              }
-            }}
-          >
-            검색
-          </Button>
-        </form>
+        {categoryId == 1 && (
+          <form className={styles.SearchBox}>
+            <input
+              id="RestaurantSearch"
+              type="search"
+              className={styles.Search}
+              autoComplete="off"
+            ></input>
+            <Button
+              className={styles.SearchBtn}
+              onClick={() => {
+                ReactGA.event({
+                  category: "Button",
+                  action: "음식점 검색",
+                  label: "search",
+                });
+                if (
+                  document.getElementById("RestaurantSearch").value.length > 0
+                ) {
+                  axios
+                    .get("http://52.44.107.157:8080/api/store/search", {
+                      params: {
+                        keyword:
+                          document.getElementById("RestaurantSearch").value,
+                        page: currentPage - 1,
+                        size: postsPerPage,
+                      },
+                      headers: {
+                        Authorization: `Bearer ${location.state.token}`,
+                      },
+                    })
+                    .then((result) => {
+                      console.log(result);
+                      setPosts(result.data.content);
+                      setPostsnum(result.data.totalElements);
+                      document.getElementById("ForumSearch").value = "";
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                } else {
+                  setError(true);
+                }
+              }}
+            >
+              검색
+            </Button>
+          </form>
+        )}
         <Container className={styles.ListForm}>
           <Row style={{ textAlign: "center", margin: "0 auto" }}>
             <Col>

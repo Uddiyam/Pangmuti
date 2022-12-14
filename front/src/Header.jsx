@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
 
 export default function Header({ email, nickname, token, Img }) {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   const toggleMenu = () => {
     document.getElementById("sidebar").style.transform = `translatex(23rem)`;
     document.getElementById("background").style.transform = `translatex(100vw)`;

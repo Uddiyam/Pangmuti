@@ -48,6 +48,7 @@
 
 .Writed:hover{
     cursor: pointer;
+    color: #D5C67A;
 }
 
 .EmailContainer{
@@ -174,4 +175,8 @@
 .Paging{
     margin-top: 0;
     background-color: #e8f7ef;
+}
+
+.WritedWrap{
+    margin-top: 10%;
 }

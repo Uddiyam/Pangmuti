@@ -19,12 +19,14 @@ export default function SignUp() {
   const [userNickname, setUserNickname] = useState("");
   const [TF, setTF] = useState(false);
   const [nicknameTF, setNicknameTF] = useState();
-
+  const [password, setPassword] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
   const [number, setNumber] = useState();
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
+  const [passwordTF, setPasswordTF] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const Confirm = () => {
     ReactGA.event({
@@ -91,7 +93,7 @@ export default function SignUp() {
     await axios
       .post("http://52.44.107.157:8080/api/user/signup", {
         email: `${userEmail}@kw.ac.kr`,
-        password: userInput,
+        password: password,
         nickname: userNickname,
       })
       .then((res) => {
@@ -202,6 +204,12 @@ export default function SignUp() {
                 aria-describedby="basic-addon2"
                 type="password"
                 autoComplete="off"
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={() =>
+                  password.length > 0 && password !== passwordConfirm
+                    ? setPasswordTF(false)
+                    : setPasswordTF(true)
+                }
               />
             </Form.Group>
 
@@ -214,9 +222,24 @@ export default function SignUp() {
                 placeholder="비밀번호를 다시 입력해 주세요"
                 onChange={(e) => {
                   e.preventDefault();
-                  setUserInput(e.target.value);
+                  setPasswordConfirm(e.target.value);
                 }}
+                onBlur={() =>
+                  passwordConfirm.length > 0 && password !== passwordConfirm
+                    ? setPasswordTF(false)
+                    : setPasswordTF(true)
+                }
               />
+              <p
+                className={styles.PasswordTF}
+                style={{ color: passwordTF ? "white" : "red" }}
+              >
+                {passwordConfirm.length > 0 &&
+                  password.length > 0 &&
+                  (passwordTF
+                    ? "비밀번호가 일치합니다"
+                    : "비밀번호가 일치하지 않습니다")}
+              </p>
             </Form.Group>
             <Form.Group className={styles.KwIdWrap} controlId="formBasicEmail">
               <Form.Label className={styles.KwId}>Nickname</Form.Label>
@@ -242,7 +265,20 @@ export default function SignUp() {
               >
                 중복 확인
               </Button>
+              <div
+                className={styles.PasswordTF}
+                style={{
+                  color: nicknameTF ? "white" : "red",
+                  float: "left",
+                }}
+              >
+                {userNickname.length > 0 &&
+                  (nicknameTF
+                    ? "사용가능한 닉네임 입니다"
+                    : "이미 사용중인 닉네임 입니다")}
+              </div>
             </Form.Group>
+            <br />
             <div style={{ textAlign: "center" }}>
               <Button
                 className={styles.ResBtn}
