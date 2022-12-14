@@ -17,7 +17,7 @@ public class KwcommunityApplication {
 	@PostConstruct
 	public void started(){
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
-		log.info("현재 시작 :"+new Date());
+		//log.info("현재 시작 :"+new Date());
 	}
 
 	public static void main(String[] args) {

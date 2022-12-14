@@ -19,14 +19,16 @@ public class BookmarkService {
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
-    public Bookmark createBookmark(String userId, Long storeId) {
+    public void createBookmark(String userId, Long storeId) {
         User user = userRepository.findByUserId(userId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
         Store store = storeRepository.findByStoreId(storeId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게입니다"));
-        Bookmark bookmark = Bookmark.builder()
-                .user(user)
-                .store(store)
-                .build();
-        return bookmarkRepository.save(bookmark);
+        if(!bookmarkRepository.existsByStore_StoreIdAndUser_UserId(store.getStoreId(),user.getUserId())) {
+            Bookmark bookmark = Bookmark.builder()
+                    .user(user)
+                    .store(store)
+                    .build();
+            bookmarkRepository.save(bookmark);
+        }
     }
 
     @Transactional

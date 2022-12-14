@@ -23,8 +23,8 @@ public class BookmarkController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createBookmark(@AuthenticationPrincipal User user, @RequestBody StoreIdDTO dto) {
-        Bookmark bookmark = bookmarkService.createBookmark(user.getUsername(), dto.getStoreId());
-        return ResponseEntity.ok().body(bookmark);
+        bookmarkService.createBookmark(user.getUsername(), dto.getStoreId());
+        return ResponseEntity.ok().body("success");
     }
 
     @DeleteMapping("/delete")
