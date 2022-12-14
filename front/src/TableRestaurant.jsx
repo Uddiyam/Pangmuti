@@ -34,13 +34,7 @@ function Table({ columns, data, email, nickname, token, Img }) {
           prepareRow(row);
 
           return (
-            <tr
-              {...row.getRowProps()}
-              key={i}
-              onClick={() => {
-                console.log(row.cells[0].row.original);
-              }}
-            >
+            <tr {...row.getRowProps()} key={i}>
               {row.cells.map((cell) => (
                 <td className={styles.Content} {...cell.getCellProps()}>
                   <Link

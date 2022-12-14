@@ -83,7 +83,6 @@ export default function GeneralForum() {
         },
       })
       .then((result) => {
-        console.log(result);
         setPosts(result.data.content);
         setPostsnum(result.data.totalElements);
       })

@@ -23,7 +23,6 @@ const Modal_ = (props) => {
   ReactGA.pageview(window.location.pathname);
   const { open, close, email, nickname, token, storeId, Img } = props;
   let navigate = useNavigate();
-  console.log(Img);
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [score, setScore] = useState();
   useEffect(() => {
@@ -222,7 +221,6 @@ const Modal_ = (props) => {
                     }
                   )
                   .then((res) => {
-                    console.log(res);
                     <Link
                       to={"/Restaurant/" + storeId}
                       state={{

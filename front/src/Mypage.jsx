@@ -129,7 +129,7 @@ export default function Mypage() {
           .catch((err) => {
             console.log(err);
           })
-      : console.log("오류");
+      : console.log("");
   }, [categoryId, currentPage]);
 
   //닉네임 중복 확인
@@ -403,7 +403,7 @@ export default function Mypage() {
                       </div>
                     );
                   })
-                : console.log("오류")
+                : console.log("")
             }
             {categoryId === "" ? (
               <div></div>

@@ -53,7 +53,6 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                   <Button
                     className={styles.DeleteBtn}
                     onClick={() => {
-                      console.log(token);
                       setTF(!TF);
                       axios
                         .delete("http://52.44.107.157:8080/api/review/delete", {
@@ -67,8 +66,6 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                         })
 
                         .then((res) => {
-                          console.log(res);
-                          console.log(re);
                           navigate("/Restaurant/" + storeId, {
                             state: {
                               email: email,

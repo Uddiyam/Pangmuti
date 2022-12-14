@@ -50,7 +50,6 @@ export default function RestaurantList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
   let location = useLocation();
-  console.log(location.state);
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
 
@@ -74,7 +73,6 @@ export default function RestaurantList() {
         },
       })
       .then((res) => {
-        console.log(res);
         setPosts(res.data.content);
         setPostsnum(res.data.totalElements);
       })
@@ -124,7 +122,6 @@ export default function RestaurantList() {
                       },
                     })
                     .then((result) => {
-                      console.log(result);
                       setPosts(result.data.content);
                       setPostsnum(result.data.totalElements);
                       document.getElementById("ForumSearch").value = "";
@@ -426,7 +423,6 @@ export default function RestaurantList() {
           </Row>
         </Container>
       </div>
-      {console.log(posts)}
       {posts && (
         <Table
           columns={columns}
