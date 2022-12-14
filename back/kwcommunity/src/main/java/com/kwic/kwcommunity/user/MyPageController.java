@@ -63,4 +63,9 @@ public class MyPageController {
         return ResponseEntity.ok().body(myPage);
     }
 
+    @GetMapping("/home")
+    public ResponseEntity<?> getHome(){
+        return ResponseEntity.ok().body(myPageService.getHome());
+    }
+
 }

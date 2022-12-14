@@ -3,17 +3,20 @@ package com.kwic.kwcommunity.user;
 import com.kwic.kwcommunity.post.Post;
 import com.kwic.kwcommunity.post.comment.Comment;
 import com.kwic.kwcommunity.post.dto.PostListDTO;
+import com.kwic.kwcommunity.store.Store;
+import com.kwic.kwcommunity.store.StoreRepository;
 import com.kwic.kwcommunity.store.bookmark.Bookmark;
 import com.kwic.kwcommunity.store.review.Review;
 import com.kwic.kwcommunity.user.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MyPageService {
 
     private final UserRepository userRepository;
+    private final StoreRepository storeRepository;
 
     public MyPageDTO getMyPage(String userId) {
         User user = userCheck(userId);
@@ -75,6 +79,20 @@ public class MyPageService {
         int end = Math.min((start + pageRequest.getPageSize()), user.getCommentList().size());
         Page<Comment> commentPage = new PageImpl<>(user.getCommentList().subList(start, end), pageRequest, user.getCommentList().size());
         return responseCommentList(commentPage);
+    }
+
+    public List<String> getHome() {
+        return getRandomStore();
+    }
+
+    public List<String> getRandomStore() {
+        List<Store> storeList = storeRepository.findAll();
+        List<String> imageList = new ArrayList<>();
+        Collections.shuffle(storeList);
+        for(int i = 0; i < 6; i++) {
+            imageList.add(storeList.get(i).getStoreImage());
+        }
+        return imageList;
     }
 
     public Page<BookmarkListDTO> responseBookmarkList(Page<Bookmark> pp) {

@@ -15,7 +15,6 @@ public class homeDTO {
 
     private String email;
     private String nickname;
-    private List<String> storeImage;
 
     private String token;
 

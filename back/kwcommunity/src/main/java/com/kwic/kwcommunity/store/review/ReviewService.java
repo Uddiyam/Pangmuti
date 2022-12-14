@@ -77,6 +77,7 @@ public class ReviewService {
         store.setReviewCount(store.getReviewList().size());
     }
 
+
     //리뷰 삭제 시 태그 삭제
     public void updateTag(Store store, Tag tag) {
         long tagCount = reviewRepository.countByStore_StoreIdAndTag_TagId(store.getStoreId(), tag.getTagId());
@@ -87,6 +88,7 @@ public class ReviewService {
             }
         }
     }
+
 
     //5개 이상이면 태그 등록
     public void createTag(Store store, Tag tag) {

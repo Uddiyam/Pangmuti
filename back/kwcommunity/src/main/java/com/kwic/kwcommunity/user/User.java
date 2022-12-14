@@ -50,6 +50,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("date desc")
     private List<Review> reviewList;
 
     @JsonIgnore
@@ -58,10 +59,12 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("date desc")
     private List<Post> postList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("date desc")
     private List<Comment> commentList;
 
     public static String createUserId(){return NanoIdUtils.randomNanoId();}
