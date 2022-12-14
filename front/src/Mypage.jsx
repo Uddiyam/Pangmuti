@@ -21,7 +21,7 @@ export default function Mypage() {
   //카테고리 선택
   let [ categoryId, setCategoryId] = useState("");
   //카테고리 이ㄻ
-  let [ categoryName, setCategoryName] = useState("");
+  let [ categoryName, setCategoryName] = useState("내가 쓴 글");
   //작성했던 글들 리스트,
   let [ userlist, setUserlist] = useState([{contents:""}]);
   //로그인 상태 확인
@@ -182,6 +182,7 @@ export default function Mypage() {
             <CgProfile className={styles.MyIcon}  
             onClick={()=>{
               setCategoryId("");
+              setCategoryName("내가 쓴 글")
             }}
             />
             <div className={styles.Nickname}>{userNickname}</div>
@@ -317,7 +318,10 @@ export default function Mypage() {
             }):
             console.log("오류")
       } 
-                  <div className={styles.Paging}>
+      {
+        categoryId === ""?
+        <div></div>:
+        <div className={styles.Paging}>
                   <hr className={styles.CommentCLine}></hr>
                       <Pagination
                       className={styles.paging}
@@ -326,6 +330,8 @@ export default function Mypage() {
                       paginate={setCurrentPage}
                     ></Pagination> 
                   </div>
+      }
+                  
             </div>
         </div>
       </div>
