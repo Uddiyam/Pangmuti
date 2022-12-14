@@ -21,5 +21,6 @@ public class StoreListDTO {
     private double grade;       //총평점
     private long reviewCount;    //리뷰수
     private long bookmarkCount; //즐겨찾기 수
+    private String updateDate;
 
 }
