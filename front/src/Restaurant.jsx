@@ -139,10 +139,6 @@ export default function Restaurant() {
         Img={location.state.Img}
       />
       <div className={styles.Container}>
-        <form className={styles.SearchBox}>
-          <input type="search" className={styles.Search}></input>
-        </form>
-        <hr style={{ marginTop: "3%", width: "110%", marginLeft: "-3%" }} />
         <div style={{ textAlign: "center", marginTop: "2%" }}>
           <h1 className={styles.StoreName}>{storeName}</h1>
           {bookmark ? (

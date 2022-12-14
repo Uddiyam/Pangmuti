@@ -11,6 +11,8 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ReactGA from "react-ga";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function RestaurantList() {
   ReactGA.initialize("UA-252097560-1");
@@ -52,7 +54,8 @@ export default function RestaurantList() {
   let location = useLocation();
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
-
+  const [sort, setSort] = useState("updateDate,desc");
+  const [sortName, setSortName] = useState("최근업데이트순");
   //카테고리 선택
   const [categoryId, setCategoryId] = useState(1);
   const [tagId, setTagId] = useState(1);
@@ -65,7 +68,7 @@ export default function RestaurantList() {
           tagId: tagId,
           page: currentPage - 1,
           size: postsPerPage,
-          sort: "storeName,desc",
+          sort: sort,
         },
 
         headers: {
@@ -79,7 +82,7 @@ export default function RestaurantList() {
       .catch((err) => {
         console.log(err);
       });
-  }, [currentPage, categoryId, tagId]);
+  }, [currentPage, categoryId, tagId, sort]);
 
   return (
     <>
@@ -90,7 +93,7 @@ export default function RestaurantList() {
         Img={location.state.Img}
       />
       <div className={styles.Container}>
-        {categoryId == 1 && (
+        {categoryId == 1 && tagId == 1 && (
           <form className={styles.SearchBox}>
             <input
               id="RestaurantSearch"
@@ -499,6 +502,57 @@ export default function RestaurantList() {
               >
                 청결한
               </li>
+            </Col>
+          </Row>
+          <Row style={{ marginTop: "3%", marginBottom: "-5%" }}>
+            <Col>
+              <span className={styles.SortName}>{sortName}</span>
+            </Col>
+            <Col>
+              <DropdownButton title="정렬" className={styles.Sort}>
+                <Dropdown.Item
+                  eventKey="1"
+                  onClick={() => {
+                    setSort("reviewCount,desc");
+                    setSortName("리뷰수순");
+                    ReactGA.event({
+                      category: "Button",
+                      action: "리뷰수순",
+                      label: "sort",
+                    });
+                  }}
+                >
+                  리뷰수순
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="2"
+                  onClick={() => {
+                    setSort("bookmarkCount,desc");
+                    setSortName("즐겨찾기순");
+                    ReactGA.event({
+                      category: "Button",
+                      action: "즐겨찾기순",
+                      label: "sort",
+                    });
+                  }}
+                >
+                  즐겨찾기순
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="2"
+                  onClick={() => {
+                    setSort("grade,desc");
+                    setSortName("평점순");
+                    ReactGA.event({
+                      category: "Button",
+                      action: "평점순",
+                      label: "sort",
+                    });
+                  }}
+                >
+                  평점순
+                </Dropdown.Item>
+              </DropdownButton>
             </Col>
           </Row>
         </Container>

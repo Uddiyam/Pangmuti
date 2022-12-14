@@ -58,3 +58,17 @@
     background-color: #06A77D;
     border: #06A77D;
 }
+
+.SortName{
+    float:left;
+    margin-left: 8%;
+    font-weight: bold;
+    margin-top: 1%;
+}
+
+.Sort{
+    float: right;
+    margin-right: 8%;
+}
+
+
