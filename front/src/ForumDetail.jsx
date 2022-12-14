@@ -241,6 +241,7 @@ export default function ForumDetail() {
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
+        currentPage = {currentPage}
       ></Pagination>
       <div>
         <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>

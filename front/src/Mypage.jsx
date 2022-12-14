@@ -385,7 +385,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 게시글
                 categoryId === "post"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div className={styles.CommentLine}>
                         <hr className={styles.CommentCLine}></hr>
@@ -403,7 +403,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 댓글
                 categoryId === "comment"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -433,6 +433,7 @@ export default function Mypage() {
                   postsPerPage={postsPerPage}
                   totalPosts={postsnum}
                   paginate={setCurrentPage}
+                  currentPage = {currentPage}
                 ></Pagination>
               </div>
             )}
