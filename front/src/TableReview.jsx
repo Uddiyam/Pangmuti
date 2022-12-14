@@ -69,7 +69,7 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                         .then((res) => {
                           console.log(res);
                           console.log(re);
-                          navigate("/Restaurant", {
+                          navigate("/Restaurant/" + storeId, {
                             state: {
                               email: email,
                               nickname: nickname,

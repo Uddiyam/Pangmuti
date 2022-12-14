@@ -18,7 +18,7 @@ export default function SignUp() {
   const [userInput, setUserInput] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [TF, setTF] = useState(false);
-  const [nicknameTF, setNicknameTF] = useState();
+  const [nicknameTF, setNicknameTF] = useState(false);
   const [password, setPassword] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
@@ -49,8 +49,6 @@ export default function SignUp() {
         email: `${userEmail}@kw.ac.kr`,
       })
       .then((res) => {
-        console.log(res);
-
         if (res.data.status == "ERROR") setCertification(true);
         else {
           setCertification(false);
@@ -75,7 +73,6 @@ export default function SignUp() {
         nickname: userNickname,
       })
       .then((res) => {
-        console.log(res);
         //setCertification(res)
         res.data == true ? setNicknameTF(true) : setNicknameTF(false);
       })
@@ -88,7 +85,7 @@ export default function SignUp() {
     ReactGA.event({
       category: "Button",
       action: "회원가입완료",
-      label: "lsignup",
+      label: "signup",
     });
     await axios
       .post("http://52.44.107.157:8080/api/user/signup", {
@@ -97,7 +94,6 @@ export default function SignUp() {
         nickname: userNickname,
       })
       .then((res) => {
-        console.log(res);
         //setCertification(res)
       })
       .catch((err) => {
@@ -153,7 +149,7 @@ export default function SignUp() {
                 : "사용가능한 아이디 입니다")}
           </div>
         </Form.Group>
-        {console.log(userInput)}
+
         <Form.Group className={styles.KwIdWrap} controlId="formBasicEmail">
           <Form.Label className={styles.KwId}>인증번호 입력</Form.Label>
           <Form.Control
@@ -285,11 +281,18 @@ export default function SignUp() {
                 variant="primary"
                 onClick={SignUp}
                 style={{
-                  backgroundColor:
-                    emailCheck && nicknameTF && TF ? null : "#06A77D",
-                  color: emailCheck && nicknameTF && TF ? null : "white",
+                  backgroundColor: "#06A77D",
+                  color: emailCheck && nicknameTF && TF && "white",
                 }}
-                disabled={emailCheck && nicknameTF && TF ? false : true}
+                disabled={
+                  passwordTF &&
+                  emailCheck &&
+                  nicknameTF &&
+                  userNickname.length > 0 &&
+                  TF
+                    ? false
+                    : true
+                }
               >
                 가입
               </Button>
