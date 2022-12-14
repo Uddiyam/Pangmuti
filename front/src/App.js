@@ -6,8 +6,12 @@ import styles from "./styles/App.module.css";
 import "./styles/Slick.css";
 import Button from "react-bootstrap/Button";
 import { useLocation } from "react-router-dom";
+import ReactGA from "react-ga";
 
 function App() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   let location = useLocation();
   console.log(location.state);
   const settingsWithModules = {

@@ -4,8 +4,11 @@ import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import Button from "react-bootstrap/Button";
 import styles from "./styles/Restaurant.module.css";
 import axios from "axios";
-
+import ReactGA from "react-ga";
 function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   let navigate = useNavigate();
   const {
     getTableProps,

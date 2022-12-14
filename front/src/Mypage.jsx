@@ -7,8 +7,12 @@ import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import ReactGA from "react-ga";
 
 export default function Mypage() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   //사용자 닉네임 설정
   let [userNickname, setUserNickname] = useState("");
   //사용자 닉네입 입력
@@ -104,6 +108,11 @@ export default function Mypage() {
 
   //닉네임 중복 확인
   const Nickname = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "닉네임중복확인",
+      label: "mypage",
+    });
     axios
       .post(
         "http://52.44.107.157:8080/api/mypage/check",
@@ -128,6 +137,11 @@ export default function Mypage() {
 
   //변경된 닉네임 등록
   const ChangeNickname = async () => {
+    ReactGA.event({
+      category: "Button",
+      action: "닉네임수정",
+      label: "mypage",
+    });
     await axios
       .put(
         "http://52.44.107.157:8080/api/mypage/change",
@@ -163,6 +177,11 @@ export default function Mypage() {
               className={styles.MyIcon}
               onClick={() => {
                 setCategoryId("");
+                ReactGA.event({
+                  category: "Button",
+                  action: "프로필",
+                  label: "mypage",
+                });
               }}
             />
             <div className={styles.Nickname}>{userNickname}</div>
@@ -172,6 +191,11 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("bookmark");
+                ReactGA.event({
+                  category: "Button",
+                  action: "즐겨찾기한음식점",
+                  label: "mypage",
+                });
               }}
             >
               즐겨찾기한 음식점
@@ -180,6 +204,11 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("review");
+                ReactGA.event({
+                  category: "Button",
+                  action: "내가쓴리뷰",
+                  label: "mypage",
+                });
               }}
             >
               내가 쓴 리뷰
@@ -188,6 +217,11 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("post");
+                ReactGA.event({
+                  category: "Button",
+                  action: "내가쓴게시글",
+                  label: "mypage",
+                });
               }}
             >
               내가 쓴 게시글
@@ -196,6 +230,11 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("comment");
+                ReactGA.event({
+                  category: "Button",
+                  action: "내가쓴댓글",
+                  label: "mypage",
+                });
               }}
             >
               내가 쓴 댓글
@@ -309,7 +348,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 댓글
                 categoryId === "comment"
-                ? userlist.reverse().map((a, i) => {
+              && userlist.reverse().map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -327,7 +366,7 @@ export default function Mypage() {
                       </div>
                     );
                   })
-                : console.log("오류")
+                : console.log("")
             }
           </div>
         </div>

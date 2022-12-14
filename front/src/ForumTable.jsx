@@ -1,8 +1,13 @@
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import { Link } from "react-router-dom";
 import styles from "./styles/ForumTable.module.css";
+import RouteChangeTracker from "./RouteChangeTracker";
+import ReactGA from "react-ga";
 
 function ForumTable({ columns, data, email, nickname, token, Img }) {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   const {
     getTableProps,
     getTableBodyProps,
@@ -11,7 +16,7 @@ function ForumTable({ columns, data, email, nickname, token, Img }) {
     prepareRow,
     setGlobalFilter,
   } = useTable({ columns, data }, useGlobalFilter, useSortBy);
-
+  RouteChangeTracker();
   return (
     <table {...getTableProps()}>
       <thead>

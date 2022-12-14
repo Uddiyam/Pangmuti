@@ -11,8 +11,12 @@ import Pagination from "./Pagination";
 import ForumTable from "./ForumTable";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ReactGA from "react-ga";
 
 export default function GeneralForum() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   let location = useLocation();
   console.log(location.state);
   const [Error, setError] = useState(false);
@@ -75,6 +79,7 @@ export default function GeneralForum() {
         },
       })
       .then((result) => {
+        console.log(result);
         setPosts(result.data.content);
         setPostsnum(result.data.totalElements);
       })
@@ -100,6 +105,11 @@ export default function GeneralForum() {
       <Button
         className={styles.SearchBtn}
         onClick={() => {
+          ReactGA.event({
+            category: "Button",
+            action: "게시글 검색",
+            label: "search",
+          });
           if (document.getElementById("ForumSearch").value.length > 0) {
             axios
               .get("http://52.44.107.157:8080/api/post/search", {
@@ -137,6 +147,11 @@ export default function GeneralForum() {
               onClick={() => {
                 setCategoryId(1);
                 setCurrentPage(1);
+                ReactGA.event({
+                  category: "Button",
+                  action: "전체게시판",
+                  label: "forum",
+                });
               }}
               style={{
                 backgroundColor:
@@ -153,6 +168,11 @@ export default function GeneralForum() {
               onClick={() => {
                 setCategoryId(2);
                 setCurrentPage(1);
+                ReactGA.event({
+                  category: "Button",
+                  action: "추천합니다",
+                  label: "forum",
+                });
               }}
               style={{
                 backgroundColor:
@@ -169,6 +189,11 @@ export default function GeneralForum() {
               onClick={() => {
                 setCategoryId(3);
                 setCurrentPage(1);
+                ReactGA.event({
+                  category: "Button",
+                  action: "추천해주세요",
+                  label: "forum",
+                });
               }}
               style={{
                 backgroundColor:
@@ -185,6 +210,11 @@ export default function GeneralForum() {
               onClick={() => {
                 setCategoryId(4);
                 setCurrentPage(1);
+                ReactGA.event({
+                  category: "Button",
+                  action: "같이밥먹을사람",
+                  label: "forum",
+                });
               }}
               style={{
                 backgroundColor:
@@ -214,6 +244,11 @@ export default function GeneralForum() {
               <td>
                 <button
                   onClick={() => {
+                    ReactGA.event({
+                      category: "Button",
+                      action: "게시글등록",
+                      label: "forum",
+                    });
                     if (
                       document.getElementById("post").value.length > 0 &&
                       f_categoryId != 1

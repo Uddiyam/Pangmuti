@@ -15,11 +15,15 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import styled from "styled-components";
 import axios from "axios";
+import ReactGA from "react-ga";
 
 const Modal_ = (props) => {
-  const { open, close, email, nickname, token, storeId } = props;
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
+  const { open, close, email, nickname, token, storeId, Img } = props;
   let navigate = useNavigate();
-
+  console.log(Img);
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [score, setScore] = useState();
   useEffect(() => {
@@ -226,6 +230,7 @@ const Modal_ = (props) => {
                         nickname: nickname,
                         token: token,
                         storeId: storeId,
+                        Img: Img,
                       },
                     });
                   })

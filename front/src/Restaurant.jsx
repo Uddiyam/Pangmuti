@@ -13,8 +13,12 @@ import Table from "./TableReview";
 import Pagination from "./Pagination";
 import axios from "axios";
 import Map from "./Map";
+import ReactGA from "react-ga";
 
 export default function Restaurant() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   const [starBtn, setStartBtn] = useState(false);
   const location = useLocation();
   const [latitude, setLatitude] = useState();
@@ -42,6 +46,11 @@ export default function Restaurant() {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
+    ReactGA.event({
+      category: "Button",
+      action: "리뷰등록",
+      label: "review",
+    });
   };
   const closeModal = async () => {
     setModalOpen(false);
@@ -142,6 +151,11 @@ export default function Restaurant() {
             <AiFillStar
               className={styles.StarIcon}
               onClick={async () => {
+                ReactGA.event({
+                  category: "Button",
+                  action: "즐겨찾기삭제",
+                  label: "bookmark",
+                });
                 await axios
                   .delete("http://52.44.107.157:8080/api/bookmark/delete", {
                     data: {
@@ -166,6 +180,11 @@ export default function Restaurant() {
               className={styles.StarIcon}
               style={{ fill: "#e8eef7" }}
               onClick={async () => {
+                ReactGA.event({
+                  category: "Button",
+                  action: "즐겨찾기등록",
+                  label: "bookmark",
+                });
                 await axios
                   .post(
                     "http://52.44.107.157:8080/api/bookmark/create",
@@ -195,11 +214,17 @@ export default function Restaurant() {
               <Col className={styles.StoreImgWrap} xs={3}>
                 <img className={styles.StoreImg} src={storeImg} border="0" />
                 <div>
-                  <AiFillTag className={styles.Tag} />
                   {tags &&
                     tags.map((a, i) => {
                       return (
-                        <span className={styles.TagContent}>{a.tagName}</span>
+                        <>
+                          <div>
+                            <AiFillTag className={styles.Tag} />
+                            <span className={styles.TagContent}>
+                              {a.tagName}
+                            </span>
+                          </div>
+                        </>
                       );
                     })}
                 </div>
@@ -260,6 +285,7 @@ export default function Restaurant() {
           nickname={location.state.nickname}
           token={location.state.token}
           storeId={storeId}
+          Img={location.state.Img}
         />
       </div>
       {posts && (

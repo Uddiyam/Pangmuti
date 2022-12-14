@@ -7,8 +7,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import ReactGA from "react-ga";
 
 export default function SignUp() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   let navigate = useNavigate();
   const [certification, setCertification] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -23,11 +27,21 @@ export default function SignUp() {
   const handleClose = () => setError(false);
 
   const Confirm = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "중복확인",
+      label: "signup",
+    });
     number == userInput ? setTF(true) : setTF(false);
     setError(true);
   };
 
   const SendMail = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "이메일인증하기",
+      label: "signup",
+    });
     axios
       .post("http://52.44.107.157:8080/api/user/mail", {
         email: `${userEmail}@kw.ac.kr`,
@@ -49,6 +63,11 @@ export default function SignUp() {
   };
 
   const Nickname = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "닉네임중복확인",
+      label: "signup",
+    });
     axios
       .post("http://52.44.107.157:8080/api/user/check", {
         nickname: userNickname,
@@ -64,6 +83,11 @@ export default function SignUp() {
   };
 
   const SignUp = async () => {
+    ReactGA.event({
+      category: "Button",
+      action: "회원가입완료",
+      label: "lsignup",
+    });
     await axios
       .post("http://52.44.107.157:8080/api/user/signup", {
         email: `${userEmail}@kw.ac.kr`,

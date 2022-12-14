@@ -6,6 +6,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import ReactGA from "react-ga";
+
 export default function Header({ email, nickname, token, Img }) {
   const toggleMenu = () => {
     document.getElementById("sidebar").style.transform = `translatex(23rem)`;
@@ -50,6 +52,13 @@ export default function Header({ email, nickname, token, Img }) {
                   token: token,
                   nickname: nickname,
                   Img: Img,
+                }}
+                onClick={() => {
+                  ReactGA.event({
+                    category: "Button",
+                    action: "팡뮤티",
+                    label: "header",
+                  });
                 }}
               >
                 팡뮤티

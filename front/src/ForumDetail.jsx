@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ReactGA from "react-ga";
 
 export default function ForumDetail() {
   let { id } = useParams();
@@ -16,8 +17,11 @@ export default function ForumDetail() {
   let [comments, setComments] = useState({ content: "" });
   let [pagere, setPageRe] = useState(true);
   let [usernick, setUsernick] = useState("");
+  const [commentNum, setCommentNum] = useState();
   let navigate = useNavigate();
-
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/post/detail", {
@@ -32,6 +36,7 @@ export default function ForumDetail() {
         setDetail(result.data);
         setComments(result.data.commentList);
         setUsernick(result.data.nickname);
+        setCommentNum(result.data.commentList.numberOfElements);
         console.log(result);
       })
       .catch((err) => {
@@ -102,7 +107,7 @@ export default function ForumDetail() {
       <hr className={styles.Line}></hr>
       <div className={styles.Post}>{detail.contents}</div>
 
-      <div className={styles.CommentTitle}>댓글</div>
+      <div className={styles.CommentTitle}>댓글 ({commentNum})</div>
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
         <div className={styles.RegisterContentTableBody}>
@@ -161,32 +166,39 @@ export default function ForumDetail() {
                 <div className={styles.CommentHeader}>
                   <div className={styles.NicknameSecond}>{a.nickname}</div>
                   <div className={styles.CommentDate}>{a.date}</div>
-                  {
-              a.myComment?
-              <div onClick={()=>{
-                axios
-                .delete("http://52.44.107.157:8080/api/comment/delete",{ 
-                data:{
-                  commentId: a.commentId
-                },
-                headers: {
-                    Authorization: `Bearer ${location.state.token}`,
-                  },
-                })
-                .then((result) => {
-                  if(pagere === true){
-                    setPageRe(false);
-                  }
-                  else{
-                    setPageRe(true);
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-              }} className={styles.Delete2}>삭제</div>:
-              <div></div>
-            }
+                  {a.myComment ? (
+                    <div
+                      onClick={() => {
+                        axios
+                          .delete(
+                            "http://52.44.107.157:8080/api/comment/delete",
+                            {
+                              data: {
+                                commentId: a.commentId,
+                              },
+                              headers: {
+                                Authorization: `Bearer ${location.state.token}`,
+                              },
+                            }
+                          )
+                          .then((result) => {
+                            if (pagere === true) {
+                              setPageRe(false);
+                            } else {
+                              setPageRe(true);
+                            }
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                      className={styles.Delete2}
+                    >
+                      삭제
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <div className={styles.CommentContent}>{a.contents}</div>
               </div>

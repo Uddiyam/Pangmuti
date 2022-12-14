@@ -7,10 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
+import ReactGA from "react-ga";
 
 export default function Login() {
   let navigate = useNavigate();
-
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   const [userPassword, setUserPassword] = useState("");
   const [inputEmail, setInputEmail] = useState("");
 
@@ -18,6 +21,11 @@ export default function Login() {
   const handleClose = () => setError(false);
 
   const SendData = async () => {
+    ReactGA.event({
+      category: "Button",
+      action: "로그인",
+      label: "login",
+    });
     await axios
       .post("http://52.44.107.157:8080/api/user/login", {
         email: `${inputEmail}@kw.ac.kr`,
@@ -77,7 +85,17 @@ export default function Login() {
               onChange={(e) => setUserPassword(e.target.value)}
             />
             <div className={styles.SignUp}>
-              <Link to="/SignUp" className={styles.LinkSignUp}>
+              <Link
+                to="/SignUp"
+                className={styles.LinkSignUp}
+                onClick={() => {
+                  ReactGA.event({
+                    category: "Button",
+                    action: "회원가입하기",
+                    label: "login",
+                  });
+                }}
+              >
                 회원가입
               </Link>
             </div>

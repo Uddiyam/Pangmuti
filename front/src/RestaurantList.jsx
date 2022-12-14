@@ -10,8 +10,12 @@ import Table from "./TableRestaurant";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import ReactGA from "react-ga";
 
 export default function RestaurantList() {
+  ReactGA.initialize("UA-252097560-1");
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
   //post Table 행이름
   const columns = useMemo(
     () => [
@@ -98,6 +102,11 @@ export default function RestaurantList() {
           <Button
             className={styles.SearchBtn}
             onClick={() => {
+              ReactGA.event({
+                category: "Button",
+                action: "음식점 검색",
+                label: "search",
+              });
               if (
                 document.getElementById("RestaurantSearch").value.length > 0
               ) {
