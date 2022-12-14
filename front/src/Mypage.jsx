@@ -7,7 +7,9 @@ import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+
 import ReactGA from "react-ga";
+import Pagination from "./Pagination";
 
 export default function Mypage() {
   ReactGA.initialize("UA-252097560-1");
@@ -24,11 +26,15 @@ export default function Mypage() {
   //카테고리 선택
   let [categoryId, setCategoryId] = useState("");
   //카테고리 이ㄻ
-  let [categoryName, setCategoryName] = useState("");
+  let [categoryName, setCategoryName] = useState("내가 쓴 글");
   //작성했던 글들 리스트,
   let [userlist, setUserlist] = useState([{ contents: "" }]);
   //로그인 상태 확인
   let location = useLocation();
+  //페이지 정보
+  const [postsnum, setPostsnum] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(6);
 
   //mypage 정보 get
   useEffect(() => {
@@ -49,14 +55,18 @@ export default function Mypage() {
       : categoryId === "bookmark"
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/bookmark", {
+            params: {
+              page: currentPage - 1,
+              size: postsPerPage,
+            },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
             },
           })
           .then((result) => {
-            console.log(result);
             setUserlist(result.data.content);
             setCategoryName("즐겨찾기한 음식점");
+            setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
             console.log(err);
@@ -64,6 +74,10 @@ export default function Mypage() {
       : categoryId === "review"
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/review", {
+            params: {
+              page: currentPage - 1,
+              size: postsPerPage,
+            },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
             },
@@ -71,6 +85,7 @@ export default function Mypage() {
           .then((result) => {
             setUserlist(result.data.content);
             setCategoryName("내가 쓴 리뷰");
+            setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
             console.log(err);
@@ -78,6 +93,10 @@ export default function Mypage() {
       : categoryId === "post"
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/post", {
+            params: {
+              page: currentPage - 1,
+              size: postsPerPage,
+            },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
             },
@@ -85,6 +104,7 @@ export default function Mypage() {
           .then((result) => {
             setUserlist(result.data.content);
             setCategoryName("내가 쓴 게시글");
+            setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
             console.log(err);
@@ -92,6 +112,11 @@ export default function Mypage() {
       : categoryId === "comment"
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/comment", {
+            params: {
+              page: currentPage - 1,
+              size: postsPerPage,
+              sort: "date,desc",
+            },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
             },
@@ -99,12 +124,13 @@ export default function Mypage() {
           .then((result) => {
             setUserlist(result.data.content);
             setCategoryName("내가 쓴 댓글");
+            setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
             console.log(err);
           })
       : console.log("오류");
-  }, [categoryId]);
+  }, [categoryId, currentPage]);
 
   //닉네임 중복 확인
   const Nickname = () => {
@@ -126,7 +152,6 @@ export default function Mypage() {
         }
       )
       .then((res) => {
-        console.log(res);
         //setCertification(res)
         res.data == true ? setNicknameTF(true) : setNicknameTF(false);
       })
@@ -156,6 +181,8 @@ export default function Mypage() {
       )
       .then((res) => {
         setUserNickname(inputUserNick);
+        setNicknameTF(false);
+        document.getElementById("newUserNick").value = "";
       })
       .catch((err) => {
         console.log(err);
@@ -254,6 +281,7 @@ export default function Mypage() {
             <Form.Group className={styles.KwIdWrap} controlId="formBasicEmail">
               <Form.Label className={styles.KwId}>Nickname</Form.Label>
               <Form.Control
+                id="newUserNick"
                 className={styles.Input}
                 type="text"
                 autoComplete="off"
@@ -289,6 +317,7 @@ export default function Mypage() {
               </Button>
             </Form.Group>
             <div className={styles.BottomTitle}>{categoryName}</div>
+
             {
               //즐겨찾기한 음식점
               categoryId === "bookmark"
@@ -301,8 +330,13 @@ export default function Mypage() {
                             src={a.storeImage}
                             className={styles.imageHandler}
                           />
-                          <div className={styles.NicknameSecond}>
-                            {a.storeName}({a.category})
+                          <div className={styles.commentRight}>
+                            <div className={styles.NicknameSecondB}>
+                              {a.category}
+                            </div>
+                            <div className={styles.CommentContent}>
+                              {a.storeName}({a.grade}점)
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -310,7 +344,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 리뷰
                 categoryId === "review"
-                ? userlist.map((a, i) => {
+                ? userlist.reverse().map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -348,7 +382,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 댓글
                 categoryId === "comment"
-              && userlist.reverse().map((a, i) => {
+                ? userlist.reverse().map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -366,8 +400,21 @@ export default function Mypage() {
                       </div>
                     );
                   })
-                : console.log("")
+                : console.log("오류")
             }
+            {categoryId === "" ? (
+              <div></div>
+            ) : (
+              <div className={styles.Paging}>
+                <hr className={styles.CommentCLine}></hr>
+                <Pagination
+                  className={styles.paging}
+                  postsPerPage={postsPerPage}
+                  totalPosts={postsnum}
+                  paginate={setCurrentPage}
+                ></Pagination>
+              </div>
+            )}
           </div>
         </div>
       </div>

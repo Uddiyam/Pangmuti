@@ -9,6 +9,7 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ReactGA from "react-ga";
+import Pagination from "./Pagination";
 
 export default function ForumDetail() {
   let { id } = useParams();
@@ -19,14 +20,23 @@ export default function ForumDetail() {
   let [usernick, setUsernick] = useState("");
   const [commentNum, setCommentNum] = useState();
   let navigate = useNavigate();
+
   ReactGA.initialize("UA-252097560-1");
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
+
+  const [postsnum, setPostsnum] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(4);
+
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/post/detail", {
         params: {
           postId: id,
+          page: currentPage - 1,
+          size: postsPerPage,
+          sort: "date,desc",
         },
         headers: {
           Authorization: `Bearer ${location.state.token}`,
@@ -38,11 +48,13 @@ export default function ForumDetail() {
         setUsernick(result.data.nickname);
         setCommentNum(result.data.commentList.numberOfElements);
         console.log(result);
+
+        setPostsnum(result.data.commentList.totalElements);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [pagere]);
+  }, [pagere, currentPage]);
 
   const [Error, setError] = useState(false);
   const [content, setContent] = useState(false);
@@ -159,7 +171,7 @@ export default function ForumDetail() {
 
       {/* 댓글 리스트 */}
       {comments.content.length > 0
-        ? comments.content.reverse().map((a, s) => {
+        ? comments.content.map((a, s) => {
             return (
               <div className={styles.CommentLine}>
                 <hr className={styles.CommentCLine}></hr>
@@ -204,7 +216,13 @@ export default function ForumDetail() {
               </div>
             );
           })
-        : console.log("이런")}
+        : console.log("오류!")}
+      <Pagination
+        className={styles.paging}
+        postsPerPage={postsPerPage}
+        totalPosts={postsnum}
+        paginate={setCurrentPage}
+      ></Pagination>
       <div>
         <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>
           <Modal.Body className={styles.ModalContent}>
