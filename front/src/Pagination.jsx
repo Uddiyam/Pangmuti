@@ -15,7 +15,7 @@ const PageSpan = styled.span`
   transform: translateX(-40%);
 `;
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
@@ -44,7 +44,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                 >
                   {number}
                 </PageSpan>
-              ) : (
+              ) :(
                 <PageSpan
                   onClick={() => {
                     paginate(number);

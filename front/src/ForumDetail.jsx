@@ -123,12 +123,12 @@ export default function ForumDetail() {
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
         <div className={styles.RegisterContentTableBody}>
-          <input
+          <textarea
             id="comment"
             className={styles.RegisterContent}
             type="text"
             autoComplete="off"
-          ></input>
+          ></textarea>
           <button
             onClick={() => {
               if (document.getElementById("comment").value.length > 0) {

@@ -218,6 +218,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("bookmark");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "즐겨찾기한음식점",
@@ -231,6 +232,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("review");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴리뷰",
@@ -244,6 +246,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("post");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴게시글",
@@ -257,6 +260,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("comment");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴댓글",

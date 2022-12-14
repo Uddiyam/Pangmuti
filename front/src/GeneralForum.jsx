@@ -70,7 +70,7 @@ export default function GeneralForum() {
       .get("http://52.44.107.157:8080/api/post/", {
         params: {
           categoryId: f_categoryId,
-          page: currentPage - 1,
+          page: currentPage-1,
           size: postsPerPage,
           sort: "date,desc",
         },
@@ -96,50 +96,6 @@ export default function GeneralForum() {
         token={location.state.token}
         Img={location.state.Img}
       />
-
-      <input
-        id="ForumSearch"
-        className={styles.search}
-        type="search"
-        autoComplete="off"
-      ></input>
-      <Button
-        className={styles.SearchBtn}
-        onClick={() => {
-          ReactGA.event({
-            category: "Button",
-            action: "게시글 검색",
-            label: "search",
-          });
-          if (document.getElementById("ForumSearch").value.length > 0) {
-            axios
-              .get("http://52.44.107.157:8080/api/post/search", {
-                params: {
-                  keyword: document.getElementById("ForumSearch").value,
-                  page: currentPage - 1,
-                  size: postsPerPage,
-                },
-                headers: {
-                  Authorization: `Bearer ${location.state.token}`,
-                },
-              })
-              .then((result) => {
-                console.log(result);
-                setPosts(result.data.content);
-                setPostsnum(result.data.totalElements);
-                document.getElementById("ForumSearch").value = "";
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          } else {
-            setError(true);
-          }
-        }}
-      >
-        검색
-      </Button>
-
       <Container className={styles.ListForm}>
         <Row style={{ margin: "0 auto", textAlign: "center" }}>
           <Col>
@@ -277,13 +233,13 @@ export default function GeneralForum() {
           <tbody>
             <tr>
               <td>
-                <input
+                <textarea
                   id="post"
                   className={styles.register_content}
                   type="text"
                   value={content}
                   autoComplete="off"
-                ></input>
+                ></textarea>
               </td>
               <td>
                 <button
@@ -336,6 +292,7 @@ export default function GeneralForum() {
       )}
 
       {posts && (
+        <>
         <ForumTable
           columns={columns}
           data={posts}
@@ -344,13 +301,16 @@ export default function GeneralForum() {
           token={location.state.token}
           Img={location.state.Img}
         />
-      )}
-      <Pagination
+        <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
+        currentPage = {currentPage}
       ></Pagination>
+      </>
+      )
+      }
       <Modal show={Error} onHide={handleClose} className={styles.Modal}>
         <Modal.Body>내용을 입력해 주세요</Modal.Body>
         <Modal.Footer>
