@@ -146,6 +146,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(1);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "전체카테고리",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -162,6 +167,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(2);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "한식",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -178,6 +188,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(4);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "일식",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -194,6 +209,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(5);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "양식/패스트푸드",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -210,6 +230,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(3);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "중식/아시안",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
