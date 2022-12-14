@@ -59,7 +59,6 @@ export default function Mypage() {
         }
       })
       .then((result) => {
-        console.log(result);
         setUserlist(result.data.content);
         setCategoryName("즐겨찾기한 음식점");
         setPostsnum(result.data.totalElements);
