@@ -58,6 +58,11 @@ export default function ForumDetail() {
   const [Error, setError] = useState(false);
   const [content, setContent] = useState(false);
   const handleCloseOnly = () => {
+    ReactGA.event({
+      category: "삭제취소",
+      action: "게시글삭제취소",
+      label: "forum",
+    });
     setError(false);
   };
   const ContentClose = () => {
@@ -107,6 +112,11 @@ export default function ForumDetail() {
             className={styles.Delete}
             onClick={() => {
               setError(true);
+              ReactGA.event({
+                category: "Button",
+                action: "게시글삭제",
+                label: "forum",
+              });
             }}
           >
             삭제
@@ -130,6 +140,11 @@ export default function ForumDetail() {
           ></textarea>
           <button
             onClick={() => {
+              ReactGA.event({
+                category: "Button",
+                action: "댓글등록",
+                label: "comment",
+              });
               if (document.getElementById("comment").value.length > 0) {
                 axios
                   .post(
@@ -180,6 +195,11 @@ export default function ForumDetail() {
                   {a.myComment ? (
                     <div
                       onClick={() => {
+                        ReactGA.event({
+                          category: "Button",
+                          action: "댓글삭제",
+                          label: "comment",
+                        });
                         axios
                           .delete(
                             "http://52.44.107.157:8080/api/comment/delete",

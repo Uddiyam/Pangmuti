@@ -257,6 +257,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(9);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "분식",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -273,6 +278,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(8);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "술집",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -295,6 +305,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(6);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "카페/디저트",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -311,6 +326,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(7);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "편의점",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -333,6 +353,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(1);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "태그전체",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -349,6 +374,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(2);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "혼밥하기좋은",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -365,6 +395,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(3);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "분위기좋은",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -381,6 +416,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(4);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "가성비좋은",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -397,6 +437,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(5);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "모임하기좋은",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -419,6 +464,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(6);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "맛있는",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -435,6 +485,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setTagId(7);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "청결한",
+                    label: "tag",
+                  });
                 }}
                 style={{
                   backgroundColor:
