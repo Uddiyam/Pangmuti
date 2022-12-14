@@ -43,7 +43,7 @@ public class Store {
     private long bookmarkCount; //즐겨찾기 수
 
     @JsonIgnore
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
