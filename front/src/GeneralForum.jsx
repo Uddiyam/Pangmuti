@@ -91,43 +91,6 @@ export default function GeneralForum() {
         token={location.state.token}
         Img={location.state.Img}
       />
-      <input
-        id="ForumSearch"
-        className={styles.search}
-        type="search"
-        autoComplete="off"
-      ></input>
-      <Button
-        className={styles.SearchBtn}
-        onClick={() => {
-          if (document.getElementById("ForumSearch").value.length > 0) {
-            axios
-              .get("http://52.44.107.157:8080/api/post/search", {
-                params: {
-                  keyword: document.getElementById("ForumSearch").value,
-                  page: currentPage - 1,
-                  size: postsPerPage,
-                  sort: "date,desc"
-                },
-                headers: {
-                  Authorization: `Bearer ${location.state.token}`,
-                },
-              })
-              .then((result) => {
-                setPosts(result.data.content);
-                setPostsnum(result.data.totalElements);
-                document.getElementById("ForumSearch").value = "";
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          } else {
-            setError(true);
-          }
-        }}
-      >
-        검색
-      </Button>
 
       <Container className={styles.ListForm}>
         <Row style={{ margin: "0 auto", textAlign: "center" }}>
@@ -198,6 +161,49 @@ export default function GeneralForum() {
         </Row>
       </Container>
 
+      {
+        f_categoryId===1?
+        <>
+        <input
+        id="ForumSearch"
+        className={styles.search}
+        type="search"
+        autoComplete="off"
+      ></input><Button
+      className={styles.SearchBtn}
+      onClick={() => {
+        if (document.getElementById("ForumSearch").value.length > 0) {
+          axios
+            .get("http://52.44.107.157:8080/api/post/search", {
+              params: {
+                keyword: document.getElementById("ForumSearch").value,
+                page: currentPage - 1,
+                size: postsPerPage,
+                sort: "date,desc"
+              },
+              headers: {
+                Authorization: `Bearer ${location.state.token}`,
+              },
+            })
+            .then((result) => {
+              setPosts(result.data.content);
+              setPostsnum(result.data.totalElements);
+              document.getElementById("ForumSearch").value = "";
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          setError(true);
+        }
+      }}
+    >
+      검색
+    </Button>
+    </>:
+      <div></div>
+
+      }
       {f_categoryId != 1 && (
         <table className={styles.register_content_table}>
           <tbody>
