@@ -39,7 +39,6 @@ export default function Login() {
             email: res.data.email,
             nickname: res.data.nickname,
             token: res.data.token,
-            Img: res.data.storeImage,
           },
         });
       })

@@ -42,13 +42,16 @@ export default function RestaurantList() {
         accessor: "reviewCount",
         Header: "리뷰수",
       },
+      {
+        accessor: "bookmarkCount",
+        Header: "즐겨찾기수",
+      },
     ],
     []
   );
 
   const [posts, setPosts] = useState([]);
   const [postsnum, setPostsnum] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
   let location = useLocation();
@@ -62,7 +65,7 @@ export default function RestaurantList() {
 
   useEffect(() => {
     axios
-      .get("http://52.44.107.157:8080/api/store", {
+      .get("http://52.44.107.157:8080/api/store/", {
         params: {
           categoryId: categoryId,
           tagId: tagId,
@@ -90,7 +93,6 @@ export default function RestaurantList() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
-        Img={location.state.Img}
       />
       <div className={styles.Container}>
         {categoryId == 1 && tagId == 1 && (
@@ -572,6 +574,7 @@ export default function RestaurantList() {
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
+        currentPage={currentPage}
       ></Pagination>
       <Modal show={Error} onHide={handleClose} className={styles.Modal}>
         <Modal.Body>내용을 입력해 주세요</Modal.Body>

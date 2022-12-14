@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import ReactGA from "react-ga";
 
-export default function Header({ email, nickname, token, Img }) {
+export default function Header({ email, nickname, token }) {
   ReactGA.initialize("UA-252097560-1");
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
@@ -54,7 +54,6 @@ export default function Header({ email, nickname, token, Img }) {
                   email: email,
                   token: token,
                   nickname: nickname,
-                  Img: Img,
                 }}
                 onClick={() => {
                   ReactGA.event({
@@ -77,7 +76,6 @@ export default function Header({ email, nickname, token, Img }) {
                   email: email,
                   token: token,
                   nickname: nickname,
-                  Img: Img,
                 }}
               >
                 음식점 리스트
@@ -93,7 +91,6 @@ export default function Header({ email, nickname, token, Img }) {
                   email: email,
                   token: token,
                   nickname: nickname,
-                  Img: Img,
                 }}
               >
                 게시판
@@ -109,7 +106,6 @@ export default function Header({ email, nickname, token, Img }) {
                   email: email,
                   token: token,
                   nickname: nickname,
-                  Img: Img,
                 }}
               >
                 <CgProfile className={styles.MyIcon} />
@@ -136,7 +132,6 @@ export default function Header({ email, nickname, token, Img }) {
                   email: email,
                   token: token,
                   nickname: nickname,
-                  Img: Img,
                 }}
               >
                 <CgProfile className={styles.MyIcon} />
@@ -152,7 +147,6 @@ export default function Header({ email, nickname, token, Img }) {
                     email: email,
                     token: token,
                     nickname: nickname,
-                    Img: Img,
                   }}
                 >
                   음식점 리스트
@@ -166,7 +160,6 @@ export default function Header({ email, nickname, token, Img }) {
                     email: email,
                     token: token,
                     nickname: nickname,
-                    Img: Img,
                   }}
                 >
                   게시판
@@ -180,7 +173,6 @@ export default function Header({ email, nickname, token, Img }) {
                     email: email,
                     token: token,
                     nickname: nickname,
-                    Img: Img,
                   }}
                 >
                   로그아웃

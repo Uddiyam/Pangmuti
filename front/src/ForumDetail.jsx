@@ -47,7 +47,6 @@ export default function ForumDetail() {
         setComments(result.data.commentList);
         setUsernick(result.data.nickname);
         setCommentNum(result.data.commentList.totalElements);
-
         setPostsnum(result.data.commentList.totalElements);
       })
       .catch((err) => {
@@ -100,7 +99,6 @@ export default function ForumDetail() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
-        Img={location.state.Img}
       />
 
       {/* 게시글 상세페이지 */}
@@ -241,7 +239,7 @@ export default function ForumDetail() {
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
-        currentPage = {currentPage}
+        currentPage={currentPage}
       ></Pagination>
       <div>
         <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>

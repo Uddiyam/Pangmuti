@@ -26,7 +26,8 @@
 .MyIcon{
     font-size: 6em;
     margin-top: 30px;
-    margin-left: 7vw;
+    margin-left: 10%;
+    width: 80%;
 }
 
 .MyIcon:hover{
@@ -36,7 +37,7 @@
 .Nickname{
     font-size: 1.5em;
     margin-top: 10px;
-    margin-left: 8.5vw;
+   text-align: center;
 }
 
 .Writed{

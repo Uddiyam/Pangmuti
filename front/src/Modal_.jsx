@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles/Modal.module.css";
 import { useEffect } from "react";
-import Header from "./Header";
-import { AiFillStar, AiOutlineStar, AiFillTag } from "react-icons/ai";
+import { AiFillTag } from "react-icons/ai";
 import { ImStarFull } from "react-icons/im";
 
 import Container from "react-bootstrap/Container";
@@ -22,9 +21,9 @@ const Modal_ = (props) => {
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
   const { open, close, email, nickname, token, storeId, Img } = props;
-  let navigate = useNavigate();
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [score, setScore] = useState();
+  let navigate = useNavigate();
   useEffect(() => {
     sendReview();
   }, [clicked]);
@@ -66,7 +65,6 @@ const Modal_ = (props) => {
   const [review, setReview] = useState();
   const [reviewList, setReviewList] = useState([]);
   const [dateList, setDateList] = useState([]);
-  const [scoreList, setScoreList] = useState([]);
   const [tagId, setTagId] = useState(2);
 
   const [inputContent, setInputContent] = useState("");
@@ -204,8 +202,8 @@ const Modal_ = (props) => {
           inputContent.length > 0 ? (
             <Button
               className={styles.ResBtn}
-              onClick={() => {
-                axios
+              onClick={async () => {
+                await axios
                   .post(
                     "http://52.44.107.157:8080/api/review/create",
                     {
@@ -220,18 +218,15 @@ const Modal_ = (props) => {
                       },
                     }
                   )
-                  .then((res) => {
-                    <Link
-                      to={"/Restaurant/" + storeId}
-                      state={{
+                  .then(async (res) => {
+                    await navigate("/Restaurant/" + storeId, {
+                      state: {
                         email: email,
                         nickname: nickname,
                         token: token,
                         storeId: storeId,
-                        Img: Img,
-                      }}
-                      className={styles.cell}
-                    ></Link>;
+                      },
+                    });
                   })
                   .catch((err) => {
                     console.log(err);

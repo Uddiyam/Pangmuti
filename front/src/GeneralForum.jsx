@@ -22,8 +22,7 @@ export default function GeneralForum() {
   const handleClose = () => setError(false);
 
   const [content, setContent] = useState();
-  //검색 단어
-  const [forumSearch, setForumSearch] = useState("");
+
   //카테고리 선택
   const [f_categoryId, setCategoryId] = useState(1);
 
@@ -62,19 +61,12 @@ export default function GeneralForum() {
     []
   );
 
-  let a = useSelector((state) => {
-    return state.user;
-  });
-  let navigate = useNavigate();
-
-  //posts 데이터
-
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/post/", {
         params: {
           categoryId: f_categoryId,
-          page: currentPage-1,
+          page: currentPage - 1,
           size: postsPerPage,
           sort: "date,desc",
         },
@@ -97,7 +89,6 @@ export default function GeneralForum() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
-        Img={location.state.Img}
       />
 
       <Container className={styles.ListForm}>
@@ -303,24 +294,23 @@ export default function GeneralForum() {
 
       {posts && (
         <>
-        <ForumTable
-          columns={columns}
-          data={posts}
-          email={location.state.email}
-          nickname={location.state.nickname}
-          token={location.state.token}
-          Img={location.state.Img}
-        />
-        <Pagination
-        className={styles.paging}
-        postsPerPage={postsPerPage}
-        totalPosts={postsnum}
-        paginate={setCurrentPage}
-        currentPage = {currentPage}
-      ></Pagination>
-      </>
-      )
-      }
+          <ForumTable
+            columns={columns}
+            data={posts}
+            email={location.state.email}
+            nickname={location.state.nickname}
+            token={location.state.token}
+            Img={location.state.Img}
+          />
+          <Pagination
+            className={styles.paging}
+            postsPerPage={postsPerPage}
+            totalPosts={postsnum}
+            paginate={setCurrentPage}
+            currentPage={currentPage}
+          ></Pagination>
+        </>
+      )}
       <Modal show={Error} onHide={handleClose} className={styles.Modal}>
         <Modal.Body>내용을 입력해 주세요</Modal.Body>
         <Modal.Footer>

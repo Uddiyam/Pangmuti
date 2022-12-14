@@ -88,7 +88,6 @@ export default function Restaurant() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(8);
   const [postsnum, setPostsnum] = useState(0);
-  const [myReview, setMyReview] = useState([]);
 
   useEffect(() => {
     axios
@@ -105,6 +104,7 @@ export default function Restaurant() {
         },
       })
       .then((res) => {
+        console.log(res);
         setLatitude(res.data.latitude);
         setLongitude(res.data.longitude);
         setMenuImg(res.data.menuImage);
@@ -284,24 +284,26 @@ export default function Restaurant() {
         />
       </div>
       {posts && (
-        <Table
-          columns={columns}
-          data={posts}
-          email={location.state.email}
-          nickname={location.state.nickname}
-          token={location.state.token}
-          storeId={storeId}
-          re={re}
-          Img={location.state.Img}
-        />
+        <>
+          <Table
+            columns={columns}
+            data={posts}
+            email={location.state.email}
+            nickname={location.state.nickname}
+            token={location.state.token}
+            storeId={storeId}
+            re={re}
+            Img={location.state.Img}
+          />
+          <Pagination
+            className={styles.paging}
+            postsPerPage={postsPerPage}
+            totalPosts={postsnum}
+            paginate={setCurrentPage}
+            currentPage={currentPage}
+          ></Pagination>
+        </>
       )}
-
-      <Pagination
-        className={styles.paging}
-        postsPerPage={postsPerPage}
-        totalPosts={postsnum}
-        paginate={setCurrentPage}
-      ></Pagination>
     </>
   );
 }

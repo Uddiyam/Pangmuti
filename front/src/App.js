@@ -7,13 +7,33 @@ import "./styles/Slick.css";
 import Button from "react-bootstrap/Button";
 import { useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   ReactGA.initialize("UA-252097560-1");
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
+  const [img, setImg] = useState([]);
   let location = useLocation();
   console.log(location.state);
+  useEffect(() => {
+    axios
+      .get("http://52.44.107.157:8080/api/mypage/home", {
+        headers: {
+          Authorization: `Bearer ${location.state.token}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setImg(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const settingsWithModules = {
     dots: true,
     infinite: true,
@@ -61,7 +81,6 @@ function App() {
         email={location.state.email}
         nickname={location.state.nickname}
         token={location.state.token}
-        Img={location.state.Img}
       />
       <div className={styles.Container}>
         <h4 style={{ color: "black", fontWeight: "bold" }}>학식</h4>
@@ -81,42 +100,42 @@ function App() {
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[0]}
+              src={img && img[0]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[1]}
+              src={img && img[1]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[2]}
+              src={img && img[2]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[3]}
+              src={img && img[3]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[4]}
+              src={img && img[4]}
               style={{ width: "100%" }}
             />
           </div>
           <div className={styles.Img}>
             <img
               className={styles.ImgContent}
-              src={location.state.Img[5]}
+              src={img && img[5]}
               style={{ width: "100%" }}
             />
           </div>

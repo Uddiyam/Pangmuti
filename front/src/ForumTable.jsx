@@ -4,7 +4,7 @@ import styles from "./styles/ForumTable.module.css";
 import RouteChangeTracker from "./RouteChangeTracker";
 import ReactGA from "react-ga";
 
-function ForumTable({ columns, data, email, nickname, token, Img }) {
+function ForumTable({ columns, data, email, nickname, token }) {
   ReactGA.initialize("UA-252097560-1");
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
@@ -46,7 +46,6 @@ function ForumTable({ columns, data, email, nickname, token, Img }) {
                       email: email,
                       token: token,
                       nickname: nickname,
-                      Img: Img,
                     }}
                     className={styles.cell}
                   >
