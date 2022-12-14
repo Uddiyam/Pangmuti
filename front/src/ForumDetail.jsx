@@ -200,7 +200,7 @@ export default function ForumDetail() {
               </div>
             );
           })
-        : console.log("이런")}
+        : console.log("오류!")}
               <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}

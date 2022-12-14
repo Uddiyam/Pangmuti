@@ -14,7 +14,6 @@ import Button from "react-bootstrap/Button";
 
 export default function GeneralForum() {
   let location = useLocation();
-  console.log(location.state);
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
 
@@ -115,7 +114,6 @@ export default function GeneralForum() {
                 },
               })
               .then((result) => {
-                console.log(result);
                 setPosts(result.data.content);
                 setPostsnum(result.data.totalElements);
                 document.getElementById("ForumSearch").value = "";
@@ -234,7 +232,6 @@ export default function GeneralForum() {
                           }
                         )
                         .then((result) => {
-                          console.log(result);
                           if (write === false) {
                             setWrite(true);
                           } else {
