@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Pagination from "./Pagination";
 
 export default function ForumDetail() {
   let { id } = useParams();
@@ -18,11 +19,18 @@ export default function ForumDetail() {
   let [usernick, setUsernick] = useState("");
   let navigate = useNavigate();
 
+  const [postsnum, setPostsnum] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(4);
+
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/post/detail", {
         params: {
           postId: id,
+          page: currentPage - 1,
+          size: postsPerPage,
+          sort: "date,desc"
         },
         headers: {
           Authorization: `Bearer ${location.state.token}`,
@@ -32,12 +40,12 @@ export default function ForumDetail() {
         setDetail(result.data);
         setComments(result.data.commentList);
         setUsernick(result.data.nickname);
-        console.log(result);
+        setPostsnum(result.data.commentList.totalElements);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [pagere]);
+  }, [pagere, currentPage]);
 
   const [Error, setError] = useState(false);
   const [content, setContent] = useState(false);
@@ -154,14 +162,14 @@ export default function ForumDetail() {
 
       {/* 댓글 리스트 */}
       {comments.content.length > 0
-        ? comments.content.reverse().map((a, s) => {
+        ? comments.content.map((a, s) => {
             return (
               <div className={styles.CommentLine}>
                 <hr className={styles.CommentCLine}></hr>
                 <div className={styles.CommentHeader}>
                   <div className={styles.NicknameSecond}>{a.nickname}</div>
                   <div className={styles.CommentDate}>{a.date}</div>
-                  {
+            {
               a.myComment?
               <div onClick={()=>{
                 axios
@@ -193,6 +201,12 @@ export default function ForumDetail() {
             );
           })
         : console.log("이런")}
+              <Pagination
+        className={styles.paging}
+        postsPerPage={postsPerPage}
+        totalPosts={postsnum}
+        paginate={setCurrentPage}
+      ></Pagination>
       <div>
         <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>
           <Modal.Body className={styles.ModalContent}>
