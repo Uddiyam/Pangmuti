@@ -132,12 +132,12 @@ export default function ForumDetail() {
       {/* 댓글 다는 곳 */}
       <div className={styles.RegisterContentTable}>
         <div className={styles.RegisterContentTableBody}>
-          <input
+          <textarea
             id="comment"
             className={styles.RegisterContent}
             type="text"
             autoComplete="off"
-          ></input>
+          ></textarea>
           <button
             onClick={() => {
               ReactGA.event({
@@ -241,6 +241,7 @@ export default function ForumDetail() {
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
+        currentPage = {currentPage}
       ></Pagination>
       <div>
         <Modal show={Error} onHide={handleCloseOnly} className={styles.Modal}>

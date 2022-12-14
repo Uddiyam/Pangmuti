@@ -23,7 +23,6 @@
     font-size: 0.8em;
     padding-top: 2.5em;
     margin-left: 3vw;
-
 }
 
 .Delete{
@@ -54,14 +53,15 @@
     margin-top: 0px;
     margin-bottom: 10px;
     width:71vw;
-    border: solid #e8eef7 1px;
+    border: solid #e8eef7 1px;  
     background-color: #e8eef7;
 }
 
 .RegisterContentTableBody{
+    display: flex;
+    flex-direction: row;
     border-top: solid #e8eef7 1px;
     background-color: #e8eef7;
-    width: 100%;
 }
 
 .RegisterContent{
@@ -69,15 +69,14 @@
     margin-top: 1vw;
     margin-left: 4vw;
     margin-bottom: 1vw;
-    width: 75%;
+    width: 55vw;
     height: 100px;
-    border-radius: 15px;
 }
 
 .CommentTitle{
     margin-left:15vw;
     width: 100px;
-    height: 25px;
+    height: 25px;     
     text-align: center;
     font-size: 17px;
     border-top-left-radius: 3px;
@@ -88,12 +87,11 @@
 .RegisterButton{
     border: none;
     margin-left: 10px;
-    margin-right: 2%;
-    width: 13%;
+    margin-top: 1vw;
+    width: 90px;    
     height: 100px;
     color: white;
     background-color: #224874;
-    border-radius: 15px;
 }
 
 .CommentLine{
@@ -138,19 +136,4 @@
     margin-left: 6vw;
     margin-top: 20px;
     padding-bottom: 20px;
-}
-
-.Modal{
-   z-index: 10000;
-}
-
-.ModalContent{
-    text-align: center;
-    font-size: large;
-    color:red;
-}
-
-.Btn, .Btn:hover{
-    background-color: #06A77D;
-    border: #06A77D;
 }

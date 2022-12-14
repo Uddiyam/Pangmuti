@@ -15,6 +15,8 @@ export default function Mypage() {
   ReactGA.initialize("UA-252097560-1");
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
+  //중복확인용 닉네임
+  let [dupNickname, setDupNickname] = useState("");
   //사용자 닉네임 설정
   let [userNickname, setUserNickname] = useState("");
   //사용자 닉네입 입력
@@ -36,6 +38,8 @@ export default function Mypage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
 
+  //sorting 정보
+  const [sorting, setSorting] = useState("date,desc");
   //mypage 정보 get
   useEffect(() => {
     categoryId === ""
@@ -75,14 +79,19 @@ export default function Mypage() {
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/review", {
             params: {
+              sort: sorting,
               page: currentPage - 1,
-              size: postsPerPage,
+              size: postsPerPage
+            },
+            body:{
+              sort: sorting,
             },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
             },
           })
           .then((result) => {
+            console.log(result)
             setUserlist(result.data.content);
             setCategoryName("내가 쓴 리뷰");
             setPostsnum(result.data.totalElements);
@@ -94,6 +103,7 @@ export default function Mypage() {
       ? axios
           .get("http://52.44.107.157:8080/api/mypage/post", {
             params: {
+              sort: sorting,
               page: currentPage - 1,
               size: postsPerPage,
             },
@@ -115,7 +125,7 @@ export default function Mypage() {
             params: {
               page: currentPage - 1,
               size: postsPerPage,
-              sort: "date,desc",
+              sort: sorting,
             },
             headers: {
               Authorization: `Bearer ${location.state.token}`,
@@ -154,6 +164,7 @@ export default function Mypage() {
       .then((res) => {
         //setCertification(res)
         res.data == true ? setNicknameTF(true) : setNicknameTF(false);
+        setDupNickname(inputUserNick);
       })
       .catch((err) => {
         console.log(err);
@@ -182,7 +193,7 @@ export default function Mypage() {
       .then((res) => {
         setUserNickname(inputUserNick);
         setNicknameTF(false);
-        document.getElementById("newUserNick").value = "";
+        setInputUserNick("");
       })
       .catch((err) => {
         console.log(err);
@@ -218,6 +229,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("bookmark");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "즐겨찾기한음식점",
@@ -231,6 +243,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("review");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴리뷰",
@@ -244,6 +257,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("post");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴게시글",
@@ -257,6 +271,7 @@ export default function Mypage() {
               className={styles.Writed}
               onClick={() => {
                 setCategoryId("comment");
+                setCurrentPage(1);
                 ReactGA.event({
                   category: "Button",
                   action: "내가쓴댓글",
@@ -305,26 +320,29 @@ export default function Mypage() {
               >
                 중복 확인
               </Button>
+
               <Button
                 className={styles.Btn}
                 variant="primary"
                 onClick={ChangeNickname}
                 style={{
-                  backgroundColor: nicknameTF ? null : "#06A77D",
+                  backgroundColor: nicknameTF ?dupNickname === inputUserNick? null : "#06A77D" : "#06A77D",
                   border: nicknameTF ? null : "#06A77D",
                   color: nicknameTF ? null : "white",
                 }}
-                disabled={nicknameTF ? false : true}
+                disabled={nicknameTF ? dupNickname === inputUserNick? false: true :  true}
               >
                 닉네임변경
               </Button>
+
+              
             </Form.Group>
             <div className={styles.BottomTitle}>{categoryName}</div>
 
             {
               //즐겨찾기한 음식점
               categoryId === "bookmark"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div className={styles.CommentLine}>
                         <hr className={styles.CommentCLine}></hr>
@@ -347,7 +365,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 리뷰
                 categoryId === "review"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -367,7 +385,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 게시글
                 categoryId === "post"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div className={styles.CommentLine}>
                         <hr className={styles.CommentCLine}></hr>
@@ -385,7 +403,7 @@ export default function Mypage() {
                   })
                 : //내가 쓴 댓글
                 categoryId === "comment"
-                ? userlist.reverse().map((a, i) => {
+                ? userlist.map((a, i) => {
                     return (
                       <div>
                         <div className={styles.CommentLine}>
@@ -415,6 +433,7 @@ export default function Mypage() {
                   postsPerPage={postsPerPage}
                   totalPosts={postsnum}
                   paginate={setCurrentPage}
+                  currentPage = {currentPage}
                 ></Pagination>
               </div>
             )}

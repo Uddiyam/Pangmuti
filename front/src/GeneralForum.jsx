@@ -74,7 +74,7 @@ export default function GeneralForum() {
       .get("http://52.44.107.157:8080/api/post/", {
         params: {
           categoryId: f_categoryId,
-          page: currentPage - 1,
+          page: currentPage-1,
           size: postsPerPage,
           sort: "date,desc",
         },
@@ -242,14 +242,14 @@ export default function GeneralForum() {
           <tbody>
             <tr>
               <td>
-                <input
+                <textarea
                   id="post"
                   className={styles.register_content}
                   type="text"
                   value={content}
                   autoComplete="off"
                   size="100"
-                ></input>
+                ></textarea>
               </td>
               <td>
                 <button
@@ -302,6 +302,7 @@ export default function GeneralForum() {
       )}
 
       {posts && (
+        <>
         <ForumTable
           columns={columns}
           data={posts}
@@ -310,13 +311,16 @@ export default function GeneralForum() {
           token={location.state.token}
           Img={location.state.Img}
         />
-      )}
-      <Pagination
+        <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}
         totalPosts={postsnum}
         paginate={setCurrentPage}
+        currentPage = {currentPage}
       ></Pagination>
+      </>
+      )
+      }
       <Modal show={Error} onHide={handleClose} className={styles.Modal}>
         <Modal.Body>내용을 입력해 주세요</Modal.Body>
         <Modal.Footer>
