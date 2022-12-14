@@ -69,6 +69,7 @@ export default function GeneralForum() {
           categoryId: f_categoryId,
           page: currentPage - 1,
           size: postsPerPage,
+          sort: "date,desc"
         },
         headers: {
           Authorization: `Bearer ${location.state.token}`,
@@ -107,6 +108,7 @@ export default function GeneralForum() {
                   keyword: document.getElementById("ForumSearch").value,
                   page: currentPage - 1,
                   size: postsPerPage,
+                  sort: "date,desc"
                 },
                 headers: {
                   Authorization: `Bearer ${location.state.token}`,
