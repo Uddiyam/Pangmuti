@@ -278,7 +278,7 @@ export default function Mypage() {
             :
             //내가 쓴 리뷰
             categoryId === "review" ?
-            userlist.map((a,i)=>{
+            userlist.reverse().map((a,i)=>{
               return(<div>
                 <div className={styles.CommentLine}>
                 <hr className={styles.CommentCLine}></hr>
