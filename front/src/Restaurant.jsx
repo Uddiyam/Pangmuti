@@ -37,8 +37,7 @@ export default function Restaurant() {
   const [category, setCategory] = useState("");
   const [re, setRe] = useState(false);
   const [bookmark, setBookmark] = useState();
-
-  console.log(location.state);
+  const [date, setDate] = useState("");
 
   let storeId = location.state && location.state.storeId;
   let rr = location.state && location.state.re;
@@ -106,7 +105,6 @@ export default function Restaurant() {
         },
       })
       .then((res) => {
-        console.log(res);
         setLatitude(res.data.latitude);
         setLongitude(res.data.longitude);
         setMenuImg(res.data.menuImage);
@@ -125,6 +123,7 @@ export default function Restaurant() {
         setMaxPrice(res.data.maxPrice);
         setCategory(res.data.category);
         setBookmark(res.data.bookmark);
+        setDate(res.data.updateDate);
       })
       .catch((err) => {
         console.log(err);
@@ -146,7 +145,6 @@ export default function Restaurant() {
         <hr style={{ marginTop: "3%", width: "110%", marginLeft: "-3%" }} />
         <div style={{ textAlign: "center", marginTop: "2%" }}>
           <h1 className={styles.StoreName}>{storeName}</h1>
-          {console.log(bookmark)}
           {bookmark ? (
             <AiFillStar
               className={styles.StarIcon}
@@ -166,7 +164,6 @@ export default function Restaurant() {
                     },
                   })
                   .then((result) => {
-                    console.log(result);
                     setBookmark(false);
                   })
                   .catch((err) => {
@@ -198,7 +195,6 @@ export default function Restaurant() {
                     }
                   )
                   .then((res) => {
-                    console.log(res);
                     setBookmark(true);
                   })
                   .catch((err) => {
@@ -261,6 +257,9 @@ export default function Restaurant() {
                 <p>전화번호 : {phone}</p>
                 <p>
                   가격대 : {minPrice * 1000}- {maxPrice * 1000}
+                </p>
+                <p style={{ fontSize: "small", textAlign: "right" }}>
+                  최근 수정일 : {date}
                 </p>
               </Col>
             </Row>

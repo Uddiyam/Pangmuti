@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./styles/Modal.module.css";
 import { useEffect } from "react";
 import Header from "./Header";
@@ -23,7 +23,6 @@ const Modal_ = (props) => {
   ReactGA.pageview(window.location.pathname);
   const { open, close, email, nickname, token, storeId, Img } = props;
   let navigate = useNavigate();
-  console.log(Img);
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [score, setScore] = useState();
   useEffect(() => {
@@ -222,17 +221,17 @@ const Modal_ = (props) => {
                     }
                   )
                   .then((res) => {
-                    console.log(res);
-
-                    navigate("/Restaurant", {
-                      state: {
+                    <Link
+                      to={"/Restaurant/" + storeId}
+                      state={{
                         email: email,
                         nickname: nickname,
                         token: token,
                         storeId: storeId,
                         Img: Img,
-                      },
-                    });
+                      }}
+                      className={styles.cell}
+                    ></Link>;
                   })
                   .catch((err) => {
                     console.log(err);

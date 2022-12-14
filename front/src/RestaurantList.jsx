@@ -50,7 +50,6 @@ export default function RestaurantList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
   let location = useLocation();
-  console.log(location.state);
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
 
@@ -74,7 +73,6 @@ export default function RestaurantList() {
         },
       })
       .then((res) => {
-        console.log(res);
         setPosts(res.data.content);
         setPostsnum(res.data.totalElements);
       })
@@ -92,53 +90,54 @@ export default function RestaurantList() {
         Img={location.state.Img}
       />
       <div className={styles.Container}>
-        <form className={styles.SearchBox}>
-          <input
-            id="RestaurantSearch"
-            type="search"
-            className={styles.Search}
-            autoComplete="off"
-          ></input>
-          <Button
-            className={styles.SearchBtn}
-            onClick={() => {
-              ReactGA.event({
-                category: "Button",
-                action: "음식점 검색",
-                label: "search",
-              });
-              if (
-                document.getElementById("RestaurantSearch").value.length > 0
-              ) {
-                axios
-                  .get("http://52.44.107.157:8080/api/store/search", {
-                    params: {
-                      keyword:
-                        document.getElementById("RestaurantSearch").value,
-                      page: currentPage - 1,
-                      size: postsPerPage,
-                    },
-                    headers: {
-                      Authorization: `Bearer ${location.state.token}`,
-                    },
-                  })
-                  .then((result) => {
-                    console.log(result);
-                    setPosts(result.data.content);
-                    setPostsnum(result.data.totalElements);
-                    document.getElementById("ForumSearch").value = "";
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              } else {
-                setError(true);
-              }
-            }}
-          >
-            검색
-          </Button>
-        </form>
+        {categoryId == 1 && (
+          <form className={styles.SearchBox}>
+            <input
+              id="RestaurantSearch"
+              type="search"
+              className={styles.Search}
+              autoComplete="off"
+            ></input>
+            <Button
+              className={styles.SearchBtn}
+              onClick={() => {
+                ReactGA.event({
+                  category: "Button",
+                  action: "음식점 검색",
+                  label: "search",
+                });
+                if (
+                  document.getElementById("RestaurantSearch").value.length > 0
+                ) {
+                  axios
+                    .get("http://52.44.107.157:8080/api/store/search", {
+                      params: {
+                        keyword:
+                          document.getElementById("RestaurantSearch").value,
+                        page: currentPage - 1,
+                        size: postsPerPage,
+                      },
+                      headers: {
+                        Authorization: `Bearer ${location.state.token}`,
+                      },
+                    })
+                    .then((result) => {
+                      setPosts(result.data.content);
+                      setPostsnum(result.data.totalElements);
+                      document.getElementById("ForumSearch").value = "";
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                } else {
+                  setError(true);
+                }
+              }}
+            >
+              검색
+            </Button>
+          </form>
+        )}
         <Container className={styles.ListForm}>
           <Row style={{ textAlign: "center", margin: "0 auto" }}>
             <Col>
@@ -147,6 +146,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(1);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "전체카테고리",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -163,6 +167,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(2);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "한식",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -179,6 +188,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(4);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "일식",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -195,6 +209,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(5);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "양식/패스트푸드",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -211,6 +230,11 @@ export default function RestaurantList() {
                 onClick={() => {
                   setCategoryId(3);
                   setCurrentPage(1);
+                  ReactGA.event({
+                    category: "Button",
+                    action: "중식/아시안",
+                    label: "category",
+                  });
                 }}
                 style={{
                   backgroundColor:
@@ -424,7 +448,6 @@ export default function RestaurantList() {
           </Row>
         </Container>
       </div>
-      {console.log(posts)}
       {posts && (
         <Table
           columns={columns}

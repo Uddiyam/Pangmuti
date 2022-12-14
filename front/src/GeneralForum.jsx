@@ -54,6 +54,10 @@ export default function GeneralForum() {
         accessor: "date",
         Header: "등록날짜",
       },
+      {
+        accessor: "commentCount",
+        Header: "댓글수",
+      },
     ],
     []
   );
@@ -79,7 +83,6 @@ export default function GeneralForum() {
         },
       })
       .then((result) => {
-        console.log(result);
         setPosts(result.data.content);
         setPostsnum(result.data.totalElements);
       })
@@ -96,6 +99,7 @@ export default function GeneralForum() {
         token={location.state.token}
         Img={location.state.Img}
       />
+
       <Container className={styles.ListForm}>
         <Row style={{ margin: "0 auto", textAlign: "center" }}>
           <Col>
@@ -196,6 +200,11 @@ export default function GeneralForum() {
           <Button
             className={styles.SearchBtn}
             onClick={() => {
+              ReactGA.event({
+                category: "Button",
+                action: "게시글 검색",
+                label: "search",
+              });
               if (document.getElementById("ForumSearch").value.length > 0) {
                 axios
                   .get("http://52.44.107.157:8080/api/post/search", {
@@ -239,6 +248,7 @@ export default function GeneralForum() {
                   type="text"
                   value={content}
                   autoComplete="off"
+                  size="100"
                 ></textarea>
               </td>
               <td>

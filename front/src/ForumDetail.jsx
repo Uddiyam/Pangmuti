@@ -46,8 +46,7 @@ export default function ForumDetail() {
         setDetail(result.data);
         setComments(result.data.commentList);
         setUsernick(result.data.nickname);
-        setCommentNum(result.data.commentList.numberOfElements);
-        console.log(result);
+        setCommentNum(result.data.commentList.totalElements);
 
         setPostsnum(result.data.commentList.totalElements);
       })
@@ -216,7 +215,7 @@ export default function ForumDetail() {
               </div>
             );
           })
-        : console.log("오류!")}
+        : console.log("")}
       <Pagination
         className={styles.paging}
         postsPerPage={postsPerPage}

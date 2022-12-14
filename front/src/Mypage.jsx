@@ -129,7 +129,7 @@ export default function Mypage() {
           .catch((err) => {
             console.log(err);
           })
-      : console.log("오류");
+      : console.log("");
   }, [categoryId, currentPage]);
 
   //닉네임 중복 확인
@@ -275,7 +275,6 @@ export default function Mypage() {
 
         <div className={styles.RightContainer}>
           <hr className={styles.Line2}></hr>
-          {/* <div className={styles.ListTitle}>{categoryName}</div> */}
           <div className={styles.ListContent}>
             <div className={styles.EmailContainer}>
               <div className={styles.EmailLeft}>내 이메일</div>
@@ -301,7 +300,10 @@ export default function Mypage() {
                 onClick={Nickname}
                 style={{
                   backgroundColor: inputUserNick.length == 0 && "#06A77D",
+                  border: inputUserNick.length == 0 && "#06A77D",
                   color: inputUserNick.length == 0 && "white",
+                  marginRight: "1%",
+                  marginLeft: "1%",
                 }}
                 disabled={inputUserNick.length == 0 ? true : false}
               >
@@ -313,6 +315,7 @@ export default function Mypage() {
                 onClick={ChangeNickname}
                 style={{
                   backgroundColor: nicknameTF ? null : "#06A77D",
+                  border: nicknameTF ? null : "#06A77D",
                   color: nicknameTF ? null : "white",
                 }}
                 disabled={nicknameTF ? false : true}
@@ -404,7 +407,7 @@ export default function Mypage() {
                       </div>
                     );
                   })
-                : console.log("오류")
+                : console.log("")
             }
             {categoryId === "" ? (
               <div></div>

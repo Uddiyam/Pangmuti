@@ -53,7 +53,11 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                   <Button
                     className={styles.DeleteBtn}
                     onClick={() => {
-                      console.log(token);
+                      ReactGA.event({
+                        category: "Button",
+                        action: "리뷰삭제",
+                        label: "review",
+                      });
                       setTF(!TF);
                       axios
                         .delete("http://52.44.107.157:8080/api/review/delete", {
@@ -67,9 +71,7 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                         })
 
                         .then((res) => {
-                          console.log(res);
-                          console.log(re);
-                          navigate("/Restaurant", {
+                          navigate("/Restaurant/" + storeId, {
                             state: {
                               email: email,
                               nickname: nickname,
