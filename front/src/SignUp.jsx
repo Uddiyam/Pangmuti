@@ -18,7 +18,7 @@ export default function SignUp() {
   const [userInput, setUserInput] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [TF, setTF] = useState(false);
-  const [nicknameTF, setNicknameTF] = useState(false);
+  const [nicknameTF, setNicknameTF] = useState();
   const [password, setPassword] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
@@ -27,7 +27,6 @@ export default function SignUp() {
   const handleClose = () => setError(false);
   const [passwordTF, setPasswordTF] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
   const Confirm = () => {
     ReactGA.event({
       category: "Button",
@@ -247,6 +246,7 @@ export default function SignUp() {
                 onChange={(e) => {
                   e.preventDefault();
                   setUserNickname(e.target.value);
+                  setNicknameTF();
                 }}
               />
               <Button
@@ -269,9 +269,11 @@ export default function SignUp() {
                 }}
               >
                 {userNickname.length > 0 &&
-                  (nicknameTF
-                    ? "사용가능한 닉네임 입니다"
-                    : "이미 사용중인 닉네임 입니다")}
+                  nicknameTF == true &&
+                  "사용가능한 닉네임 입니다"}
+                {userNickname.length > 0 &&
+                  nicknameTF == false &&
+                  "이미 사용중인 닉네임 입니다"}
               </div>
             </Form.Group>
             <br />
