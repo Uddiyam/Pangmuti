@@ -21,14 +21,14 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
     pageNumbers.push(i);
   }
   const [num, setNum] = useState();
-  const [a, setA] = useState(1);
+  const [a, setA] = useState(currentPage);
   return (
     <>
       <nav>
         <div className="pagination">
           {pageNumbers.map((number) => (
             <div key={number} className="page-item">
-              {a == 1 ? (
+              {currentPage==number ? (
                 <PageSpan
                   onClick={() => {
                     paginate(number);
@@ -38,8 +38,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                   className="page-link"
                   id={number}
                   style={{
-                    color: number == 1 && "#D5C67A",
-                    backgroundColor: number == 1 && "rgba(5, 47, 95, 1)",
+                    color: currentPage == number && "#D5C67A",
+                    backgroundColor: currentPage == number  && "rgba(5, 47, 95, 1)",
                   }}
                 >
                   {number}
@@ -53,16 +53,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                   }}
                   className="page-link"
                   id={number}
-                  style={{
-                    color:
-                      document.getElementById(number) &&
-                      document.getElementById(number).id == num &&
-                      "#D5C67A",
-                    backgroundColor:
-                      document.getElementById(number) &&
-                      document.getElementById(number).id == num &&
-                      "rgba(5, 47, 95, 1)",
-                  }}
                 >
                   {number}
                 </PageSpan>
