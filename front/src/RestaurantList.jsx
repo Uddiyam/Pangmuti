@@ -57,8 +57,8 @@ export default function RestaurantList() {
   let location = useLocation();
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
-  const [sort, setSort] = useState("updateDate, desc");
-  const [sortName, setSortName] = useState("최근업데이트순");
+  const [sort, setSort] = useState("");
+  const [sortName, setSortName] = useState("기본");
   //카테고리 선택
   const [categoryId, setCategoryId] = useState(1);
   const [tagId, setTagId] = useState(1);
