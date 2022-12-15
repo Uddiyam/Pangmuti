@@ -83,7 +83,7 @@ function Table({ columns, data, email, nickname, token, re, storeId, Img }) {
                           });
                         })
                         .catch((err) => {
-                          console.log(err);
+                          // console.log(err);
                         });
                     }}
                   >

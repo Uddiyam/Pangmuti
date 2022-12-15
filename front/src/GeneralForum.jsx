@@ -79,7 +79,7 @@ export default function GeneralForum() {
         setPostsnum(result.data.totalElements);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }, [currentPage, f_categoryId, write]);
 
@@ -215,7 +215,7 @@ export default function GeneralForum() {
                     document.getElementById("ForumSearch").value = "";
                   })
                   .catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                   });
               } else {
                 setError(true);
@@ -276,7 +276,7 @@ export default function GeneralForum() {
                           document.getElementById("post").value = "";
                         })
                         .catch((err) => {
-                          console.log(err);
+                          //console.log(err);
                         });
                     } else {
                       setError(true);

@@ -17,7 +17,6 @@ function App() {
   ReactGA.pageview(window.location.pathname);
   const [img, setImg] = useState([]);
   let location = useLocation();
-  console.log(location.state);
   useEffect(() => {
     axios
       .get("http://52.44.107.157:8080/api/mypage/home", {
@@ -26,11 +25,10 @@ function App() {
         },
       })
       .then((result) => {
-        console.log(result);
         setImg(result.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 

@@ -54,7 +54,7 @@ export default function Mypage() {
             setUserEmail(result.data.email);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           })
       : categoryId === "bookmark"
       ? axios
@@ -73,7 +73,7 @@ export default function Mypage() {
             setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           })
       : categoryId === "review"
       ? axios
@@ -81,9 +81,9 @@ export default function Mypage() {
             params: {
               sort: sorting,
               page: currentPage - 1,
-              size: postsPerPage
+              size: postsPerPage,
             },
-            body:{
+            body: {
               sort: sorting,
             },
             headers: {
@@ -91,13 +91,12 @@ export default function Mypage() {
             },
           })
           .then((result) => {
-            console.log(result)
             setUserlist(result.data.content);
             setCategoryName("내가 쓴 리뷰");
             setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       : categoryId === "post"
       ? axios
@@ -117,7 +116,7 @@ export default function Mypage() {
             setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           })
       : categoryId === "comment"
       ? axios
@@ -137,7 +136,7 @@ export default function Mypage() {
             setPostsnum(result.data.totalElements);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           })
       : console.log("");
   }, [categoryId, currentPage]);
@@ -167,7 +166,7 @@ export default function Mypage() {
         setDupNickname(inputUserNick);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -196,7 +195,7 @@ export default function Mypage() {
         setInputUserNick("");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
 
@@ -326,16 +325,24 @@ export default function Mypage() {
                 variant="primary"
                 onClick={ChangeNickname}
                 style={{
-                  backgroundColor: nicknameTF ?dupNickname === inputUserNick? null : "#06A77D" : "#06A77D",
+                  backgroundColor: nicknameTF
+                    ? dupNickname === inputUserNick
+                      ? null
+                      : "#06A77D"
+                    : "#06A77D",
                   border: nicknameTF ? null : "#06A77D",
                   color: nicknameTF ? null : "white",
                 }}
-                disabled={nicknameTF ? dupNickname === inputUserNick? false: true :  true}
+                disabled={
+                  nicknameTF
+                    ? dupNickname === inputUserNick
+                      ? false
+                      : true
+                    : true
+                }
               >
                 닉네임변경
               </Button>
-
-              
             </Form.Group>
             <div className={styles.BottomTitle}>{categoryName}</div>
 
@@ -433,7 +440,7 @@ export default function Mypage() {
                   postsPerPage={postsPerPage}
                   totalPosts={postsnum}
                   paginate={setCurrentPage}
-                  currentPage = {currentPage}
+                  currentPage={currentPage}
                 ></Pagination>
               </div>
             )}

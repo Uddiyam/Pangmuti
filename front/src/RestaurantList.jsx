@@ -57,7 +57,7 @@ export default function RestaurantList() {
   let location = useLocation();
   const [Error, setError] = useState(false);
   const handleClose = () => setError(false);
-  const [sort, setSort] = useState("updateDate,desc");
+  const [sort, setSort] = useState("updateDate, desc");
   const [sortName, setSortName] = useState("최근업데이트순");
   //카테고리 선택
   const [categoryId, setCategoryId] = useState(1);
@@ -83,7 +83,7 @@ export default function RestaurantList() {
         setPostsnum(res.data.totalElements);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }, [currentPage, categoryId, tagId, sort]);
 
@@ -132,7 +132,7 @@ export default function RestaurantList() {
                       document.getElementById("ForumSearch").value = "";
                     })
                     .catch((err) => {
-                      console.log(err);
+                      // console.log(err);
                     });
                 } else {
                   setError(true);

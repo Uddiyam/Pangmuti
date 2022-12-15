@@ -57,7 +57,7 @@ export default function SignUp() {
         setEmailCheck(true);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
 
@@ -76,7 +76,7 @@ export default function SignUp() {
         res.data == true ? setNicknameTF(true) : setNicknameTF(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -96,7 +96,7 @@ export default function SignUp() {
         //setCertification(res)
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     navigate("/");
   };

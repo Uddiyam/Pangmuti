@@ -104,7 +104,6 @@ export default function Restaurant() {
         },
       })
       .then((res) => {
-        console.log(res);
         setLatitude(res.data.latitude);
         setLongitude(res.data.longitude);
         setMenuImg(res.data.menuImage);
@@ -126,7 +125,7 @@ export default function Restaurant() {
         setDate(res.data.updateDate);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [re, currentPage, rr]);
 
@@ -163,7 +162,7 @@ export default function Restaurant() {
                     setBookmark(false);
                   })
                   .catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                   });
               }}
               style={{ fill: "#D5C67A" }}
@@ -194,7 +193,7 @@ export default function Restaurant() {
                     setBookmark(true);
                   })
                   .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                   });
               }}
             />

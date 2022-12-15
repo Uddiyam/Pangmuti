@@ -32,8 +32,6 @@ export default function Login() {
         password: userPassword,
       })
       .then((res) => {
-        console.log(res);
-
         navigate("/Main", {
           state: {
             email: res.data.email,
@@ -43,7 +41,7 @@ export default function Login() {
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setError(true);
       });
   };

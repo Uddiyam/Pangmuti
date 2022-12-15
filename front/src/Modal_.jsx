@@ -136,7 +136,6 @@ const Modal_ = (props) => {
                   onClick={(e) => {
                     BtnOnOff(3);
                     setTagId(2);
-                    console.log(e.target.id);
                   }}
                 >
                   <AiFillTag className={styles.TagReview} />
@@ -229,7 +228,7 @@ const Modal_ = (props) => {
                     });
                   })
                   .catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                   });
 
                 setInputContent("");

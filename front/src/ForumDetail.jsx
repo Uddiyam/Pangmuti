@@ -50,7 +50,7 @@ export default function ForumDetail() {
         setPostsnum(result.data.commentList.totalElements);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [pagere, currentPage]);
 
@@ -88,7 +88,7 @@ export default function ForumDetail() {
         });
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
 
@@ -167,7 +167,7 @@ export default function ForumDetail() {
                     }
                   })
                   .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                   });
                 document.getElementById("comment").value = "";
               } else {
@@ -218,7 +218,7 @@ export default function ForumDetail() {
                             }
                           })
                           .catch((err) => {
-                            console.log(err);
+                            // console.log(err);
                           });
                       }}
                       className={styles.Delete2}
