@@ -19,6 +19,7 @@ public class BookmarkService {
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
+    @Transactional
     public void createBookmark(String userId, Long storeId) {
         User user = userRepository.findByUserId(userId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다"));
         Store store = storeRepository.findByStoreId(storeId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 가게입니다"));
@@ -28,6 +29,7 @@ public class BookmarkService {
                     .store(store)
                     .build();
             bookmarkRepository.save(bookmark);
+            updateBookmark(storeId);
         }
     }
 
@@ -36,6 +38,14 @@ public class BookmarkService {
         Bookmark bookmark = bookmarkRepository.findByUser_UserIdAndStore_StoreId(userId, storeId).orElseThrow(() ->
                 new IllegalArgumentException("삭제할 권한이 없거나, 가게가 존재하지 않습니다"));
         bookmarkRepository.delete(bookmark);
+        updateBookmark(storeId);
         return bookmark.getBookmarkId();
+    }
+
+    public void updateBookmark(Long storeId) {
+        Store store = storeRepository.findByStoreId(storeId).orElseThrow(() ->
+                new IllegalArgumentException("가게가 존재하지 않습니다"));
+        long bookmarkCount = bookmarkRepository.countByStore_StoreId(storeId);
+        store.setBookmarkCount(bookmarkCount);
     }
 }
